@@ -19,7 +19,6 @@ export default [
             'no-unused-vars': ['error', { argsIgnorePattern: '^_' }], // 사용하지 않는 변수 선언 금지
             curly: 'error', // 중괄호 `{}` 필수 (if, for 등에서 한 줄일 때도
             eqeqeq: ['error', 'always'], // `==` 대신 `===` 사용 강제
-            'react/react-in-jsx-scope': 'warn', // 불필요한 React import 경고
         },
     },
 ];
