@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react"; // useState 추가
+import TransferModal from "./pages/transferModal";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const [open, setOpen] = useState(false); // ✅ open 상태 추가
+
+    return (
+        <div className="h-screen flex items-center justify-center bg-gray-100">
+            <button
+                onClick={() => setOpen(true)} // ✅ 모달 열기
+                className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-blue-600 transition"
+            >
+                이체하기
+            </button>
+
+            {/* ✅ 모달 컴포넌트에 상태 전달 */}
+            <TransferModal open={open} onClose={() => setOpen(false)} />
+        </div>
+    );
 }
-
-export default App;
