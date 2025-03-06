@@ -2,8 +2,8 @@ import React from 'react';
 import CategoryList from './CategoryList';
 import Header from '../../common/header/Header';
 import Footer from '../../common/footer/Footer';
+import UserChoice from './UserChoice';
 import '../../styles/Home.css';
-import profileImage from '../../images/profile.svg';
 import accountImage from '../../images/account.png';
 import chickImage from '../../images/chick.svg';
 import footBannerImage from '../../images/footbanner.svg';
@@ -16,28 +16,10 @@ const Home = () => {
             <div className="home-container">
                 {/* Header 섹션 */}
                 {/* 사용자 정보 섹션 */}
-                <div className="user-info">
-                    <div className="user-profile">
-                        {/* 프로필 이미지와 텍스트를 row 형태로 배치 */}
-                        <img
-                            src={profileImage}
-                            alt="Profile"
-                            className="profile-image"
-                        />
-                        <div className="user-text">
-                            <span className="user-name">
-                                ?????님의 또래는{' '}
-                                <span className="highlight">삼성전자</span>에
-                            </span>
-                            많이 투자하고 있어요!
-                            <div className="user-tags">
-                                <span>#20대</span>
-                                <span>#대학생</span>
-                                <span>#여성</span>
-                            </div>
-                        </div>
-                    </div>
+                <div className="home-container">
+                    <UserChoice /> {/* UserChoice 컴포넌트 삽입 */}
                 </div>
+
                 {/* 챌린지 섹션 */}
                 <div className="challenge-row">
                     {/* 하루에 천원 투자하기 */}
@@ -78,10 +60,7 @@ const Home = () => {
                     </div>
                 </div>
                 {/* 파킹 통장 안내 섹션 */}
-                <div
-                    className="parking-info"
-                    style={{ backgroundColor: '#6FC4DA' }}
-                >
+                <div className="parking-info">
                     <img
                         src={accountImage}
                         alt="Account"

@@ -8,39 +8,6 @@
     text-align: left;
 }
 
-/* 사용자 정보 섹션 */
-.user-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.profile-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-}
-
-.user-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-size: 18px;
-}
-
-.highlight {
-    color: #ff5722; /* 강조 색상 */
-    font-weight: bold;
-}
-
-.user-tags span {
-    margin-right: 10px;
-}
-
-
 /* 챌린지 섹션 */
 .challenge-row {
     display: flex;
