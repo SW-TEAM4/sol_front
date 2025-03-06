@@ -1,0 +1,15 @@
+.footer-container {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.footer-content {
+    font-size: 14px;
+    color: #666;
+    padding: 5px 0;
+}
+
+.footer-space {
+    height: 20px;
+}
