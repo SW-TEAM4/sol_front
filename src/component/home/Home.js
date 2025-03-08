@@ -28,7 +28,7 @@ const Home = () => {
                         style={{ backgroundColor: '#C0D5FE' }}
                     >
                         <img
-                            src="   https://resources-fe.toss.im/image-optimize/width=750,quality=75/https%3A%2F%2Fstatic.toss.im%2F3d%2Fu1F416-piggy-bank-side-apng.png"
+                            src="https://resources-fe.toss.im/image-optimize/width=750,quality=75/https%3A%2F%2Fstatic.toss.im%2F3d%2Fu1F416-piggy-bank-side-apng.png"
                             alt="Pig"
                             className="challenge-image"
                         />
@@ -68,7 +68,9 @@ const Home = () => {
                     />
                     <div className="parking-text">
                         매달 ?????%의 파킹 통장 잔액이 신한투자증권 계좌로
-                        이체됩니다. 비율은 지갑에서 바꿀 수 있어요!
+                        이체됩니다.
+                        <br />
+                        비율은 지갑에서 바꿀 수 있어요!
                     </div>
                 </div>
                 {/* 퀴즈 섹션 */}
