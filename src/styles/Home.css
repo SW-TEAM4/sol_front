@@ -34,7 +34,6 @@
 .parking-info {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 20px;
     border-radius: 12px;
     width: auto;
@@ -44,10 +43,12 @@
 .parking-image {
     width: 120px;
     height: 120px;
+    margin-right: 20px;
 }
 
 .parking-text {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* 퀴즈 섹션 */
@@ -111,10 +112,17 @@
 
 .footer-info {
     margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .footer-banner-image {
     width: 800px;
     height: auto;
+    display: block;
+    margin: 0 auto;
 }
+
 

@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import CategoryModal from '../category/CategoryModal';
 import '../../styles/CategoryList.css';
+import categoryImages from '../category/CategoryImages';
 
 const CategoryList = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const categories = [
-        { id: 1, name: 'food', icon: '🍎', displayName: '식품' },
-        { id: 2, name: 'video', icon: '📺', displayName: '동영상플랫폼' },
-        { id: 3, name: 'bank', icon: '🏦', displayName: '은행' },
-        { id: 4, name: 'bio', icon: '🧬', displayName: '바이오' },
-        { id: 5, name: 'car', icon: '🚗', displayName: '자동차' },
-        { id: 6, name: 'semiconductor', icon: '🔬', displayName: '반도체' },
-        { id: 7, name: 'beauty', icon: '🧴', displayName: '뷰티' },
-        { id: 8, name: 'travel', icon: '✈️', displayName: '여행' },
-        { id: 9, name: 'shipbuilding', icon: '⚓', displayName: '조선' },
+        { id: 1, name: 'food', displayName: '식품' },
+        { id: 2, name: 'video', displayName: '동영상플랫폼' },
+        { id: 3, name: 'bank', displayName: '은행' },
+        { id: 4, name: 'bio', displayName: '바이오' },
+        { id: 5, name: 'car', displayName: '자동차' },
+        { id: 6, name: 'semiconductor', displayName: '반도체' },
+        { id: 7, name: 'beauty', displayName: '뷰티' },
+        { id: 8, name: 'travel', displayName: '여행' },
+        { id: 9, name: 'shipbuilding', displayName: '조선' },
     ];
 
     // 카테고리 클릭 핸들러
@@ -36,7 +37,11 @@ const CategoryList = () => {
                         className="category-item"
                         onClick={() => handleCategoryClick(category)}
                     >
-                        <div className="category-icon">{category.icon}</div>
+                        <img
+                            src={categoryImages[category.name]}
+                            alt={category.displayName}
+                            className="category-icon"
+                        />
                         <div className="category-name">
                             {category.displayName}
                         </div>
