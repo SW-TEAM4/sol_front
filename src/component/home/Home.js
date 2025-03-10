@@ -5,8 +5,8 @@ import Footer from '../../common/footer/Footer';
 import UserChoice from './UserChoice';
 import '../../styles/Home.css';
 import accountImage from '../../images/account.png';
-import chickImage from '../../images/chick.svg';
-import footBannerImage from '../../images/footbanner.svg';
+import FootBanner from './FootBanner';
+import QuizSection from './QuizSection';
 
 const Home = () => {
     return (
@@ -74,55 +74,11 @@ const Home = () => {
                     </div>
                 </div>
                 {/* 퀴즈 섹션 */}
-                <div className="quiz-section">
-                    {/* 텍스트 */}
-                    <div className="quiz-header">
-                        <h3>하루에 2문제 금융상식 퀴즈 풀고 캐시백 받자!</h3>
-                        <p>덤으로 금융상식까지 UP</p>
-                    </div>
-
-                    {/* 퀴즈 카드와 이미지 */}
-                    <div className="quiz-content">
-                        {/* 퀴즈 카드 */}
-                        <div className="quiz-cards">
-                            {/* 첫 번째 카드 */}
-                            <div className="quiz-card">
-                                ‘시가’는 하루 중 주식 가격이 가장 높았을 때의
-                                가격을 의미한다.
-                                <br />
-                                <button>O</button>
-                                <button>X</button>
-                            </div>
-
-                            {/* 두 번째 카드 */}
-                            <div className="quiz-card">
-                                ‘시가’는 하루 중 주식 가격이 가장 높았을 때의
-                                가격을 의미한다.
-                                <br />
-                                <button>O</button>
-                                <button>X</button>
-                            </div>
-                        </div>
-
-                        {/* 병아리 이미지 */}
-                        <img
-                            src={chickImage}
-                            alt="Chick"
-                            className="quiz-image"
-                        />
-                    </div>
-                </div>
+                <QuizSection />
                 {/* 카테고리 섹션 */}
                 <CategoryList />
                 {/* 하단 배너 섹션 */}
-                <footer className="footer-info">
-                    {/* 푸터 배너 이미지 */}
-                    <img
-                        src={footBannerImage}
-                        alt="Footer Banner"
-                        className="footer-banner-image"
-                    />
-                </footer>
+                <FootBanner />
             </div>
             {/* Footer 섹션 */}
             <Footer />
