@@ -64,7 +64,9 @@ const Home = () => {
                         매달 ?????%의 파킹 통장 잔액이 신한투자증권 계좌로
                         이체됩니다.
                     </p>
-                    <p>비율은 지갑에서 바꿀 수 있어요!</p>
+                    <span className="parking-text-highlight">
+                        비율은 지갑에서 바꿀 수 있어요!
+                    </span>
                 </div>
             </div>
 

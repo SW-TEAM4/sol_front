@@ -32,23 +32,29 @@
 
 /* 파킹 통장 안내 섹션 */
 .parking-info {
+    justify-content: space-between;
+    align-items: flex-start;
     display: flex;
-    align-items: center;
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
     width: auto;
     background-color: #6FC4DA;
 }
 
 .parking-image {
-    width: 120px;
-    height: 120px;
-    margin-right: 20px;
+    width: 150px;
+    height: 150px;
 }
 
 .parking-text {
+    margin: 20px 20px;
     font-size: 20px;
     font-weight: bold;
+    text-align: right;
+}
+
+.parking-text-highlight {
+    color: #263FBD;
 }
 
 .footer-info {
