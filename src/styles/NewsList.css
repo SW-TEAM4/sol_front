@@ -72,6 +72,7 @@
 .news-content {
     flex: 3;
     margin-left: 15px;
+    position: relative;
 }
 
 .news-header {
@@ -86,22 +87,30 @@
     font-size: 20px;
     margin: 0;
     flex: 1;
-    margin-right: 10px;
+    margin-right: 80px;
 }
 
 .news-time {
     white-space: nowrap;
     color: #888;
     font-size: 14px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 70px;
+    text-align: right;
 }
 
-/* 요약 텍스트 2줄로 제한 */
 .news-summary {
-    text-align: left;
-    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    padding-right: 80px;
+    margin-top: 8px;
     line-height: 1.5;
-    margin: 0;
 }
 
 .news-image-container {

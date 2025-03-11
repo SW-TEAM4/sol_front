@@ -119,13 +119,7 @@ const NewsList = () => {
                             {/* 이미지를 왼쪽에 배치 */}
                             <div className="news-image-container">
                                 <img
-                                    src={
-                                        item.img_url &&
-                                        item.img_url !==
-                                            'https://static.mk.co.kr/trans_30x13.png'
-                                            ? item.img_url
-                                            : defaultImage
-                                    }
+                                    src={defaultImage}
                                     alt={`${item.title} 관련 이미지`}
                                     className="news-image"
                                 />
