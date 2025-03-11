@@ -24,7 +24,7 @@ function App() {
                             element={<div>자산 페이지 (준비 중)</div>}
                         />
                         <Route
-                            path="/account"
+                            path="/myaccount"
                             element={<div>내 계좌 페이지 (준비중)</div>}
                         />
                     </Routes>
