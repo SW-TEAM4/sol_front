@@ -57,9 +57,6 @@ const CategoryModal = ({ category, onClose }) => {
             <div className="modal-content">
                 {/* 모달 헤더 */}
                 <div className="modal-header">
-                    <button className="back-button" onClick={onClose}>
-                        ←
-                    </button>
                     {/* 카테고리 이미지 추가 */}
                     <img
                         src={categoryImages[category.name]}

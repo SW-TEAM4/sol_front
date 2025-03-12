@@ -1,0 +1,47 @@
+.portfolio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portfolio-summary {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.portfolio-chart {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.portfolio-table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.portfolio-table th {
+    background-color: #f4f4f4;
+}
+
+
+.profit-rate {
+    color: #e53935;
+    font-weight: bold;
+}
+
+.loss-rate {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.portfolio-legend {
+    margin-top: 20px;
+}
