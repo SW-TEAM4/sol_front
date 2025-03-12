@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CategoryModal from '../category/CategoryModal';
 import '../../styles/CategoryList.css';
 import categoryImages from '../category/CategoryImages';
+import categoryScreamImg from '../../images/category_scream.svg';
+import categoryFileImg from '../../images/category_file.svg';
 
 const CategoryList = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -25,11 +27,21 @@ const CategoryList = () => {
 
     return (
         <div className="category-container">
-            <h2 className="category-title">
-                복잡한 주식을 😱
+            <p className="category-title">
+                복잡한 주식을{' '}
+                <img
+                    src={categoryScreamImg}
+                    alt="놀람"
+                    className="category-emoji"
+                />
                 <br />
-                카테고리로 분류 해드릴게요 📦
-            </h2>
+                카테고리로 분류 해드릴게요{' '}
+                <img
+                    src={categoryFileImg}
+                    alt="파일"
+                    className="category-emoji"
+                />
+            </p>
             <div className="category-grid">
                 {categories.map((category) => (
                     <div

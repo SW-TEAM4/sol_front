@@ -1,53 +1,71 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CategoryList from './CategoryList';
 import UserChoice from './UserChoice';
 import '../../styles/Home.css';
-import accountImage from '../../images/account.png';
+import penguinImage from '../../images/penguin.svg';
+import pigImage from '../../images/pig.svg';
+import moneyImage from '../../images/money.svg';
 import FootBanner from './FootBanner';
 import QuizSection from './QuizSection';
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <div className="home-container">
             {/* 사용자 정보 섹션 */}
             <UserChoice />
-
-            {/* 챌린지 섹션 */}
-            <div className="challenge-row">
-                {/* 하루에 천원 투자하기 */}
-                <div
-                    className="challenge-card"
-                    style={{ backgroundColor: '#C0D5FE' }}
-                >
-                    <img
-                        src="https://resources-fe.toss.im/image-optimize/width=750,quality=75/https%3A%2F%2Fstatic.toss.im%2F3d%2Fu1F416-piggy-bank-side-apng.png"
-                        alt="Pig"
-                        className="challenge-image"
-                    />
-                    <div className="challenge-text">
-                        <h3>하루에 천원 투자하기</h3>
-                        <p>30일 챌린지</p>
-                        <p>종목 결정이 어려우시면</p>
-                        <p>도와드릴게요!</p>
+            {/* 챌린지와 머니 섹션을 감싸는 컨테이너 */}
+            <div className="sections-container">
+                {/* 챌린지 섹션 */}
+                <div className="challenge-section">
+                    <h1 className="section-title">챌린지</h1>
+                    <div
+                        className="challenge-card"
+                        onClick={() => navigate('/challenge')}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <div className="challenge-text">
+                            <h3>
+                                하루에 천원 투자하기 <br />
+                                30일 챌린지
+                            </h3>
+                            <p>종목 결정이 어려우시면 도와드릴게요!</p>
+                        </div>
+                        <img
+                            src={pigImage}
+                            alt="Pig"
+                            className="challenge-image"
+                        />
                     </div>
                 </div>
 
-                {/* 지금까지 모은 돈 */}
-                <div
-                    className="money-card"
-                    style={{ backgroundColor: '#FFA163' }}
-                >
-                    <img
-                        src="https://static.toss.im/3d/moneybag-shield-coin-apng.png"
-                        alt="Money"
-                        className="challenge-image"
-                    />
-                    <div className="money-text">
-                        <h3>지금까지 모은 돈</h3>
-                        <p>현재 파킹통장 잔고에는</p>
-                        <p>
-                            <strong>?????원</strong>
-                        </p>
+                {/* 지금까지 모은 돈 섹션 */}
+                <div className="money-section">
+                    <h1 className="section-title">지금까지 모은 돈</h1>
+                    <div className="money-card">
+                        <img
+                            src={moneyImage}
+                            alt="Money"
+                            className="money-image"
+                        />
+                        <div className="money-text">
+                            <p>현재 파킹통장 잔고에는</p>
+                            <div className="money-amount">
+                                <Link
+                                    to="/parking"
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: 'white',
+                                    }}
+                                >
+                                    <div className="money-amount">
+                                        1,564,005원 ›
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,14 +73,15 @@ const Home = () => {
             {/* 파킹 통장 안내 섹션 */}
             <div className="parking-info">
                 <img
-                    src={accountImage}
+                    src={penguinImage}
                     alt="Account"
                     className="parking-image"
                 />
                 <div className="parking-text">
                     <p>
-                        매달 ?????%의 파킹 통장 잔액이 신한투자증권 계좌로
-                        이체됩니다.
+                        매달{' '}
+                        <strong className="percentage-highlight">10%</strong>의
+                        파킹 통장 잔액이 신한투자증권 계좌로 이체됩니다.
                     </p>
                     <span className="parking-text-highlight">
                         비율은 지갑에서 바꿀 수 있어요!
