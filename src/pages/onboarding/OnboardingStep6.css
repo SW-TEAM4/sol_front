@@ -1,0 +1,156 @@
+.step6_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    color: black;
+    min-height: 60vh;
+    padding: 5%;
+    position: relative;
+    top:10px;
+
+}
+
+/* 왼쪽 텍스트 영역 */
+.step6_text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    position: relative;
+    top:-216px;
+    left: 213px;
+}
+
+.step6_icon img {
+    position: relative;
+    width: 330px;
+    height: auto;
+    top: 189px;
+    left: -217px;
+}
+
+/* ✅ 나는 SOL로 로고 스타일 */
+.step6_logo img {
+    width: 250px; /* ✅ 로고 크기 조절 */
+    height: auto;
+    margin-bottom: -50px; /* ✅ 상단 여백 조절 */
+    display: block;
+}
+
+/* ✅ 텍스트 애니메이션 적용 */
+.step6_main_title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.step6_main_title.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.step6_main_title {
+    font-size: 90px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+/* ✅ 특정 텍스트만 스타일 다르게 */
+.highlight-text {
+    color: #000000; /* ✅ 초록색으로 변경 (네이버 컬러) */
+    font-weight: bold;
+    font-size: 70px; /* ✅ 기본보다 10% 더 크게 */
+    line-height: 1.2;
+}
+
+/* 오른쪽 버튼 영역 */
+.step6_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.kakao_login,
+.naver_login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.step6_buttons{
+    position: relative;
+    right: 250px;
+    top: -30px;
+}
+
+
+/* ✅ 클릭 가능한 SVG 스타일 */
+.clickable_svg {
+    cursor: pointer; /* ✅ 마우스를 올리면 클릭 가능하게 변경 */
+    transition: transform 0.2s ease;
+}
+
+/* ✅ 클릭 시 살짝 확대 효과 */
+.clickable_svg:hover {
+    transform: scale(1.1);
+}
+.kakao_login {
+    background-color: #fee500;
+    color: black;
+}
+
+.naver_login {
+    background-color: #03c75a;
+    color: white;
+}
+
+/* 버튼 안 아이콘 */
+.kakao_login img,
+.naver_login img {
+    width: 24px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* ✅ 공 패턴 전체 컨테이너 */
+.step6_pattern {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* ✅ 공 패턴이 자연스럽게 반복되도록 설정 */
+.ball_pattern_scroll {
+    display: flex;
+    width: 400%; /* ✅ 패턴을 4배로 확장하여 부드러운 반복 */
+    animation: ballScroll 30s linear infinite; /* ✅ 속도를 조절하여 자연스럽게 */
+}
+
+/* ✅ 공 패턴 이미지 크기 조정 (정확한 크기 유지) */
+.ball_pattern_scroll img {
+    width: 25%; /* ✅ 패턴이 4개 배치되므로 25% 설정 */
+    height: auto;
+    flex-shrink: 0;
+}
+
+/* ✅ 공 패턴 무한 스크롤 애니메이션 */
+@keyframes ballScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-25%); /* ✅ 25%씩 이동하여 무한 반복 */
+    }
+}

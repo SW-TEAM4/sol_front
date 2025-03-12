@@ -1,0 +1,113 @@
+/* ✅ 전체 컨테이너 */
+.step2_container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 120vh;
+    background: linear-gradient(to bottom, #c0d5fe 28%, #f1f5fd 100%);
+}
+
+/* ✅ 타이틀을 최상단에 배치 */
+.step2_title {
+    font-size: 40px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 7%;
+    z-index: 10;
+    text-align: center;
+}
+
+/* ✅ 말풍선 공통 스타일 */
+.speech-bubble {
+    position: absolute;
+    width: 695px;
+    height: 191px;
+    background: rgba(255, 255, 255, 0.76);
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    opacity: 0; /* 처음에는 투명 */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+/* ✅ 말풍선 등장 애니메이션 */
+.speech-bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ 말풍선 개별 위치 조정 */
+.bubble1 {
+    top: 35%;
+    left: 15%;
+    border-radius: 86px 86px 0px 86px;
+    z-index: 3;
+}
+
+.bubble2 {
+    top: 50%;
+    left: 45%;
+    border-radius: 86px 86px 86px 0px;
+    z-index: 2;
+}
+
+.bubble3 {
+    top: 68%;
+    left: 18%;
+    border-radius: 86px 86px 0px 86px;
+    z-index: 1;
+}
+
+/* ✅ 말풍선 순차적 등장 효과 */
+.bubble1.show { transition-delay: 0.2s; }
+.bubble2.show { transition-delay: 0.4s; }
+.bubble3.show { transition-delay: 0.6s; }
+
+/* ✅ 말풍선 안의 텍스트 스타일 */
+.bubble-content {
+    flex: 1;
+}
+
+/* ✅ 말풍선 이모지 위치 조정 */
+.emoji-wrapper {
+    position: absolute;
+    top: -5px;
+    right: 40px;
+    transform: translateY(-50%);
+}
+
+/* ✅ 말풍선 안의 이모지 스타일 */
+.emoji {
+    width: 190px;
+    height: 190px;
+}
+.emoji3 {
+    width: 190px;
+    height: 190px;
+    position: absolute;
+    top: 50px;
+    right: 500px;
+    transform: translateY(-50%);
+}
+
+/* ✅ 말풍선 내 제목 (strong) 스타일 */
+.speech-bubble strong {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* ✅ 말풍선 내 일반 텍스트 (p) 스타일 */
+.speech-bubble p {
+    font-size: 26px;
+    line-height: 1.5;
+    margin-top: 5px;
+    padding: 10px;
+}
