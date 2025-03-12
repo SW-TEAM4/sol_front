@@ -1,0 +1,63 @@
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.left-arrow,
+.right-arrow {
+    color: #333;
+}
+
+/* 사용자 정보 섹션 */
+.user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 400px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    gap: 5px;
+    white-space: normal;
+    word-wrap: break-word;
+    width: 100%;
+}
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.highlight {
+    color: #0056b3;
+    font-weight: bold;
+}
+
+.user-tags {
+    margin-top: 5px;
+}
+
+.user-tags span {
+    margin-right: 10px;
+    color: #0056b3;
+}

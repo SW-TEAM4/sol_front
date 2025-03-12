@@ -1,20 +1,38 @@
-import React, { useState } from "react"; // useState 추가
-import TransferModal from "./pages/transferModal";
 
-export default function App() {
-    const [open, setOpen] = useState(false); // ✅ open 상태 추가
+import React from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import Header from './common/header/Header';
+import Footer from './common/footer/Footer';
+import Home from './component/home/Home';
+import NewsList from './component/news/NewsList';
 
+function App() {
     return (
-        <div className="h-screen flex items-center justify-center bg-gray-100">
-            <button
-                onClick={() => setOpen(true)} // ✅ 모달 열기
-                className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-blue-600 transition"
-            >
-                이체하기
-            </button>
-
-            {/* ✅ 모달 컴포넌트에 상태 전달 */}
-            <TransferModal open={open} onClose={() => setOpen(false)} />
+        <div className="App">
+            <Router>
+                <Header />
+                <div className="content-container">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/news" element={<NewsList />} />
+                        <Route
+                            path="/parking"
+                            element={<div>파킹통장 페이지 (준비 중)</div>}
+                        />
+                        <Route
+                            path="/assets"
+                            element={<div>자산 페이지 (준비 중)</div>}
+                        />
+                        <Route
+                            path="/myaccount"
+                            element={<div>내 계좌 페이지 (준비중)</div>}
+                        />
+                    </Routes>
+                </div>
+                <Footer />
+            </Router>
         </div>
     );
+
 }
