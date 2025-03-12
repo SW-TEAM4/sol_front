@@ -1,0 +1,28 @@
+/* 푸터 전체 컨테이너 */
+footer.footer-info {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 60px;
+}
+/* Swiper 컨테이너 */
+.footer-banner-swiper {
+    margin: 0 auto;
+}
+
+/* 배너 슬라이드 */
+.footer-banner-slide {
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* 배너 이미지 컨테이너 */
+.banner-image-container {
+    justify-content: center;
+}
+
+/* 배너 이미지 */
+.footer-banner-image {
+    height: auto;
+    max-height: 300px;
+}
