@@ -1,0 +1,134 @@
+.news-container {
+    padding: 20px 18%;
+    background-color: #ffffff;
+    min-height: 80vh;
+}
+
+.news-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.loading-container,
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #67D3EC;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.retry-btn {
+    background-color: #67D3EC;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-item {
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.news-item:hover {
+    background-color: #f9f9f9;
+}
+
+.news-content {
+    flex: 3;
+    margin-left: 15px;
+    position: relative;
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.news-header h2 {
+    text-align: left;
+    font-size: 20px;
+    margin: 0;
+    flex: 1;
+    margin-right: 80px;
+}
+
+.news-time {
+    white-space: nowrap;
+    color: #888;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 70px;
+    text-align: right;
+}
+
+.news-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding-right: 80px;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.news-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.news-image {
+    width: auto;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.no-news {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
