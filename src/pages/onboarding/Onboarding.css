@@ -1,0 +1,140 @@
+/* ✅ 온보딩 전체 컨테이너 */
+.onboarding-container {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;
+    min-height: 100vh; /* 🔥 스크롤 가능하도록 높이 조정 */
+    background-color: rgba(255, 255, 255, 0.76);
+    padding-left: 15vw; /* 왼쪽 여백 */
+}
+
+/* ✅ 컨텐츠 정렬 */
+.step1_content {
+    max-width: 1120px;
+    text-align: left;
+}
+
+/* ✅ 제목과 이모지를 묶는 컨테이너 */
+.step1_title-wrapper {
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 10px; /* 요소 간격 */
+}
+
+/* ✅ 제목 스타일 */
+.step1_title {
+    font-size: 86px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.2;
+    margin-bottom: -30px;
+}
+
+/* ✅ 손가락 & OK 이모지 스타일 */
+.step1_emoji-img {
+    width: 150px;
+    height: 150px;
+    /*vertical-align: middle;*/
+}
+.step1_emoji-img1 {
+    width: 170px;
+    height: 170px;
+    vertical-align: middle;
+    margin-bottom: 30px !important;
+}
+
+/* ✅ 고양이 이모지 스타일 (제목 위에 배치) */
+.step1_emoji-cat {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin-bottom: -130px; /* 제목과의 간격 조정 */
+}
+
+/* ✅ 설명 텍스트 */
+.step1_description {
+    font-size: 32px;
+    line-height: 1.5;
+    color: #000;
+    margin-top: 15px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+/* ✅ SOL 로고 스타일 */
+.step1_sol-logo {
+    width: 185px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-bottom: 3px;
+    padding-bottom: 10px;
+}
+
+/* ✅ 강조된 텍스트 */
+.step1_highlight {
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.63);
+    margin-top: -10px;
+    margin-bottom: 25px;
+    padding-left: 5px;
+    font-weight: 600;
+}
+
+/* ✅ "SOL로" 부분 스타일 */
+.step1_solro {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* ✅ SOL 로고 스타일 */
+.step1_sol-logo {
+    width: 140px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+/* ✅ 부드러운 등장 애니메이션 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ✅ 제목 애니메이션 */
+.step1_title-wrapper {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* ✅ 설명과 강조 텍스트 애니메이션 */
+.step1_description,
+.step1_highlight {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* ✅ 버튼 스타일 */
+.step1_next-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 28px;
+    font-size: 22px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.step1_next-btn:hover {
+    background-color: #0056b3;
+}
