@@ -12,6 +12,8 @@ import './App.css';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
 import PortfolioList from './component/portfolio/PortfolioList';
+import ParkingAccount from './pages/ParkingAccount';
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,14 +60,9 @@ function App() {
                                     path="/"
                                     element={<Navigate to="/home" />}
                                 />
-                                <Route path="/home" element={<Home />} />
-                                <Route path="/news" element={<NewsList />} />
-                                <Route
-                                    path="/parking"
-                                    element={
-                                        <div>파킹통장 페이지 (준비 중)</div>
-                                    }
-                                />
+                                <Route path="/home"    element={<Home />} />
+                                <Route path="/news"    element={<NewsList />} />
+                                <Route path="/parking" element={<ParkingAccount />}/>
                                 <Route
                                     path="/assets"
                                     element={<PortfolioList />}
