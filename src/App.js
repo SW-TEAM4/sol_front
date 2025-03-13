@@ -11,7 +11,9 @@ import NewsList from './component/news/NewsList';
 import './App.css';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
+import PortfolioList from './component/portfolio/PortfolioList';
 import ParkingAccount from './pages/ParkingAccount';
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -63,7 +65,7 @@ function App() {
                                 <Route path="/parking" element={<ParkingAccount />}/>
                                 <Route
                                     path="/assets"
-                                    element={<div>자산 페이지 (준비 중)</div>}
+                                    element={<PortfolioList />}
                                 />
                                 <Route
                                     path="/account"
