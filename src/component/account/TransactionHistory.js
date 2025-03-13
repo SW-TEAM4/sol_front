@@ -44,8 +44,8 @@ const TransactionHistory = () => {
                                 : tx.transfer_balance,
                         balance:
                             tx.des_wit_type === '1'
-                                ? tx.pre_balance - tx.transfer_balance // 출금이면 빼기
-                                : tx.pre_balance + tx.transfer_balance, // 입금이면 더하기
+                                ? tx.pre_balance // 출금이면 빼기
+                                : tx.pre_balance// 입금이면 더하기
                     }))
                     // 내림 차순 정렬
                     .sort(

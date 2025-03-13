@@ -13,6 +13,8 @@ const TransferModal = ({ open, onClose }) => {
     const [bank, setBank] = useState("신한은행");                            // 은행/증권사 선택 상태 추가
     const [receiverName, setReceiverName] = useState("");                  // 받는 통장 표시 상태 추가
     const [recipientName, setrecipientName] = useState("");                // 받는 사람 이름 표시
+
+    const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 이체 완료 모달 상태 추가
     const [UserNames, setUserName] = useState("");
 
@@ -50,7 +52,7 @@ const TransferModal = ({ open, onClose }) => {
 
             //내 이름
             const getUserName = await axios.get(`http://localhost:8090/api/account/${fromAccount}/user-name`, {
-                params: { accountNo: toAccount }
+                params: { accountNo: fromAccount }
             });
 
             setUserName(getUserName.data);
@@ -98,8 +100,12 @@ const TransferModal = ({ open, onClose }) => {
             console.log("이체 성공:", response.data);
             setMessage(response.data);
 
+
+
+
             // 성공 모달 띄우기
             setIsSuccessModalOpen(true);
+
         } catch (error) {
             console.error("이체 실패:", error.response?.data || error.message);
             setMessage(error.response?.data || "이체 실패");
@@ -110,8 +116,10 @@ const TransferModal = ({ open, onClose }) => {
     const handleCloseAllModals = () => {
         setStep(1); // 처음 화면으로 초기화
         setMessage("");
-        setIsSuccessModalOpen(false);
         onClose();
+        setIsSuccessModalOpen(false);
+        window.location.reload();
+
     };
     return (
         <Modal open={open} onClose={onClose}>
@@ -147,7 +155,7 @@ const TransferModal = ({ open, onClose }) => {
                                 fontWeight={400}
                                 sx={{
                                     textAlign: 'left',
-                                    marginBottom: '80px', // 간격 벌림
+                                    marginBottom: '60px', // 간격 벌림
                                 }}
                             >
                                 이체
@@ -178,7 +186,7 @@ const TransferModal = ({ open, onClose }) => {
                                         className="w-full border-b border-gray-400 py-2 text-lg outline-none"
                                         placeholder="ex) 620002-04-272672"
                                         style={{
-                                            color: '#999',
+                                           /* color: '#9999',*/
                                             fontSize: '14px',
                                         }} // 연한 회색 텍스트
                                     />
@@ -215,7 +223,7 @@ const TransferModal = ({ open, onClose }) => {
                                         type="number"
                                         value={amount}
                                         onChange={(e) =>
-                                            setAmount(e.target.value)
+                                            setAmount(e.target.value.replace(/[^0-9]/g, ""))
                                         }
                                         className="w-full border-b border-gray-400 py-2 text-lg outline-none text-right"
                                         placeholder="0원"
@@ -231,7 +239,7 @@ const TransferModal = ({ open, onClose }) => {
                                     <Typography
                                         variant="body1"
                                         fontWeight="{400}"
-                                        sx={{ fontSize: '14px' }}
+                                        sx={{ fontSize: '14px', marginBottom: '7px' }}
                                     >
                                         은행/증권사
                                     </Typography>
@@ -240,7 +248,7 @@ const TransferModal = ({ open, onClose }) => {
                                         onChange={(e) =>
                                             setBank(e.target.value)
                                         }
-                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none bg-transparent"
+                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none"
                                         style={{ fontSize: '14px' }}
                                     >
                                         <option value="신한은행">
@@ -276,7 +284,7 @@ const TransferModal = ({ open, onClose }) => {
                                     />
                                 </Box>
                             </Box>
-
+                            <Typography sx={{marginBottom: '45px'}}></Typography>
                             {/* 안내 문구 */}
                             <Typography
                                 variant="body2"
@@ -291,25 +299,33 @@ const TransferModal = ({ open, onClose }) => {
                             <Box
                                 display="flex"
                                 justifyContent="center"
-                                marginTop={3}
+                                marginTop={4}
                             >
                                 <Button
-                                    variant="contained"
                                     onClick={handleCheckAccounts}
                                     sx={{
-                                        width: '160px',
-                                        height: '50px',
-                                        fontSize: '16px', // 글씨 크기 줄임
-                                        backgroundColor: '#37383C',
-                                        fontFamily: 'Noto Sans, sans-serif',
-                                        borderRadius: '25px',
+                                        backgroundColor: '#37383C', // 두 번째 버튼의 배경색 유지
+                                        color: '#fff', // 대비를 위해 흰색 글자
+                                        borderRadius: '10px', // 첫 번째 버튼의 border-radius 적용
+                                        width: '180px', // 첫 번째 버튼의 너비 적용
+                                        height: '40px', // 첫 번째 버튼의 높이 적용
+                                        fontSize: '14px', // 첫 번째 버튼의 글씨 크기 적용
+                                        fontWeight: 'bold', // 첫 번째 버튼의 글씨 두께 적용
+                                        textTransform: 'none', // 첫 번째 버튼의 텍스트 스타일 적용
+                                        lineHeight: '1', // 첫 번째 버튼의 줄 간격 적용
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 0,
                                         '&:hover': {
-                                            backgroundColor: '#292A2D',
+                                            backgroundColor: '#292A2D', // 두 번째 버튼의 hover 색상 유지
                                         },
                                     }}
                                 >
                                     이체
                                 </Button>
+
+
                             </Box>
                         </motion.div>
                     )}
@@ -384,31 +400,46 @@ const TransferModal = ({ open, onClose }) => {
                                     color="secondary"
                                     onClick={() => setStep(1)}
                                     sx={{
-                                        width: '160px',
-                                        height: '50px',
-                                        fontSize: '18px',
-                                        fontFamily: 'Noto Sans, sans-serif',
-                                        color: '#37383C',
-                                        borderColor: '#37383C',
-                                        borderRadius: '25px',
+                                        backgroundColor: '#37383C', // 두 번째 버튼의 배경색 유지
+                                        color: '#fff', // 대비를 위해 흰색 글자
+                                        borderRadius: '10px', // 첫 번째 버튼의 border-radius 적용
+                                        width: '180px', // 첫 번째 버튼의 너비 적용
+                                        height: '40px', // 첫 번째 버튼의 높이 적용
+                                        fontSize: '14px', // 첫 번째 버튼의 글씨 크기 적용
+                                        fontWeight: 'bold', // 첫 번째 버튼의 글씨 두께 적용
+                                        textTransform: 'none', // 첫 번째 버튼의 텍스트 스타일 적용
+                                        lineHeight: '1', // 첫 번째 버튼의 줄 간격 적용
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 0,
                                         '&:hover': {
-                                            backgroundColor:
-                                                ' rgba(55, 56, 60, 0.1)',
+                                            backgroundColor: '#292A2D', // 두 번째 버튼의 hover 색상 유지
                                         },
                                     }}
                                 >
-                                    뒤로 가기
+                                    이전 으로
                                 </Button>
                                 <Button
                                     variant="contained"
                                     onClick={handleTransfer}
                                     sx={{
-                                        width: '160px',
-                                        height: '50px',
-                                        fontSize: '18px',
-                                        backgroundColor: '#37383C',
-                                        fontFamily: 'Noto Sans, sans-serif',
-                                        borderRadius: '25px',
+                                        backgroundColor: '#37383C', // 두 번째 버튼의 배경색 유지
+                                        color: '#fff', // 대비를 위해 흰색 글자
+                                        borderRadius: '10px', // 첫 번째 버튼의 border-radius 적용
+                                        width: '180px', // 첫 번째 버튼의 너비 적용
+                                        height: '40px', // 첫 번째 버튼의 높이 적용
+                                        fontSize: '14px', // 첫 번째 버튼의 글씨 크기 적용
+                                        fontWeight: 'bold', // 첫 번째 버튼의 글씨 두께 적용
+                                        textTransform: 'none', // 첫 번째 버튼의 텍스트 스타일 적용
+                                        lineHeight: '1', // 첫 번째 버튼의 줄 간격 적용
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 0,
+                                        '&:hover': {
+                                            backgroundColor: '#292A2D', // 두 번째 버튼의 hover 색상 유지
+                                        },
                                     }}
                                 >
                                     확인
@@ -494,17 +525,21 @@ const TransferModal = ({ open, onClose }) => {
                                     variant="contained"
                                     onClick={handleCloseAllModals}
                                     sx={{
-                                        backgroundColor: '#37383C',
-                                        color: 'white',
-                                        width: '160px',
-                                        height: '50px',
-                                        borderRadius: '25px',
-                                        fontSize: '18px',
-                                        fontWeight: '{400}',
-                                        boxShadow:
-                                            '0px 5px 15px rgba(55, 56, 60, 0.3)',
+                                        backgroundColor: '#37383C', // 두 번째 버튼의 배경색 유지
+                                        color: '#fff', // 대비를 위해 흰색 글자
+                                        borderRadius: '10px', // 첫 번째 버튼의 border-radius 적용
+                                        width: '180px', // 첫 번째 버튼의 너비 적용
+                                        height: '40px', // 첫 번째 버튼의 높이 적용
+                                        fontSize: '14px', // 첫 번째 버튼의 글씨 크기 적용
+                                        fontWeight: 'bold', // 첫 번째 버튼의 글씨 두께 적용
+                                        textTransform: 'none', // 첫 번째 버튼의 텍스트 스타일 적용
+                                        lineHeight: '1', // 첫 번째 버튼의 줄 간격 적용
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 0,
                                         '&:hover': {
-                                            backgroundColor: '#37383C',
+                                            backgroundColor: '#292A2D', // 두 번째 버튼의 hover 색상 유지
                                         },
                                     }}
                                 >

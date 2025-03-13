@@ -56,6 +56,17 @@ export const collectInterest = async (accountNumber) => {
     }
 };
 
+/**
+ * 사용자 이름 가져오기
+ * 작성자 : JDeok
+ * 생성일 : 2025.03.12
+ * **/
+export const getUserName = async () => {
+    const reponse = await axios.get(`http://localhost:8090/api/account/1001/user-name`);
+    return reponse.data;
+};
+
+
 // 새로운 거래 추가
 export const addTransaction = async (
     accountNumber,
@@ -73,3 +84,4 @@ export const addTransaction = async (
         throw error;
     }
 };
+
