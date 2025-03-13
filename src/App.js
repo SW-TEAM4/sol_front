@@ -1,34 +1,93 @@
-import { useState } from 'react';
-import Onboarding from './pages/onboarding/Onboarding';
-import OnboardingStep2 from './pages/onboarding/OnboardingStep2';
-import OnboardingStep3 from './pages/onboarding/OnboardingStep3';
-import OnboardingStep4 from './pages/onboarding/OnboardingStep4';
-import OnboardingStep5 from './pages/onboarding/OnboardingStep5';
-import OnboardingStep6 from './pages/onboarding/OnboardingStep6';
+import React, { useEffect, useState } from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+} from 'react-router-dom';
+import OnboardingFinal from './pages/onboarding/onboarding_final';
+import Home from './component/home/Home';
+import NewsList from './component/news/NewsList';
 import './App.css';
+import Header from './common/header/Header';
+import Footer from './common/footer/Footer';
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const getCookie = (name) => {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split('=');
+                if (key === name) {
+                    return value;
+                }
+            }
+            return null;
+        };
+
+        const userIdx = getCookie('userIdx'); // 로그인 여부 확인
+        if (userIdx) {
+            localStorage.setItem('userIdx', userIdx); // localStorage에도 저장
+            setIsLoggedIn(true);
+        }
+        setLoading(false);
+    }, []);
+
+    if (loading) {
+        return <div>로딩 중...</div>;
+    }
+
     return (
-        <div className="App">
-            <div className="full-page">
-                <Onboarding />
+        <Router>
+            <div className="App">
+                {!isLoggedIn ? (
+                    <Routes>
+                        <Route path="/" element={<OnboardingFinal />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                ) : (
+                    <div className="full-page">
+                        <Header />
+                        <div className="content-container">
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={<Navigate to="/home" />}
+                                />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/news" element={<NewsList />} />
+                                <Route
+                                    path="/parking"
+                                    element={
+                                        <div>파킹통장 페이지 (준비 중)</div>
+                                    }
+                                />
+                                <Route
+                                    path="/assets"
+                                    element={<div>자산 페이지 (준비 중)</div>}
+                                />
+                                <Route
+                                    path="/account"
+                                    element={<div>내 계좌 페이지 (준비중)</div>}
+                                />
+                                <Route
+                                    path="/challenge"
+                                    element={<div>챌린지 페이지 (준비 중)</div>}
+                                />
+                                <Route
+                                    path="*"
+                                    element={<Navigate to="/home" />}
+                                />
+                            </Routes>
+                        </div>
+                        <Footer />
+                    </div>
+                )}
             </div>
-            <div className="full-page">
-                <OnboardingStep2 />
-            </div>
-            <div className="full-page">
-                <OnboardingStep3 />
-            </div>
-            <div className="full-page step4-container">
-                <OnboardingStep4 />
-            </div>
-            <div className="full-page step5-container">
-                <OnboardingStep5 />
-            </div>
-            <div className="full-page step6-container">
-                <OnboardingStep6 />
-            </div>
-        </div>
+        </Router>
     );
 }
 
