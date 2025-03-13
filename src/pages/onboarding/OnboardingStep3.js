@@ -98,7 +98,7 @@ const OnboardingStep3 = ({}) => {
                     <img src={SolLogo} alt="SOL Logo" className="sol_logo" />
                     <h2 className="step3_title">
                         신한카드로 <br />{' '}
-                        <span className="highlight">SOLSOL</span>한 투자
+                        <span className="step3_highlight">SOLSOL</span>한 투자
                     </h2>
                     <p className="step3_description">
                         카드를 쓰면 내 파킹통장으로 캐시백을 드립니다.

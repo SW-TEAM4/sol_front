@@ -1,9 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Header.css';
 import logoImage from '../../images/logo.svg';
 
 const Header = () => {
+    /**
+     * ✅ 로그아웃 기능
+     */
+    const navigate = useNavigate();
+
+    /**
+     * ✅ 로그아웃 기능
+     */
+    const handleLogout = () => {
+        localStorage.removeItem('userIdx'); // ✅ localStorage에서 삭제
+        document.cookie =
+            'userIdx=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // ✅ 쿠키 삭제
+        navigate('/'); // ✅ 온보딩 화면으로 이동
+    };
+
     return (
         <header className="header-container">
             {/* 로고 */}
@@ -29,6 +45,8 @@ const Header = () => {
                         src="https://static.toss.im/3d/bell-apng.png"
                         alt="Notification"
                         className="notification-icon"
+                        onClick={handleLogout}
+                        style={{ cursor: 'pointer' }} // 클릭 가능하게 설정
                     />
                     <Link to="/account" className="account-button-link">
                         <button className="account-button">My account</button>

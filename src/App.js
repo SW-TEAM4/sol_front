@@ -1,34 +1,44 @@
-import { useState } from 'react';
-import Onboarding from './pages/onboarding/Onboarding';
-import OnboardingStep2 from './pages/onboarding/OnboardingStep2';
-import OnboardingStep3 from './pages/onboarding/OnboardingStep3';
-import OnboardingStep4 from './pages/onboarding/OnboardingStep4';
-import OnboardingStep5 from './pages/onboarding/OnboardingStep5';
-import OnboardingStep6 from './pages/onboarding/OnboardingStep6';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom'; // Router 추가
+import OnboardingFinal from './pages/onboarding/onboarding_final'; //onboarding_final.js import
+import Home from './component/home/Home';
 import './App.css';
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const getCookie = (name) => {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split('=');
+                if (key === name) {
+                    return value;
+                }
+            }
+            return null;
+        };
+
+        const userIdx = getCookie('userIdx'); // 로그인 여부 확인
+        if (userIdx) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
     return (
-        <div className="App">
-            <div className="full-page">
-                <Onboarding />
+        <Router>
+            {' '}
+            {/* Router로 감싸기 */}
+            <div className="App">
+                {!isLoggedIn ? (
+                    <OnboardingFinal />
+                ) : (
+                    <div className="full-page">
+                        <Home />
+                    </div>
+                )}
             </div>
-            <div className="full-page">
-                <OnboardingStep2 />
-            </div>
-            <div className="full-page">
-                <OnboardingStep3 />
-            </div>
-            <div className="full-page step4-container">
-                <OnboardingStep4 />
-            </div>
-            <div className="full-page step5-container">
-                <OnboardingStep5 />
-            </div>
-            <div className="full-page step6-container">
-                <OnboardingStep6 />
-            </div>
-        </div>
+        </Router>
     );
 }
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import CategoryList from './CategoryList';
 import UserChoice from './UserChoice';
+import Header from '../../common/header/Header';
 import '../../styles/Home.css';
 import penguinImage from '../../images/penguin.svg';
 import pigImage from '../../images/pig.svg';
@@ -12,9 +12,50 @@ import QuizSection from './QuizSection';
 
 const Home = () => {
     const navigate = useNavigate();
+    const [userIdx, setUserIdx] = useState(null);
+
+    /**
+     * 쿠키에서 userIdx 가져와서 localStorage에 저장
+     */
+    useEffect(() => {
+        const getCookie = (name) => {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split('=');
+                if (key === name) {
+                    return value;
+                }
+            }
+            return null;
+        };
+
+        const savedUserIdx = getCookie('userIdx'); // 쿠키에서 userIdx 가져오기
+
+        if (savedUserIdx) {
+            localStorage.setItem('userIdx', savedUserIdx); // localStorage에 저장
+            setUserIdx(savedUserIdx); //상태 업데이트
+            console.log('userIdx 저장 완료:', savedUserIdx);
+        } else {
+            console.log('userIdx 쿠키가 존재하지 않음, 온보딩으로 이동');
+            navigate('/'); // 로그인 안 했으면 온보딩 페이지로 이동
+        }
+    }, [navigate]);
+
+    /**
+     * 로그아웃 기능
+     */
+    // const handleLogout = () => {
+    //     localStorage.removeItem('userIdx'); // localStorage에서 삭제
+    //     document.cookie =
+    //         'userIdx=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // 쿠키 삭제
+    //     setUserIdx(null);
+    //     navigate('/'); // 온보딩 화면으로 이동
+    // };
+
     return (
         <div className="home-container">
-            {/* 사용자 정보 섹션 */}
+            <Header />
+            {/* 사용자 정보 및 로그아웃 버튼 */}
             <UserChoice />
             {/* 챌린지와 머니 섹션을 감싸는 컨테이너 */}
             <div className="sections-container">
