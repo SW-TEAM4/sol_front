@@ -48,15 +48,19 @@ const UserChoice = () => {
             <div className="user-info">
                 <img
                     src={userData[currentIndex].image}
+                    alt="Profile"
                     className="profile-image"
                 />
                 <div className="user-text">
-                    <span className="user-name">
-                        {userData[currentIndex].name}의 또래는
+                    <span>
+                        <strong className="user-name-bold">
+                            {userData[currentIndex].name}
+                        </strong>
+                        의 또래는
                         <br />
                         <span className="highlight">
                             {userData[currentIndex].stock}
-                        </span>{' '}
+                        </span>
                         에 많이 투자하고 있어요!
                     </span>
                     <div className="user-tags">

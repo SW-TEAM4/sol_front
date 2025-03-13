@@ -1,62 +1,77 @@
+/* 항상 스크롤바 표시하여 레이아웃 변경 방지 */
+html {
+    overflow-y: scroll;
+}
+
+/* 헤더 컨테이너 */
 .header-container {
-    padding: 20px 18%;
+    padding: 20px 12%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-sizing: border-box;
 }
 
-.logo-image {
+/* 로고 영역 */
+.logo {
     width: 120px;
+    height: 40px;
 }
 
-.header-container .highlight {
-    color: #67D3EC !important;;
-
+/* 오른쪽 그룹 (네비게이션, 알림, 계정) */
+.header-right {
+    display: flex;
+    gap: 60px;
 }
 
+/* 네비게이션 메뉴 */
 .nav-menu {
     display: flex;
-    gap: 20px;
+    gap: 63px;
 }
 
 .nav-menu a {
     text-decoration: none;
     font-size: 16px;
-    color: #333;
+    color: black;
+    font-weight: bold;
 }
 
-.nav-menu a:hover {
-    color: #67D3EC;
-}
-
+/* 계정 섹션 */
 .account-section {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 40px;
 }
 
 .notification-icon {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
-.account-section {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 아이콘과 버튼 사이 간격 */
-    margin-right: 20px; /* 오른쪽 여백 추가 */
-}
-
-.notification-icon {
-    width: 24px;
+.account-button-link {
+    text-decoration: none;
 }
 
 .account-button {
     font-size: 14px;
+    padding: 6px 12px;
     border-radius: 5px;
     border: 1px solid #ddd;
     background-color: #ffffff;
     cursor: pointer;
     white-space: nowrap;
+    transition-duration: 0.3s;
+}
+
+.account-button:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
