@@ -1,5 +1,6 @@
 /* ✅ 전체 컨테이너 */
 .step2_container {
+    text-align: center;
     position: relative;
     display: flex;
     justify-content: center;

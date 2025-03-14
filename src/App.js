@@ -16,6 +16,7 @@ import ParkingAccount from './pages/ParkingAccount';
 
 
 function App() {
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -42,7 +43,6 @@ function App() {
     if (loading) {
         return <div>로딩 중...</div>;
     }
-
     return (
         <Router>
             <div className="App">
