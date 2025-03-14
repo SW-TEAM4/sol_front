@@ -10,6 +10,7 @@ const BasicInfoForm = () => {
     const [selectedJob, setSelectedJob] = useState(null);
     const navigate = useNavigate(); // Initialize navigate
 
+
     // 모든 항목이 선택되었는지 확인
     const isFormComplete = selectedGender && selectedAge && selectedJob;
 
@@ -79,7 +80,6 @@ const BasicInfoForm = () => {
     return (
         <div className="form-container">
             <img src={logo} alt="SOL 로고" className="logo" />
-
             {/* 성별 선택 */}
             <p className="question">우지호님의 성별을 선택해주세요</p>
             <div className="button-group gender-group">

@@ -10,7 +10,7 @@ const NewsList = () => {
     // 뉴스 헤드라인 가져오기
     useEffect(() => {
         setLoading(true);
-        fetch('/api/news/headlines')
+        fetch('http://127.0.0.1:8000/news/headlines') // 경로 수정
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('서버 응답이 올바르지 않습니다.');
