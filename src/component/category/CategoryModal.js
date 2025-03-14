@@ -12,13 +12,15 @@ const CategoryModal = ({ category, onClose }) => {
         const fetchStocks = async () => {
             try {
                 setLoading(true);
+                // FastAPI 서버에 직접 요청
                 const response = await fetch(
-                    `/api/stocks/category/${category.name}`
+                    `http://127.0.0.1:8000/stocks/category/${category.name}`
                 );
                 if (!response.ok) {
                     throw new Error('데이터를 불러오는데 실패했습니다');
                 }
                 const data = await response.json();
+                console.log('카테고리 데이터:', data); // 디버깅용
                 setStocks(data);
             } catch (err) {
                 console.error('Error fetching stocks:', err.message);

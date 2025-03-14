@@ -14,17 +14,57 @@ const PortfolioList = () => {
         const fetchPortfolioData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('/api/portfolio/list'); // Spring Boot API 호출
+                // FastAPI 직접 호출
+                const response = await fetch(
+                    'http://127.0.0.1:8000/portfolio/list'
+                );
                 if (!response.ok) {
                     throw new Error('데이터를 불러오는데 실패했습니다');
                 }
-                const data = await response.json();
-                setPortfolioData(data); // 데이터를 상태에 저장
+
+                // 원본 데이터 (배열)
+                const rawData = await response.json();
+                console.log('FastAPI에서 받은 원본 데이터:', rawData);
+
+                if (!Array.isArray(rawData) || rawData.length === 0) {
+                    throw new Error('유효한 포트폴리오 데이터가 없습니다');
+                }
+
+                // 데이터 가공 - Spring Boot 서버가 했던 작업을 직접 수행
+                const totalCashBalance = rawData[0]?.krwBalance || 0; // 모든 항목이 같은 krwBalance 값을 가짐
+                const totalPurchaseAmount = rawData.reduce(
+                    (sum, item) => sum + (item.purchaseAmount || 0),
+                    0
+                );
+                const totalCurrentValue = rawData.reduce(
+                    (sum, item) => sum + (item.evaluationAmount || 0),
+                    0
+                );
+                const totalProfitLoss = rawData.reduce(
+                    (sum, item) => sum + (item.profitLoss || 0),
+                    0
+                );
+                const totalProfitLossRate =
+                    totalPurchaseAmount > 0
+                        ? (totalProfitLoss / totalPurchaseAmount) * 100
+                        : 0;
+
+                // Spring Boot 서버가 반환하던 형식으로 데이터 구조화
+                const formattedData = {
+                    portfolioList: rawData,
+                    totalCashBalance,
+                    totalPurchaseAmount,
+                    totalCurrentValue,
+                    totalProfitLoss,
+                    totalProfitLossRate,
+                };
+
+                setPortfolioData(formattedData);
             } catch (err) {
                 console.error('Error fetching portfolio data:', err.message);
-                setError(err.message); // 에러 메시지 저장
+                setError(err.message);
             } finally {
-                setLoading(false); // 로딩 상태 업데이트
+                setLoading(false);
             }
         };
 
@@ -32,15 +72,19 @@ const PortfolioList = () => {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>; // 로딩 중 메시지 표시
+        return <p>Loading...</p>;
     }
 
     if (error) {
-        return <p>Error: {error}</p>; // 에러 메시지 표시
+        return <p>Error: {error}</p>;
     }
 
-    if (!portfolioData || !portfolioData.portfolioList) {
-        return <p>No portfolio data available.</p>; // 데이터가 없을 경우 메시지 표시
+    if (
+        !portfolioData ||
+        !portfolioData.portfolioList ||
+        portfolioData.portfolioList.length === 0
+    ) {
+        return <p>No portfolio data available.</p>;
     }
 
     const pieData = {
@@ -50,7 +94,16 @@ const PortfolioList = () => {
                 data: portfolioData.portfolioList.map(
                     (asset) => asset.evaluationAmount || 0
                 ),
-                backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99'],
+                backgroundColor: [
+                    '#ff9999',
+                    '#66b3ff',
+                    '#99ff99',
+                    '#ffcc99',
+                    '#c2c2f0',
+                    '#ffb366',
+                    '#ff6666',
+                    '#c2f0c2',
+                ],
             },
         ],
     };
@@ -77,10 +130,6 @@ const PortfolioList = () => {
             },
         },
     };
-
-    if (!portfolioData || !portfolioData.portfolioList) {
-        return <p>No portfolio data available.</p>;
-    }
 
     return (
         <div className="portfolio-container">
@@ -122,7 +171,7 @@ const PortfolioList = () => {
                         <th>총 매수 금액</th>
                         <th>평가 금액</th>
                         <th>평가 손익</th>
-                        <th>평가 수익률</th> {/* 새 열 추가 */}
+                        <th>평가 수익률</th>
                     </tr>
                 </thead>
                 <tbody>
