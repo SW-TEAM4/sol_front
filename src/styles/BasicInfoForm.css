@@ -1,0 +1,84 @@
+/* 전체 컨테이너 스타일 */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    text-align: center;
+    gap: 40px;
+}
+
+/* 로고 스타일 */
+.logo {
+    width: 130px; /* 로고 크기 조절 */
+    margin-bottom: 20px;
+    margin-top: 70px;
+}
+
+/* 프로필 배지 */
+.profile-badge {
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+/* 질문 텍스트 */
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* 버튼 스타일 */
+.btn {
+    background-color: #1F1F1F;
+    color: #656569;
+    font-size: 12px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn.selected {
+    background-color: #1F1F1F; /* 선택된 버튼 */
+    color: #fff;
+}
+
+.gender-group .btn {
+    width: 230px; /* 🔥 버튼 가로 길이 증가 */
+    font-size: 14px;
+}
+
+/* 기본 정보 입력 완료 버튼 */
+.submit-btn {
+    background-color: #1F1F1F;
+    color: white;
+    font-size: 14px;
+    padding: 12px 60px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* 기본 정보 입력 완료 버튼 비활성화 */
+.submit-btn.disabled {
+    background-color: #1F1F1F;
+    color: #656569;
+    cursor: not-allowed;
+}

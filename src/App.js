@@ -1,43 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'; // Router 추가
-import OnboardingFinal from './pages/onboarding/onboarding_final'; //onboarding_final.js import
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import OnboardingFinal from './pages/onboarding/onboarding_final';
+import BasicInfoForm from './pages/BasicInfoForm';
 import Home from './component/home/Home';
+import RedirectHandler from './pages/onboarding/RedirectHandler';
 import './App.css';
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const getCookie = (name) => {
-            const cookies = document.cookie.split('; ');
-            for (let i = 0; i < cookies.length; i++) {
-                const [key, value] = cookies[i].split('=');
-                if (key === name) {
-                    return value;
-                }
-            }
-            return null;
-        };
-
-        const userIdx = getCookie('userIdx'); // 로그인 여부 확인
-        if (userIdx) {
-            setIsLoggedIn(true);
-        }
-    }, []);
-
     return (
         <Router>
-            {' '}
-            {/* Router로 감싸기 */}
-            <div className="App">
-                {!isLoggedIn ? (
-                    <OnboardingFinal />
-                ) : (
-                    <div className="full-page">
-                        <Home />
-                    </div>
-                )}
-            </div>
+            <Routes>
+                <Route path="/onboarding" element={<OnboardingFinal />} />
+                <Route path="/basic-info" element={<BasicInfoForm />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="*" element={<OnboardingFinal />} />{' '}
+                {/* 기본적으로 온보딩 페이지로 */}
+                <Route path="/redirect" element={<RedirectHandler />} />{' '}
+                {/* /redirect 경로 추가 */}
+            </Routes>
         </Router>
     );
 }
