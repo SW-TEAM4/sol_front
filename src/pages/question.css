@@ -1,0 +1,110 @@
+* {
+    font-family: "noto sans KR";
+}
+
+.sol-logo {
+    width: 100px; /* 원하는 크기로 조절 */
+    height: auto;
+    margin-top: 20px;
+}
+
+.question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* 상단, 중앙, 하단 정렬 */
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.question-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+}
+
+.progress {
+    background: black;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 0 auto 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sub-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.option {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.emoji {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    margin-left: 30px;
+}
+
+.option-1 {
+    color: white;
+}
+
+.option-2 {
+    color: black;
+}
+
+.option:hover {
+    opacity: 0.8;
+}
+
+.button-container {
+    position: relative;
+    top: -50px;
+}
+
+.prev-button {
+    background: none;
+    color: #007bff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 300px;
+    height: 100px;
+}
+
+.prev-button:hover {
+    color: white;
+}
