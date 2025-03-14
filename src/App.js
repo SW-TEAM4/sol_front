@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
@@ -100,5 +101,4 @@ function App() {
         </Router>
     );
 }
-
 export default App;
