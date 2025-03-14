@@ -18,6 +18,7 @@ const Header = () => {
         document.cookie =
             'userIdx=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // ✅ 쿠키 삭제
         navigate('/'); // ✅ 온보딩 화면으로 이동
+        window.location.reload();
     };
 
     return (
