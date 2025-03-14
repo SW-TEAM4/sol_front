@@ -16,6 +16,7 @@ import PortfolioList from './component/portfolio/PortfolioList';
 import ParkingAccount from './pages/ParkingAccount';
 import BasicInfoForm from './pages/BasicInfoForm';
 import RedirectHandler from './pages/onboarding/RedirectHandler';
+import Portfolio from './pages/Portfolio/Portfolio';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,8 +66,8 @@ function App() {
                                     element={<PortfolioList />}
                                 />
                                 <Route
-                                    path="/account"
-                                    element={<div>내 계좌 페이지 (준비중)</div>}
+                                    path="/parking"
+                                    element={<ParkingAccount/>}
                                 />
                                 <Route
                                     path="/challenge"

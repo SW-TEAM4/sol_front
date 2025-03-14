@@ -3,7 +3,6 @@ import { getBalance, getTransactionHistory, getUserName } from '../../api/accoun
 
 import Button from '@mui/material/Button';
 import TransferModal from '../../pages/transferModal';
-import axios from 'axios';
 
 // 빼기 버튼 컴포넌트
 const RemoveButton = ({ onClick }) => {
@@ -43,13 +42,19 @@ const BalanceDisplay = () => {
     };
 
     useEffect(() => {
-        const fetchBalance = async () => {
-            const data = await getBalance();
-            setBalance(data);
-            setUserName(await getUserName());
+        const fetchInitialData = async () => {
+            try {
+                const balanceData = await getBalance(); // 잔액 조회
+                setBalance(balanceData);
 
+                const userNameData = await getUserName(); // 사용자 이름 조회
+                setUserName(userNameData);
+            } catch (error) {
+                console.error('잔액 또는 사용자 정보 가져오기 실패:', error);
+            }
         };
-        fetchBalance();
+
+        fetchInitialData();
     }, []);
 
     // 거래 내역 변경 시 잔고 업데이트
@@ -57,13 +62,10 @@ const BalanceDisplay = () => {
         const fetchUpdatedBalance = async () => {
             try {
                 const transactions = await getTransactionHistory();
+
                 if (transactions.length > 0) {
-                    const latestTransaction = transactions[0]; // 최신 거래 내역
-                    const updatedBalance =
-                        latestTransaction.des_wit_type === '1'
-                            ? latestTransaction.pre_balance
-                            : latestTransaction.pre_balance;
-                    setBalance(updatedBalance);
+                    const latestTransaction = transactions[0]; // 최신 거래 내역 가져오기
+                    setBalance(latestTransaction.pre_balance);
                 }
             } catch (error) {
                 console.error('거래 내역 조회 실패:', error);
@@ -71,7 +73,7 @@ const BalanceDisplay = () => {
         };
 
         fetchUpdatedBalance();
-    }, []);
+    }, [balance]); // 🔥 잔액 변경 감지 시 실행되도록 의존성 추가
 
     return (
         <div className="balance-container">

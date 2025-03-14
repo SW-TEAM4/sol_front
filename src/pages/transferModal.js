@@ -123,58 +123,20 @@ const TransferModal = ({ open, onClose }) => {
     };
     return (
         <Modal open={open} onClose={onClose}>
-            <Box
-                className="bg-white rounded-xl shadow-lg p-10"
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '850px',
-                    height: '500px',
-                    borderRadius: '20px',
-                    outline: 'none',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    padding: '40px',
-                }}
-            >
+            <Box className="modal-container">
                 <AnimatePresence mode="wait">
                     {step === 1 && (
-                        <motion.div
-                            key="step1"
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{ duration: 0.3 }}
-                        >
+                        <motion.div className="transfer-step1">
                             {/* 타이틀 */}
-                            <Typography
-                                variant="h4"
-                                fontWeight={400}
-                                sx={{
-                                    textAlign: 'left',
-                                    marginBottom: '60px', // 간격 벌림
-                                }}
-                            >
+                            <Typography variant="h4" className="modal-title">
                                 이체
                             </Typography>
 
                             {/* 4칸 가로 레이아웃 */}
-                            <Box
-                                display="grid"
-                                gridTemplateColumns="1fr 1fr"
-                                gridTemplateRows="1fr 1fr"
-                                gap={5}
-                            >
+                            <Box className="form-container">
                                 {/* 계좌번호 (왼쪽 위) */}
-                                <Box>
-                                    <Typography
-                                        variant="body1"
-                                        fontWeight="{400}"
-                                        sx={{ fontSize: '14px' }}
-                                    >
+                                <Box className="input-box">
+                                    <Typography className="input-label">
                                         누구에게 보낼까요?
                                     </Typography>
                                     <input
@@ -183,41 +145,16 @@ const TransferModal = ({ open, onClose }) => {
                                         onChange={(e) =>
                                             setToAccount(e.target.value)
                                         }
-                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none"
+                                        className="color-input-field"
                                         placeholder="ex) 620002-04-272672"
-                                        style={{
-                                           /* color: '#9999',*/
-                                            fontSize: '14px',
-                                        }} // 연한 회색 텍스트
                                     />
                                 </Box>
 
                                 {/* 금액 (오른쪽 위) */}
-                                <Box>
-                                    <Typography
-                                        variant="body1"
-                                        fontWeight="{400}"
-                                        sx={{ fontSize: '14px' }}
-                                    >
+                                <Box className="input-box">
+                                    <Typography className="input-label">
                                         금액
-                                        <span
-                                            style={{
-                                                fontSize: '12px',
-                                                color: '#666',
-                                                marginLeft: '5px',
-                                            }}
-                                        >
-                                            (출금 가능 금액:{' '}
-                                            <strong
-                                                style={{
-                                                    color: 'black',
-                                                    fontWeight: '{400}',
-                                                }}
-                                            >
-                                                {balance.toLocaleString()}원
-                                            </strong>
-                                            )
-                                        </span>
+                                        <span className="sub-text">(출금 가능 금액:{balance.toLocaleString()}원)</span>
                                     </Typography>
                                     <input
                                         type="number"
@@ -225,22 +162,14 @@ const TransferModal = ({ open, onClose }) => {
                                         onChange={(e) =>
                                             setAmount(e.target.value.replace(/[^0-9]/g, ""))
                                         }
-                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none text-right"
+                                        className="input-field text-right"
                                         placeholder="0원"
-                                        style={{
-                                            color: 'black',
-                                            fontSize: '14px',
-                                        }}
                                     />
                                 </Box>
 
                                 {/* 은행/증권사 (왼쪽 아래) */}
-                                <Box>
-                                    <Typography
-                                        variant="body1"
-                                        fontWeight="{400}"
-                                        sx={{ fontSize: '14px', marginBottom: '7px' }}
-                                    >
+                                <Box className="input-box">
+                                    <Typography className="input-label">
                                         은행/증권사
                                     </Typography>
                                     <select
@@ -248,80 +177,35 @@ const TransferModal = ({ open, onClose }) => {
                                         onChange={(e) =>
                                             setBank(e.target.value)
                                         }
-                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none"
-                                        style={{ fontSize: '14px' }}
-                                    >
-                                        <option value="신한은행">
-                                            신한은행
-                                        </option>
-                                        <option value="신한투자증권">
-                                            신한투자증권
-                                        </option>
+                                        className="input-select">
+                                        <option value="신한은행">신한은행</option>
+                                        <option value="신한투자증권">신한투자증권</option>
                                     </select>
                                 </Box>
 
                                 {/* 받는 통장 표시 (오른쪽 아래) */}
-                                <Box>
-                                    <Typography
-                                        variant="body1"
-                                        fontWeight="{400}"
-                                        sx={{ fontSize: '14px' }}
-                                    >
-                                        받는 통장 표시
-                                    </Typography>
+                                <Box className="input-box">
+                                    <Typography className="input-label">받는 통장 표시</Typography>
                                     <input
                                         type="text"
                                         value={receiverName}
                                         onChange={(e) =>
                                             setReceiverName(e.target.value)
                                         }
-                                        className="w-full border-b border-gray-400 py-2 text-lg outline-none"
+                                        className="input-field"
                                         placeholder="ex) OOO"
-                                        style={{
-                                            color: 'black',
-                                            fontSize: '14px',
-                                        }}
                                     />
                                 </Box>
                             </Box>
-                            <Typography sx={{marginBottom: '45px'}}></Typography>
+{/*                            <Typography sx={{marginBottom: '45px'}}></Typography>*/}
                             {/* 안내 문구 */}
-                            <Typography
-                                variant="body2"
-                                textAlign="center"
-                                marginTop={3}
-                                sx={{ color: '#888', fontSize: '12px' }}
-                            >
+                            <Typography className="notice-text">
                                 받는 분과 금액을 한 번 더 확인해 주세요.
                             </Typography>
 
                             {/* 버튼 */}
-                            <Box
-                                display="flex"
-                                justifyContent="center"
-                                marginTop={4}
-                            >
-                                <Button
-                                    onClick={handleCheckAccounts}
-                                    sx={{
-                                        backgroundColor: '#37383C', // 두 번째 버튼의 배경색 유지
-                                        color: '#fff', // 대비를 위해 흰색 글자
-                                        borderRadius: '10px', // 첫 번째 버튼의 border-radius 적용
-                                        width: '180px', // 첫 번째 버튼의 너비 적용
-                                        height: '40px', // 첫 번째 버튼의 높이 적용
-                                        fontSize: '14px', // 첫 번째 버튼의 글씨 크기 적용
-                                        fontWeight: 'bold', // 첫 번째 버튼의 글씨 두께 적용
-                                        textTransform: 'none', // 첫 번째 버튼의 텍스트 스타일 적용
-                                        lineHeight: '1', // 첫 번째 버튼의 줄 간격 적용
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        padding: 0,
-                                        '&:hover': {
-                                            backgroundColor: '#292A2D', // 두 번째 버튼의 hover 색상 유지
-                                        },
-                                    }}
-                                >
+                            <Box className="button-container">
+                                <Button onClick={handleCheckAccounts} className="confirm-button">
                                     이체
                                 </Button>
 
@@ -418,7 +302,7 @@ const TransferModal = ({ open, onClose }) => {
                                         },
                                     }}
                                 >
-                                    이전 으로
+                                    이전으로
                                 </Button>
                                 <Button
                                     variant="contained"

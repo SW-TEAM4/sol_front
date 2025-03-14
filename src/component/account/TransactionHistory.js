@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTransactionHistory } from '../../api/accountApi';
 
+// 카테고리 매핑
 const CATEGORY_MAP = {
     0: '연결된 증권계좌로 이체',
     1: '이자 입금',
@@ -30,7 +31,7 @@ const TransactionHistory = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getTransactionHistory();
+                const data = await getTransactionHistory(); // 이 부분에서 JWT 헤더를 포함하여 호출
                 const formattedData = data
                     .map((tx) => ({
                         dateTime: formatDate(tx.created),
@@ -45,7 +46,7 @@ const TransactionHistory = () => {
                         balance:
                             tx.des_wit_type === '1'
                                 ? tx.pre_balance // 출금이면 빼기
-                                : tx.pre_balance// 입금이면 더하기
+                                : tx.pre_balance // 입금이면 더하기
                     }))
                     // 내림 차순 정렬
                     .sort(

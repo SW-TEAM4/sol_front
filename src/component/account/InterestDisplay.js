@@ -40,33 +40,44 @@ const InterestDisplay = () => {
     const [balance, setBalance] = useState(0); // 최신 잔액 추가
     const [openModal, setOpenModal] = useState(false);
 
+    // API 데이터를 불러오는 함수
+    const fetchAccountData = async () => {
+        try {
+            const interestData = await getInterest();
+            setInterest(interestData);
+
+            const balanceData = await getBalance();
+            setBalance(balanceData);
+        } catch (error) {
+            console.error('데이터 조회 실패:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchInterest = async () => {
-            try {
-                const data = await getInterest();
-                setInterest(data);
-            } catch (error) {
-                console.error('이자 조회 실패:', error);
-            }
-        };
-
-        const fetchBalance = async () => {
-            try {
-                const data = await getBalance();
-                setBalance(data);
-            } catch (error) {
-                console.error('잔액 조회 실패:', error);
-            }
-        };
-
-        fetchInterest();
-        fetchBalance();
+        fetchAccountData();
     }, []);
+
+    // 최신 거래 내역을 기반으로 잔액 업데이트
+    useEffect(() => {
+        const updateBalanceFromTransactions = async () => {
+            try {
+                const transactions = await getTransactionHistory();
+                if (transactions.length > 0) {
+                    const latestTransaction = transactions[0]; // 최신 거래 내역 가져오기
+                    setBalance(latestTransaction.pre_balance);
+                }
+            } catch (error) {
+                console.error('거래 내역 조회 실패:', error);
+            }
+        };
+
+        updateBalanceFromTransactions();
+    }, [balance]); // 잔액 변경될 때마다 최신 거래 내역을 확인
 
     // 이자 받기 기능
     const handleReceiveInterest = async () => {
         try {
-            await collectInterest('1001');
+            await collectInterest();
 
             window.location.reload();
         } catch (error) {
@@ -89,6 +100,7 @@ const InterestDisplay = () => {
                     />
                 </div>
             </div>
+
             {/* 하단 : 이자 받기 */}
             <div className="interest-card">
                 <div className="interest-content">
@@ -101,6 +113,7 @@ const InterestDisplay = () => {
                     <ReceiveButton onClick={handleReceiveInterest} />
                 </div>
             </div>
+
             {/* 연결된 카드 보여주는 모달 */}
             <Dialog
                 open={openModal}
@@ -145,8 +158,10 @@ const InterestDisplay = () => {
                     </div>
                 </DialogContent>
             </Dialog>
+
             <div className="bank-icon">
                 <img
+                    className="account-img"
                     src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Bank.png"
                     alt="Bank"
                     width="200"
