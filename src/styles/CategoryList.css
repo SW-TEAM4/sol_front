@@ -1,0 +1,60 @@
+/* 카테고리 컨테이너 */
+.category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    margin-bottom: 50px;
+}
+
+.category-emoji {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin: 0 2px;
+    display: inline;
+    position: relative;
+    top: -2px;
+}
+
+.category-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+}
+
+/* 카테고리 그리드 */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 65px;
+    width: auto;
+}
+
+/* 카테고리 아이템 */
+.category-item {
+    border: 1px solid #ddd;
+    width: 239px;
+    height: 79px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: flex-start;
+}
+
+/* 카테고리 아이콘 */
+.category-icon {
+    height: 82px;
+    width: 82px;
+    margin-right: 20px;
+}
+
+/* 카테고리 이름 */
+.category-name {
+    font-size: 22px;
+    font-weight: 400;
+}

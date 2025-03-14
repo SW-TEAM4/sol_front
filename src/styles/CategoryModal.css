@@ -1,0 +1,159 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    max-height: 70vh;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #fff8e1;
+}
+
+.back-button, .close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+.modal-category-image {
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+}
+
+.category-info {
+    padding: 20px;
+    background-color: #fff8e1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.category-icon-large {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.category-name-large {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.category-count {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.performance-summary {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.period-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.period-selector {
+    font-size: 14px;
+    color: #666;
+    text-align: right;
+}
+
+.performance-periods {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.period {
+    text-align: center;
+}
+
+.period-name {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.period-value {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.positive {
+    color: #f44336;
+}
+
+.negative {
+    color: #2196f3;
+}
+
+.stocks-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.stock-name {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 0.5;
+}
+
+.stock-price {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    text-align: right;
+}
+
+.stock-change {
+    font-size: 14px;
+    font-weight: bold;
+    flex: 1;
+    text-align: right;
+}
+
+.loading, .error {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}

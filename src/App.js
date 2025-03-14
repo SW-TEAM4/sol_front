@@ -1,92 +1,103 @@
-import React, { useState } from 'react'; // useState 추가
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Question1 from './pages/question1';
-import Question2 from './pages/question2';
-import Question3 from './pages/question3';
-import Question4 from './pages/question4';
-import Question5 from './pages/question5';
-import Result from './pages/result';
-import AnalyzeTest from './pages/analyzeTest';
-import Challenge from './pages/challenge';
+
+import React, { useEffect, useState } from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Navigate,
+} from 'react-router-dom';
+import OnboardingFinal from './pages/onboarding/onboarding_final';
+import Home from './component/home/Home';
+import NewsList from './component/news/NewsList';
+import './App.css';
+import Header from './common/header/Header';
+import Footer from './common/footer/Footer';
+import PortfolioList from './component/portfolio/PortfolioList';
+import ParkingAccount from './pages/ParkingAccount';
+import BasicInfoForm from './pages/BasicInfoForm';
+import RedirectHandler from './pages/onboarding/RedirectHandler';
 
 function App() {
-    const [totalScore, setTotalScore] = useState(0);
-    const [selectedScores, setSelectedScores] = useState([]); // 🛠 선택한 점수 저장
-    const userIdx = 1;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    const addScore = (score) => {
-        setTotalScore((prev) => prev + score);
-        setSelectedScores((prev) => [...prev, score]); // 🛠 점수 기록
-    };
+    useEffect(() => {
+        const getCookie = (name) => {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split('=');
+                if (key === name) {
+                    return value;
+                }
+            }
+            return null;
+        };
 
-    const subtractScore = () => {
-        setSelectedScores((prev) => {
-            if (prev.length === 0) {
-                return prev;
-            } // 선택한 점수가 없으면 그대로
-            const lastScore = prev[prev.length - 1]; // 마지막 선택 점수 가져오기
-            setTotalScore((prev) => prev - lastScore); // 🛠 해당 점수 빼기
+        const userIdx = getCookie('userIdx'); // 로그인 여부 확인
+        if (userIdx) {
+            localStorage.setItem('userIdx', userIdx); // localStorage에도 저장
+            setIsLoggedIn(true);
+        }
+        setLoading(false);
+    }, []);
 
-            return prev.slice(0, prev.length - 1);
-        });
-    };
+    if (loading) {
+        return <div>로딩 중...</div>;
+    }
 
     return (
         <Router>
-            <Routes>
-                <Route
-                    path="/challenge"
-                    element={<Challenge userIdx={userIdx} />}
-                />
-                <Route path="/" element={<AnalyzeTest />} />
-                <Route path="/q1" element={<Question1 addScore={addScore} />} />
-                <Route
-                    path="/q2"
-                    element={
-                        <Question2
-                            addScore={addScore}
-                            subtractScore={subtractScore}
-                        />
-                    }
-                />
-                <Route
-                    path="/q3"
-                    element={
-                        <Question3
-                            addScore={addScore}
-                            subtractScore={subtractScore}
-                        />
-                    }
-                />
-                <Route
-                    path="/q4"
-                    element={
-                        <Question4
-                            addScore={addScore}
-                            subtractScore={subtractScore}
-                        />
-                    }
-                />
-                <Route
-                    path="/q5"
-                    element={
-                        <Question5
-                            addScore={addScore}
-                            subtractScore={subtractScore}
-                        />
-                    }
-                />
-                <Route
-                    path="/result"
-                    element={
-                        <Result
-                            userIdx={userIdx}
-                            totalScore={totalScore}
-                            setTotalScore={setTotalScore}
-                        />
-                    }
-                />
-            </Routes>
+            <div className="App">
+                {/* 로그인된 상태에서만 Header와 Footer 표시 */}
+                {isLoggedIn && (
+                    <>
+                        <Header />
+                        <div className="content-container">
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={<Navigate to="/home" />}
+                                />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/news" element={<NewsList />} />
+                                <Route
+                                    path="/assets"
+                                    element={<PortfolioList />}
+                                />
+                                <Route
+                                    path="/account"
+                                    element={<div>내 계좌 페이지 (준비중)</div>}
+                                />
+                                <Route
+                                    path="/challenge"
+                                    element={<div>챌린지 페이지 (준비 중)</div>}
+                                />
+                                <Route
+                                    path="/basic-info"
+                                    element={<BasicInfoForm />}
+                                />
+                                <Route
+                                    path="/redirect"
+                                    element={<RedirectHandler />}
+                                />
+                                <Route
+                                    path="*"
+                                    element={<Navigate to="/home" />}
+                                />
+                            </Routes>
+                        </div>
+                        <Footer />
+                    </>
+                )}
+
+                {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
+                {!isLoggedIn && (
+                    <Routes>
+                        <Route path="/" element={<OnboardingFinal />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                )}
+            </div>
         </Router>
     );
 }

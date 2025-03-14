@@ -1,0 +1,211 @@
+/* ✅ 전체 페이지에서 스크롤 완전히 없애기 */
+html, body {
+    overflow-x: hidden; /* ✅ 가로 스크롤 완전히 제거 */
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.step3_container {
+    height: 220vh;
+    padding-bottom: 150px; /* 🔥 여백 추가 */
+}
+
+/* ✅ 전체 컨테이너 */
+.step3_wrapper {
+    /*width: 100%;*/
+    /*min-height: 10vh;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*background: #090E26;*/
+    background: linear-gradient(180deg, #090E26 60%, #1B1F3A 90%);
+    transition: background 1s ease-in-out;
+    margin-top: 100px;
+}
+
+/* ✅ 제목 컨테이너 */
+.step3_text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
+    padding-left: 15%;
+    margin-top: 250px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out; /* ✅ 추가된 코드: 트랜지션으로 애니메이션 적용 */
+}
+
+.step3_text-container.show { /* ✅ 추가된 코드: 스크롤 감지 시 애니메이션 실행 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ SOL 로고 */
+.sol_logo {
+    width: 250px;
+    margin-bottom: -20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out 0.3s, transform 1s ease-out 0.3s; /* ✅ 추가된 코드 */
+}
+
+.step3_text-container.show .sol_logo { /* ✅ 추가된 코드 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ 제목 */
+.step3_title {
+    font-size: 70px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s; /* ✅ 추가된 코드 */
+}
+
+.step3_text-container.show .step3_title { /* ✅ 추가된 코드 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ 강조 */
+.step3_highlight {
+    color: #67D3EC;
+}
+
+/* ✅ 설명 */
+.step3_description {
+    font-size: 32px;
+    color: #FFFFFF;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out 0.7s, transform 1s ease-out 0.7s; /* ✅ 추가된 코드 */
+}
+
+.step3_text-container.show .step3_description { /* ✅ 추가된 코드 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🌈 이모지 바 */
+.emoji-bar-svg {
+    width: 180%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+.emoji-bar-container {
+    display: flex;
+    width: 200%; /* 컨테이너 크기 2배 */
+    animation: emojiScroll 20s linear infinite;
+    transform: translateX(-50%); /* 끊김 없이 반복 */
+    animation-play-state: running; /* 애니메이션 지속 실행 */
+}
+
+.emoji-bar-container img {
+    width: 100%;
+}
+
+/* ✅ 이모지 바 스크롤 애니메이션 */
+@keyframes emojiScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ✅ 반투명 박스들 (지그재그 배치) */
+.step3_boxes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    position: relative; /* 위치 조정 가능하도록 설정 */
+    transform: translateY(-400px); /* margin-top 대신 사용 */
+    height: 200vh;
+}
+
+/* ✅ 개별 박스 스타일 */
+.step3_box {
+    background: rgba(250, 252, 253, 0.28);
+    padding: 20px;
+    border-radius: 20px;
+    width: 400px;
+    height: 575px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out; /* ✅ 추가된 코드 */
+}
+
+.step3_box.show { /* ✅ 추가된 코드: 스크롤 감지 시 애니메이션 실행 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ✅ 박스 제목 */
+.step3_box h3 {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* ✅ 텍스트 스타일 */
+.step3_box p {
+    font-size: 32px;
+    color: white;
+    line-height: 1.4;
+}
+
+/* ✅ 박스 내부 이미지 */
+.box-image {
+    width: 360px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+/* ✅ 텍스트 스타일 */
+.step3_box p {
+    font-size: 20px;
+    color: white;
+}
+
+/* ✅ .step3_box.right (첫 번째 박스, 기존 스타일 유지) */
+.step3_box.right {
+    align-self: flex-end;
+    margin-right: 15%;
+    position: relative;
+    top: -450px; /* 원하는 만큼 위로 이동 */
+}
+
+/* ✅ .step3_box.right_second (OK맨 박스, 따로 위치 조정 가능) */
+.step3_box.right_second {
+    align-self: flex-end;
+    margin-right: 15%;
+    position: relative;
+    top: -750px;
+    margin-bottom: 150px; /* 🔥 페이지 끝에 맞추기 */
+}
+
+/* ✅ .step3_box.left (캘린더 박스) */
+.step3_box.left {
+    align-self: flex-start;
+    margin-left: 15%;
+    position: relative;
+    top: -330px;
+}

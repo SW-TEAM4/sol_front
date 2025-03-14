@@ -1,0 +1,50 @@
+.portfolio-container {
+    padding: 20px 20%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.portfolio-summary {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.portfolio-chart {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+    align-content: center;
+}
+
+.portfolio-table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.portfolio-table th {
+    background-color: #f4f4f4;
+}
+
+
+.profit-rate {
+    color: #e53935;
+    font-weight: bold;
+}
+
+.loss-rate {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.portfolio-legend {
+    margin-top: 20px;
+}

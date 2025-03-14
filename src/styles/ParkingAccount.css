@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap');
+
+body {
+    font-family: "Noto Sans", sans-serif;
+}
+/* 전체 페이지 스타일 */
+.parking-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F9FB;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.balance-container {
+    width: 95%;
+}
+
+.balance-title {
+    display: flex;
+    align-items: baseline;
+}
+
+.balance-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+
+.balance-container h1 {
+    font-size: 40px;
+    font-weight: 400;
+    color: #000;
+}
+
+.balance-container h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #333;
+}
+
+.slider-container h3 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #604EF8;
+    margin-bottom: 10px;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 95%;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    justify-content: space-between
+}
+
+.custom-slider {
+    flex-grow: 1;
+    max-width: 500px;
+}
+
+/* 슬라이더 텍스트 설정 */
+.slider-percentage {
+    font-size: 20px;
+    color: #604EF8;
+}
+
+/* 이체 예정 텍스트 설정 */
+.transfer-amount {
+    font-size: 20px;
+    color: #666;
+    margin-left: auto;
+}
+
+/* MUI 슬라이더 커스텀 */
+.MuiSlider-root {
+    color: #604EF8 !important;
+    height: 5px !important;
+}
+
+.MuiSlider-thumb {
+    background-color: #263FBD !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* 카드 및 이자 컨테이너 */
+.interest-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* 상단 --> 카드 보기 */
+.card-header {
+    padding: 0px 0px 30px 40px;
+    width: 100%;
+    max-width: 1000px;
+    background-color: #263FBD;
+    border-radius: 25px 25px 0 0;
+    display: flex;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    color: #fff;
+}
+
+/* 하단 --> 어제 쌓인 이자 */
+.interest-card {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #37383C;
+    color: #fff;
+    padding: 20px 40px 25px 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px 25px 0 0;
+    transform: translateY(-16.5%);
+}
+
+.interest-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.interest-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.interest-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.interest-amount {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 오른쪽 은행 아이콘 */
+.bank-icon {
+    position: absolute;
+    right: -250px;
+    top: 50%;
+    transform: translateY(-51.5%);
+}
+
+/* 필터 및 거래 내역 컨테이너 */
+.history-container {
+    width: 100%;
+    padding: 20px 0px 0px 0px;
+}
+
+/* 골라보기 */
+.history-container h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+/* 필터 버튼 컨테이너 */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* 필터 버튼 */
+.filter-buttons button {
+    flex: 1;
+    padding: 15px 0;
+    font-size: 16px;
+    color: #666;
+    background: #fff;
+    border: none;
+    border-left: 1px solid #CFCFCF;
+    cursor: pointer;
+}
+
+/* 첫 번째 버튼 왼쪽 선 제거 */
+.filter-buttons button:first-child {
+    border-left: none;
+}
+
+/* 활성화된 버튼 */
+.filter-buttons button.active {
+    background: #E5E5E5;
+    color: #333;
+}
+
+/* 거래 내역 */
+.transaction-list {
+    margin-top: 20px;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    border-bottom: 1px solid #E0E0E0;
+    color: #352018;
+}
+
+/* 날짜 및 시간 */
+.history-item span:first-child {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 거래 종류 */
+.history-item span:nth-child(2) {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* 금액 스타일 */
+.history-item span:nth-child(3) {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* 잔액 스타일 */
+.history-item .balance {
+    color: #999;
+    font-size: 14px;
+    text-align: right;
+}
+
+.negative {
+    color: #FF3131; /* 출금이면 빨간색 */
+    font-weight: bold;
+}
+
+.positive {
+    color: #263FBD; /* 입금이면 초록색 */
+    font-weight: bold;
+}

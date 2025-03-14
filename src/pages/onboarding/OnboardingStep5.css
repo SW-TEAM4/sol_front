@@ -1,0 +1,93 @@
+/* ✅ Step 5 기본 스타일 */
+.step5_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(180deg, #260909, #3D0D0D);
+    color: white;
+    min-height: 100vh;
+    position: relative;
+    transition: background 1s ease-in-out;
+}
+
+/* ✅ 텍스트 애니메이션 (초기 상태) */
+.step5_title,
+.step5_description,
+.step5_icon {
+    opacity: 0;
+    transform: translateY(30px); /* ✅ 아래에서 위로 올라오는 효과 */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* ✅ show 클래스가 추가되면 등장 */
+.step5_title.show,
+.step5_description.show,
+.step5_icon.show {
+    opacity: 1;
+    transform: translateY(0); /* ✅ 원래 위치로 이동 */
+}
+
+/* ✅ 왼쪽 텍스트 */
+.step5_text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* ✅ 아이콘 크기 */
+.step5_icon img {
+    width: 350px;
+    height: auto;
+    position: relative;
+    top: 33px;
+    left: 178px;
+}
+
+/* ✅ 타이틀 */
+.step5_title {
+    font-size: 55px;
+    text-align: left;
+    font-weight: bold;
+    top: -240px;
+    left: 72%;
+    position: relative;
+}
+
+/* ✅ 설명 */
+.step5_description {
+    font-size: 32px;
+    margin-top: 10px;
+    position: relative;
+    top: -225px;
+    left: 432px;
+}
+
+/* ✅ 강조 */
+.step5_description .highlight {
+    color: gold;
+    font-size: 45px;
+}
+
+/* ✅ 오른쪽 돼지 저금통 + 하트 */
+.step5_graphic {
+    position: relative;
+}
+
+/* ✅ 돼지 저금통 */
+.piggy_bank {
+    width: 400px;
+    bottom: 90px;
+    right: 106px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ✅ 하트 */
+.heart {
+    position: relative;
+    width: 300px;
+    bottom: -20px;
+    right: 230px;
+    z-index: 1;
+}

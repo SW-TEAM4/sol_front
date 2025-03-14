@@ -1,0 +1,55 @@
+.carousel-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 32px; /* 화살표 크기 조정 */
+    cursor: pointer;
+    color: #333;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    gap: 30px;
+    width: 90%;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    gap: 15px;
+}
+
+.user-name-bold {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.highlight {
+    color: #0056b3;
+    font-size: 30px;
+}
+
+.user-tags {
+    font-size: 27px;
+}
+
+.user-tags span {
+    margin-right: 10px;
+    font-size: 27px;
+    color: #555;
+}
