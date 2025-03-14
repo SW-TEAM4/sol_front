@@ -1,5 +1,6 @@
 /* ✅ 온보딩 전체 컨테이너 */
 .onboarding-container {
+    text-align: center;
     display: flex;
     justify-content: flex-start; /* 왼쪽 정렬 */
     align-items: center;
