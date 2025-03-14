@@ -13,10 +13,10 @@ import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
 import PortfolioList from './component/portfolio/PortfolioList';
 import ParkingAccount from './pages/ParkingAccount';
-
+import BasicInfoForm from './pages/BasicInfoForm';
+import RedirectHandler from './pages/onboarding/RedirectHandler';
 
 function App() {
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -43,16 +43,13 @@ function App() {
     if (loading) {
         return <div>로딩 중...</div>;
     }
+
     return (
         <Router>
             <div className="App">
-                {!isLoggedIn ? (
-                    <Routes>
-                        <Route path="/" element={<OnboardingFinal />} />
-                        <Route path="*" element={<Navigate to="/" />} />
-                    </Routes>
-                ) : (
-                    <div className="full-page">
+                {/* 로그인된 상태에서만 Header와 Footer 표시 */}
+                {isLoggedIn && (
+                    <>
                         <Header />
                         <div className="content-container">
                             <Routes>
@@ -60,9 +57,8 @@ function App() {
                                     path="/"
                                     element={<Navigate to="/home" />}
                                 />
-                                <Route path="/home"    element={<Home />} />
-                                <Route path="/news"    element={<NewsList />} />
-                                <Route path="/parking" element={<ParkingAccount />}/>
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/news" element={<NewsList />} />
                                 <Route
                                     path="/assets"
                                     element={<PortfolioList />}
@@ -76,13 +72,29 @@ function App() {
                                     element={<div>챌린지 페이지 (준비 중)</div>}
                                 />
                                 <Route
+                                    path="/basic-info"
+                                    element={<BasicInfoForm />}
+                                />
+                                <Route
+                                    path="/redirect"
+                                    element={<RedirectHandler />}
+                                />
+                                <Route
                                     path="*"
                                     element={<Navigate to="/home" />}
                                 />
                             </Routes>
                         </div>
                         <Footer />
-                    </div>
+                    </>
+                )}
+
+                {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
+                {!isLoggedIn && (
+                    <Routes>
+                        <Route path="/" element={<OnboardingFinal />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
                 )}
             </div>
         </Router>

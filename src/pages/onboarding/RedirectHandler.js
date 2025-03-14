@@ -11,12 +11,11 @@ const RedirectHandler = () => {
                 withCredentials: true,
             })
             .then((response) => {
+                console.log('응답 데이터:', response.data); // 응답 데이터 확인
                 if (response.data.code === 4001) {
-                    // 기본 정보 입력이 필요한 경우
-                    navigate('/basic-info'); // /basic-info 페이지로 이동
+                    navigate('/basic-info'); // 기본 정보 입력이 필요한 경우
                 } else {
-                    // 기본 정보가 이미 입력된 경우
-                    navigate('/home'); // /home 페이지로 이동
+                    navigate('/home'); // 기본 정보가 이미 입력된 경우
                 }
             })
             .catch((error) => {
@@ -24,6 +23,8 @@ const RedirectHandler = () => {
                 navigate('/home'); // 에러가 나면 홈으로 이동
             });
     }, [navigate]);
+
+    return null; // UI를 렌더링할 필요는 없으므로 null 반환
 };
 
 export default RedirectHandler;
