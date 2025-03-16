@@ -1,69 +1,87 @@
-*{
-    fontFamily: "'Noto Sans KR', sans-serif !important";
+* {
+    font-family: "Noto Sans KR", sans-serif !important;
 }
-/* 모달 컨테이너 */
+
 .modal-container {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 850px;
-    height: 500px;
+    width: 800px;
+    height: 450px;
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 2000;
+    overflow: hidden;
 }
 
 /* 타이틀 */
 .modal-title {
-    text-align: left;
-    margin-bottom: 60px;
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 40px;
 }
 
 /* 입력 폼 컨테이너 */
-.form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
+.trans-form-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 40px;
 }
 
-/* 입력 박스 */
+/* 입력 필드 스타일 */
 .input-box {
     display: flex;
     flex-direction: column;
+    width: 48%;
 }
 
 .input-label {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
 }
 
-.input-field {
+/* 왼쪽 정렬 */
+.left-align {
+    text-align: left;
+}
+
+/* 입력 필드 디자인 */
+.color-input-field {
     width: 100%;
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-    font-size: 14px;
+    border: none;
+    border-bottom: 2px solid #000;
+    padding: 12px;
+    font-size: 18px;
     outline: none;
     color: black;
+    transition: border 0.2s ease-in-out;
+    background: transparent;
+    margin-bottom: 20px;
 }
 
-.text-right {
-    text-align: right;
+.color-input-field::placeholder {
+    color: #bbb;
+    font-size: 16px;
 }
 
 /* 안내 문구 */
 .notice-text {
-    text-align: center;
+    font-size: 16px;
+    color: #777;
     margin-top: 15px;
-    color: #888;
-    font-size: 12px;
+    text-align: center
 }
 
 /* 버튼 컨테이너 */
@@ -73,14 +91,14 @@
     margin-top: 20px;
 }
 
-/* 확인 버튼 */
+/* 버튼 스타일 */
 .confirm-button {
     background-color: #37383C;
     color: white;
-    border-radius: 10px;
-    width: 180px;
-    height: 40px;
-    font-size: 14px;
+    border-radius: 15px;
+    width: 100px;
+    height: 55px;
+    font-size: 18px;
     font-weight: bold;
     text-transform: none;
     display: flex;
@@ -94,4 +112,49 @@
 
 .confirm-button:hover {
     background-color: #292A2D;
+}
+
+/* 화살표 제거 */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinner {
+    -moz-appearance: textfield;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 900px) {
+    .modal-container {
+        width: 90%;
+        height: auto;
+        padding: 30px;
+    }
+
+    .form-container {
+        flex-direction: column;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+}
+
+.transfer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    gap: 10px;
+}
+
+.large-text {
+    font-size: 26px;
+    font-weight: bold;
 }
