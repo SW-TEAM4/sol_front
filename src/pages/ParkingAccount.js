@@ -4,12 +4,20 @@ import InterestDisplay from '../component/account/InterestDisplay';
 import TransactionHistory from '../component/account/TransactionHistory';
 import React from 'react';
 import '../styles/ParkingAccount.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ParkingAccount = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate('/parking');
+    }, []);
+
     return (
         <>
             <div className="parking-account">
-                <div className="container">
+                <div className="parking-container">
                     <BalanceDisplay />
                     <TransferRatioSlider />
                     <InterestDisplay />
@@ -19,10 +27,10 @@ const ParkingAccount = () => {
                         width: '100%',
                         height: '1px',
                         backgroundColor: '#929292',
-                        marginTop: '-22px',
+                        marginTop: '-25px',
                     }}
                 ></div>
-                <div className="container">
+                <div className="parking-container">
                     <TransactionHistory />
                 </div>
             </div>

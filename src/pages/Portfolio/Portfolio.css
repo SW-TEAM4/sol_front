@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+/* 🔹 기본 설정 */
+.body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.portfolio-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+}
+
+/* 🔹 카드 스타일 - 화면을 더 넓게 사용 */
+.portfolio-card {
+    background-color: white;
+    width: 100%;
+    max-width: 1200px;
+    padding: 32px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🔹 투자 개요 및 차트 */
+.portfolio-summary-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding: 24px 0;
+    position: relative;
+}
+
+/* 🔹 세로 줄 추가 (자산 요약과 그래프 사이) */
+.portfolio-summary-container::after {
+    content: "";
+    width: 1px;
+    background-color: #E5E7EB;
+    height: 100%;
+    position: absolute;
+    left: 55%;
+    top: 0;
+}
+/* 🔹 가로선 추가 (세로선과 연결) */
+.portfolio-summary-container::before {
+    content: "";
+    width: 100%;
+    background-color: #E5E7EB;
+    height: 1px;
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+}
+/* 🔹 투자 개요 */
+.portfolio-summary {
+    flex: 1;
+    min-width: 55%;
+    max-width: 55%;
+    padding: 20px;
+    margin-right: 50px; /* 🔹 차트와의 간격 증가 */
+}
+
+/* 🔹 상단 요약 (총 보유 현금 금액, 총 보유자산을 한 줄 정렬) */
+.portfolio-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 🔹 2열로 정렬 (총 매수 금액과 동일) */
+    gap: 22px 12px; /* 🔹 위-아래(12px), 좌우(20px) 간격 설정 */
+    padding-bottom: 16px;
+}
+/* 🔹 투자 개요 데이터 한 줄 정렬 */
+.portfolio-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+
+/* 🔹 구분선 */
+.summary-divider {
+    border: 0;
+    height: 1px;
+    background: #E5E7EB;
+    margin: 12px 0;
+}
+
+/* 🔹 투자 개요 데이터 (2열 배치) */
+.portfolio-invest-data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 12px;
+}
+
+/* 🔹 데이터 한 줄 정렬 */
+.portfolio-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.portfolio-label {
+    font-size: 14px;
+    color: #666666;
+    text-align: left;
+    flex: 1;
+}
+
+.portfolio-value {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    color: #333333;
+    flex: 1;
+}
+.portfolio-value.large {
+    font-size: 20px; /* 🔹 더 큰 크기 */
+    color: #333333; /* 🔹 더 진한 색상 */
+}
+
+.portfolio-value.blue {
+    color: #0062df;
+}
+.percent {
+    font-size: 11px; /* 🔹 % 크기 */
+    color: #999; /* 🔹 더 진한 색상 */
+}
+.portfolio-value span {
+    font-size: 11px; /* 🔹 작은 크기 */
+    color: #999; /* 🔹 연한 색상 */
+}
+
+/* 🔹 유의사항 스타일 */
+.portfolio-note {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 10px;
+}
+
+.info-icon {
+    font-weight: bold;
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* 🔹 원형 차트 컨테이너 */
+.portfolio-chart-container {
+    display: flex;
+    width: 350px; /* ✅ 차트 크기 고정 */
+}
+
+/* 🔹 차트 중앙 텍스트 */
+.chart-center-text {
+    position: absolute;
+    top: 50%;
+    left: 85.4%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: #4b5563;
+}
+
+/* 🔹 차트 왼쪽 범례 */
+.portfolio-chart-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+/* 🔹 범례 아이템 스타일 */
+.portfolio-chart-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+}
+
+/* 🔹 범례 색상 원 */
+.portfolio-chart-legend .legend-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* 🔹 범례 텍스트 스타일 */
+.portfolio-chart-legend .legend-label {
+    font-size: 12px;
+    color: #374151;
+    font-weight: bold;
+}
+
+/* 🔹 범례 값 스타일 */
+.portfolio-chart-legend .legend-value {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+
+/* 🔹 보유 자산 목록 */
+.portfolio-table-container {
+    width: 100%;
+    margin-top: 40px;
+}
+
+/* 🔹 테이블 스타일 */
+.portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.portfolio-table th {
+    background-color: #f8f9fa;
+    padding: 12px;
+    text-align: right;
+    font-size: 11px;
+}
+
+.portfolio-table th:first-child {
+    text-align: left;
+}
+.portfolio-table th:first-child {
+    text-align: left;
+}
+
+.portfolio-table td {
+    padding: 12px;
+    text-align: right;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #333333;
+}
+.portfolio-unit {
+    font-size: 11px;
+    color: #999999;
+}
+.portfolio-value-bold {
+    font-weight: bold;
+}
+.portfolio-table td:first-child {
+    text-align: left;
+    font-size: 12px;
+}
+
+/* 🔹 평가손익(%) 및 평가손익(KRW) 컬럼 색상 조정 */
+.portfolio-profit-positive {
+    color: #dd3c44; /* 빨간색 (수익) */
+    font-weight: bold;
+}
+
+.portfolio-profit-negative {
+    color: #0062df; /* 파란색 (손실) */
+    font-weight: bold;
+}
+.portfolio-chart-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+}
+.portfolio-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    text-align: center;
+}
+/* 사용자 정보 */
+.portfolio-user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;  /* 이미지와 텍스트 사이의 간격을 16px로 설정 */
+}
+
+/* 사용자 이미지 */
+.portfolio-user-img {
+/*    width: 100px; !* 이미지 크기 증가 *!
+    height: 100px; !* 이미지 크기 증가 *!
+    border-radius: 50%; !* 원형 모양 유지 *!*/
+}
+
+/* 사용자 텍스트 컨테이너 */
+.portfolio-user-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 사용자 텍스트 */
+.portfolio-user-text {
+    font-size: 18px;
+    color: #000000;
+    font-weight: bold;
+
+}
+
+.portfolio-user-investorclass {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111827;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.portfolio-user-investorclass-container{
+    text-align: left;
+}
+.portfolio-investment-test-btn {
+    background-color: #37383C; /* 배경색 */
+    color: #fff; /* 글자 색 */
+    border-radius: 10px; /* 모서리 둥글기 */
+    width: 180px; /* 버튼 너비 */
+    height: 40px; /* 버튼 높이 */
+    font-size: 14px; /* 글자 크기 */
+    font-weight: bold; /* 글자 두께 */
+    text-transform: none; /* 텍스트 변환 비활성화 */
+    line-height: 1; /* 줄 간격 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+.portfolio-investment-test-btn:hover {
+    background-color: #292A2D; /* hover 시 배경색 */
+}
+

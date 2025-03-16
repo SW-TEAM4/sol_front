@@ -2,25 +2,10 @@ import { useEffect, useState } from 'react';
 import { getTransactionHistory } from '../../api/accountApi';
 
 const CATEGORY_MAP = {
-    0: '연결된 증권계좌로 이체',
+    0: '연결된 증권 계좌로 이체',
     1: '이자 입금',
     2: '챌린지 이체',
     3: '캐시백',
-};
-
-// 날짜 포맷 함수
-const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    return (
-        <>
-            <strong>{`${month}.${day}`}</strong> | {`${hours}:${minutes}`}
-        </>
-    );
 };
 
 const TransactionHistory = () => {
@@ -32,27 +17,33 @@ const TransactionHistory = () => {
             try {
                 const data = await getTransactionHistory();
                 const formattedData = data
-                    .map((tx) => ({
-                        dateTime: formatDate(tx.created),
-                        // ⭐ 직접 매칭하도록 수정
-                        type:
+                    .map((tx) => {
+                        const displayType =
                             CATEGORY_MAP[parseInt(tx.display_name)] ||
-                            tx.display_name,
-                        amount:
-                            tx.des_wit_type === '1'
-                                ? -tx.transfer_balance
-                                : tx.transfer_balance,
-                        balance:
-                            tx.des_wit_type === '1'
-                                ? tx.pre_balance // 출금이면 빼기
-                                : tx.pre_balance// 입금이면 더하기
-                    }))
-                    // 내림 차순 정렬
+                            tx.display_name;
+
+                        return {
+                            dateTime: new Date(tx.created).toLocaleString(
+                                'ko-KR',
+                                {
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: false,
+                                }
+                            ),
+                            type: displayType,
+                            amount:
+                                tx.des_wit_type === '1'
+                                    ? -tx.transfer_balance
+                                    : tx.transfer_balance,
+                            balance: tx.pre_balance,
+                        };
+                    })
                     .sort(
-                        (a, b) =>
-                            new Date(b.date + ' ' + b.time) -
-                            new Date(a.date + ' ' + a.time)
-                    );
+                        (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
+                    ); // 최신순 정렬
 
                 setTransactions(formattedData);
             } catch (error) {
@@ -72,7 +63,7 @@ const TransactionHistory = () => {
             <h3>거래 내역</h3>
 
             <div className="filter-buttons">
-                {['전체', '캐시백', '이자 입금', '챌린지 이체'].map(
+                {['전체', '이자 입금', '챌린지 이체', '캐시백'].map(
                     (category) => (
                         <button
                             key={category}

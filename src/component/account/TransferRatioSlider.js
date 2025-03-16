@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import Slider from '@mui/material/Slider';
-
-import {
-    getBalance,
-    getTransferRatio,
-    setTransferRatio,
-} from '../../api/accountApi';
+import { getBalance, getTransferRatio, setTransferRatio } from '../../api/accountApi';
 import Modal from './Modal';
+
+// JWT 토큰을 로컬스토리지에서 가져오는 함수
+const getAuthToken = async () => {
+    return `Bearer ${localStorage.getItem("jwtToken")}`;
+};
 
 // 이체 비율 조정 슬라이더
 const TransferRatioSlider = () => {
@@ -20,6 +20,7 @@ const TransferRatioSlider = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // JWT 토큰을 헤더에 포함시켜서 API 호출
                 const ratioData = await getTransferRatio();
                 const balanceData = await getBalance();
 
