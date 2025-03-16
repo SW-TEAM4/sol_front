@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap');
 
-body {
-    font-family: "Noto Sans", sans-serif;
-}
 /* 전체 페이지 스타일 */
 .parking-account {
     display: flex;
@@ -11,11 +8,9 @@ body {
     background-color: #F8F9FB;
     min-height: 100vh;
     padding: 40px 20px;
-
-
 }
 
-.container {
+.parking-container {
     width: 100%;
     max-width: 1000px;
     display: flex;

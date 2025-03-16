@@ -7,20 +7,17 @@ import '../styles/ParkingAccount.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const ParkingAccount = () => {
-
     const navigate = useNavigate();
 
     useEffect(() => {
-        // 여기서 리디렉트가 일어나면 "/account"에 접근이 안 됨
         navigate('/parking');
     }, []);
 
     return (
         <>
             <div className="parking-account">
-                <div className="container">
+                <div className="parking-container">
                     <BalanceDisplay />
                     <TransferRatioSlider />
                     <InterestDisplay />
@@ -33,7 +30,7 @@ const ParkingAccount = () => {
                         marginTop: '-25px',
                     }}
                 ></div>
-                <div className="container">
+                <div className="parking-container">
                     <TransactionHistory />
                 </div>
             </div>

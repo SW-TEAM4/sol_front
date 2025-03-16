@@ -78,6 +78,7 @@ const InterestDisplay = () => {
     const handleReceiveInterest = async () => {
         try {
             await collectInterest();
+            await fetchAccountData();
 
             window.location.reload();
         } catch (error) {

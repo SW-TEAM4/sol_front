@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getBalance, getTransactionHistory, getUserName } from '../../api/accountApi';
+import {
+    getBalance,
+    getTransactionHistory,
+    getUserName,
+} from '../../api/accountApi';
 
 import Button from '@mui/material/Button';
 import TransferModal from '../../pages/transferModal';
@@ -73,7 +77,7 @@ const BalanceDisplay = () => {
         };
 
         fetchUpdatedBalance();
-    }, [balance]); // 🔥 잔액 변경 감지 시 실행되도록 의존성 추가
+    }, [balance]);
 
     return (
         <div className="balance-container">
@@ -88,7 +92,10 @@ const BalanceDisplay = () => {
             </div>
 
             {isTransferModalOpen && (
-                <TransferModal open={isTransferModalOpen} onClose={() => setIsTransferModalOpen(false)} />
+                <TransferModal
+                    open={isTransferModalOpen}
+                    onClose={() => setIsTransferModalOpen(false)}
+                />
             )}
         </div>
     );
