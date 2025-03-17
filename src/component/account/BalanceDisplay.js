@@ -61,7 +61,7 @@ const BalanceDisplay = () => {
         fetchInitialData();
     }, []);
 
-    // 거래 내역 변경 시 잔고 업데이트
+    // 거래 내역 변경 시 잔고 업데이트 [Check 2025.03.16]
     useEffect(() => {
         const fetchUpdatedBalance = async () => {
             try {

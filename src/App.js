@@ -62,7 +62,7 @@ function App() {
                                 <Route path="/news" element={<NewsList />} />
                                 <Route
                                     path="/assets"
-                                    element={<PortfolioList />}
+                                    element={<Portfolio />}
                                 />
                                 <Route
                                     path="/parking"
