@@ -22,9 +22,7 @@ const TransferModal = ({ open, onClose }) => {
     const [amount, setAmount] = useState('');
     const [step, setStep] = useState(1);
     const [recipientName, setRecipientName] = useState('');
-    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-    const [message, setMessage] = useState("");                             // 응답 메시지
-
+    const [message, setMessage] = useState(''); // 에러 메시지
 
     useEffect(() => {
         if (open) {
@@ -46,34 +44,38 @@ const TransferModal = ({ open, onClose }) => {
 
     const handleCheckAccounts = async () => {
         if (!toAccount) {
-            setMessage("조회되지 않는 계좌번호입니다.");
+            setMessage('조회되지 않는 계좌번호입니다.');
             return;
         }
         if (fromAccount === toAccount) {
-            setMessage("출금계좌와 입금 계좌가 동일합니다. 다른 계좌를 입력해 주세요.");
+            setMessage(
+                '출금 계좌와 입금 계좌가 동일합니다. 다른 계좌를 입력해 주세요.'
+            );
             return;
         }
 
-
         try {
-            const checkAccounts = await  axios.get(`http://localhost:8090/api/account/check-accounts`,
-            {
-                params: {
-                    fromAccount: fromAccount,
-                    toAccount: toAccount,
-                },
-                headers: {
-                    Authorization: getAuthToken(),
-                },
-                withCredentials: true,
-            });
+            const checkAccounts = await axios.get(
+                `http://localhost:8090/api/account/check-accounts`,
+                {
+                    params: {
+                        fromAccount: fromAccount,
+                        toAccount: toAccount,
+                    },
+                    headers: {
+                        Authorization: getAuthToken(),
+                    },
+                    withCredentials: true,
+                }
+            );
 
-            if(checkAccounts !== "VALID") {
+            if (checkAccounts.data !== 'VALID') {
                 setMessage(checkAccounts.data);
                 return;
             }
-        }catch (error) {
-            setMessage("계좌 확인 중 오류가 발생했습니다.");
+        } catch (error) {
+            setMessage('계좌 확인 중 오류가 발생했습니다.');
+            return;
         }
 
         try {
@@ -87,10 +89,7 @@ const TransferModal = ({ open, onClose }) => {
                 }
             );
             setRecipientName(getOtherUserName.data || toAccount);
-
-            console.log('받는 사람 이름:', getOtherUserName.data);
-
-            setMessage("");
+            setMessage('');
             setStep(2);
         } catch (error) {
             console.error(
@@ -100,14 +99,33 @@ const TransferModal = ({ open, onClose }) => {
         }
     };
 
+    const handleAmountChange = (e) => {
+        let value = e.target.value.replace(/[^0-9]/g, '');
+        value = Number(value) || 0;
+
+        // 즉각적으로 잔액 초과 검사
+        if (value > balance) {
+            setMessage('출금 가능 금액을 초과했습니다.');
+        } else {
+            setMessage('');
+        }
+
+        setAmount(value.toLocaleString()); // 천 단위 콤마 추가
+    };
+
     const handleTransfer = async () => {
+        if (Number(amount.replace(/,/g, '')) > balance) {
+            setMessage('출금 가능 금액을 초과했습니다.');
+            return;
+        }
+
         try {
             const response = await axios.post(
                 'http://localhost:8090/api/account/transfer',
                 {
                     fromAccount,
                     toAccount,
-                    amount: parseInt(amount, 10),
+                    amount: parseInt(amount.replace(/,/g, ''), 10),
                 },
                 {
                     headers: {
@@ -119,8 +137,6 @@ const TransferModal = ({ open, onClose }) => {
 
             console.log('이체 성공:', response.data);
             window.location.reload();
-
-            setIsSuccessModalOpen(true);
         } catch (error) {
             console.error('이체 실패:', error.response?.data || error.message);
         }
@@ -134,12 +150,13 @@ const TransferModal = ({ open, onClose }) => {
                         <motion.div className="transfer-step1">
                             <Typography variant="h5" className="modal-title">
                                 이체
-                                {message && (
-                                    <div className="trans-error-message">
-                                        {message}
-                                    </div>
-                                )}
                             </Typography>
+
+                            {message && (
+                                <div className="trans-error-message">
+                                    {message}
+                                </div>
+                            )}
 
                             <Box className="trans-form-container">
                                 <Box className="input-box">
@@ -165,25 +182,16 @@ const TransferModal = ({ open, onClose }) => {
                                             <strong>
                                                 {balance.toLocaleString()}
                                             </strong>
-                                            원 )
+                                            원)
                                         </span>
                                     </Typography>
                                     <input
-                                        type="text" // 🔹 number → text로 변경 (화살표 제거 목적)
+                                        type="text"
                                         value={amount}
-                                        onChange={(e) =>
-                                            setAmount(
-                                                Number(
-                                                    e.target.value.replace(
-                                                        /[^0-9]/g,
-                                                        ''
-                                                    ) || 0
-                                                ).toLocaleString()
-                                            )
-                                        }
+                                        onChange={handleAmountChange}
                                         className="color-input-field"
                                         placeholder="0원"
-                                        inputMode="numeric" // 🔹 모바일 키보드 숫자 전용
+                                        inputMode="numeric"
                                     />
                                 </Box>
                             </Box>
@@ -239,8 +247,10 @@ const TransferModal = ({ open, onClose }) => {
                                     className="text-center large-text"
                                 >
                                     {recipientName}님께{' '}
-                                    {Number(amount).toLocaleString()}원을
-                                    이체합니다.
+                                    {Number(
+                                        amount.replace(/,/g, '')
+                                    ).toLocaleString()}
+                                    원을 이체합니다.
                                 </Typography>
 
                                 <Typography
