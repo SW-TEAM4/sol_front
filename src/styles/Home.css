@@ -28,14 +28,11 @@
     text-align: left;
 }
 
-
-
 /* 4. 챌린지 카드 스타일 */
 .challenge-card {
     background-color: #C0D5FE;
-    justify-content: space-between;
     height: 100%;
-    padding: 35px;
+    padding: 30px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -44,7 +41,6 @@
 .challenge-image {
     width: 120px;
     height: 120px;
-    object-fit: contain;
 }
 
 .challenge-text {
@@ -69,7 +65,7 @@
 .money-card {
     background-color: #FFA163;
     justify-content: space-evenly;
-    padding: 35px;
+    padding: 20px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -79,40 +75,35 @@
 .money-image {
     width: 120px;
     height: 120px;
-    margin-right: 10px;
 }
 
 .money-text {
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* 왼쪽 정렬 */
+    align-items: flex-start;
 }
 
 .money-text p {
     margin: 0;
     font-size: 18px;
-    line-height: 1.5;
 }
 
 .money-amount {
-    display: flex;
-    align-items: center;
-    font-size: 32px; /* 글자 크기 증가 */
+    font-size: 32px;
     font-weight: bold;
-    margin-top: 10px; /* 간격 증가 */
+    margin-top: 10px;
 }
 
 .money-arrow-button {
     background-color: transparent;
     border: none;
-    font-size: 32px; /* 화살표 크기 증가 */
+    font-size: 32px;
     cursor: pointer;
     color: white;
-    margin-left: 12px; /* 간격 증가 */
+    margin-left: 12px;
     padding: 0;
 }
-
 
 /* 6. 파킹 통장 안내 섹션 */
 .parking-info {
@@ -135,6 +126,7 @@
     font-size: 25px;
     text-align: right;
     line-height: 1.3;
+    margin-right: 30px;
 }
 
 .parking-text p {
@@ -151,4 +143,100 @@
 .parking-text-highlight {
     color: #263FBD;
     display: inline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .home-container {
+        padding: 20px 10%;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-container {
+        padding: 20px 5%;
+    }
+
+    .sections-container {
+        gap: 50px;
+    }
+
+    .challenge-text h3 {
+        font-size: 22px;
+    }
+
+    .money-amount {
+        font-size: 28px;
+    }
+
+    .parking-info {
+        gap: 40px;
+    }
+
+    .parking-text {
+        font-size: 20px;
+    }
+
+    .percentage-highlight {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sections-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .challenge-image, .money-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .challenge-text p {
+        font-size: 14px;
+    }
+
+    .money-text p {
+        font-size: 16px;
+    }
+
+    .parking-info {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .parking-text {
+        text-align: center;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .challenge-card, .money-card {
+        padding: 15px;
+    }
+
+    .challenge-image, .money-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .challenge-text h3 {
+        font-size: 18px;
+    }
+
+    .money-amount {
+        font-size: 22px;
+    }
+
+    .parking-image {
+        width: 150px;
+        height: 120px;
+    }
+
+    .percentage-highlight {
+        font-size: 22px;
+    }
 }

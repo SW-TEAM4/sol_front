@@ -12,7 +12,6 @@ import './App.css';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
 import PortfolioList from './component/portfolio/PortfolioList';
-import ParkingAccount from './pages/ParkingAccount';
 import BasicInfoForm from './pages/BasicInfoForm';
 import RedirectHandler from './pages/onboarding/RedirectHandler';
 import Portfolio from './pages/Portfolio/Portfolio';
