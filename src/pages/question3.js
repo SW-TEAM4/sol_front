@@ -20,55 +20,63 @@ const Question3 = ({ addScore, subtractScore }) => {
             <img
                 src="/assets/images/analyzeTest/sol_logo.svg"
                 alt="sol_logo"
-                className="sol_logo"
+                className="question-sol_logo"
             />
             <div className="questions-box">
                 <img
                     src="/assets/images/analyzeTest/question3.svg"
                     alt="question3"
-                    className="progress"
+                    className="question-progress"
                 />
-                <h2 className="question">사고 싶은 주식이 있는데</h2>
-                <h2 className="sub-text">지금 당장 사는게 좋을까...?</h2>
+                <h2 className="question-question">사고 싶은 주식이 있는데</h2>
+                <h2 className="question-sub-text">
+                    지금 당장 사는게 좋을까...?
+                </h2>
 
                 <button
-                    className="option option-1"
+                    className="question-option option-1"
                     onClick={() => handleAnswer(3)}
                 >
                     <img
                         src="/assets/images/analyzeTest/answer3_1.svg"
                         alt="answer3_1"
-                        className="answer3_1"
+                        className="question-answer3_1"
                     />
                     <img
                         src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Drooling%20Face.png"
                         alt="answer3_1"
-                        className="emoji"
+                        className="question-emoji"
                     />
                 </button>
 
                 <button
-                    className="option option-2"
+                    className="question-option option-2"
                     onClick={() => handleAnswer(1)}
                 >
                     <img
                         src="/assets/images/analyzeTest/answer3_2.svg"
                         alt="answer3_2"
-                        className="answer3_2"
+                        className="question-answer3_2"
                     />
                     <img
                         src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20with%20Rolling%20Eyes.png"
                         alt="answer3_2"
-                        className="emoji"
+                        className="question-emoji"
                     />
                 </button>
             </div>
 
-            <div className="button-container">
-                <button className="prev-button" onClick={() => navigate(-1)}>
-                    <img src="/assets/images/analyzeTest/back.svg" alt="back" />
-                </button>
-                <p className="next-time" onClick={() => navigate('/challenge')}>
+            <div className="question-button-container">
+                <img
+                    src="/assets/images/analyzeTest/back.svg"
+                    alt="back"
+                    onClick={() => navigate(-1)}
+                    className="question-prev-button"
+                />
+                <p
+                    className="question-next-time"
+                    onClick={() => navigate('/home')}
+                >
                     다음에 할게요
                 </p>
             </div>

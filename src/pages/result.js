@@ -3,10 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './result.css';
 
-const Result = ({ userIdx, totalScore, setTotalScore }) => {
+const Result = ({ totalScore, setTotalScore }) => {
     const navigate = useNavigate();
     const [investorInfo, setInvestorInfo] = useState({});
     const [otherInvestors, setOtherInvestors] = useState([]);
+    const [userIdx, setUserIdx] = useState(null); // userIdx 상태 추가
 
     // 투자자 유형 데이터
     const investorTypes = {
@@ -31,6 +32,25 @@ const Result = ({ userIdx, totalScore, setTotalScore }) => {
     };
 
     useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                // 쿠키에서 JWT 토큰을 가져오기 위해 withCredentials: true 사용
+                const response = await axios.get(
+                    'http://localhost:8090/api/user/user',
+                    {
+                        withCredentials: true, // 쿠키를 포함한 요청
+                    }
+                );
+                console.log(response.data);
+
+                setUserIdx(response.data.result.userIdx); // userIdx 설정
+            } catch (err) {
+                console.log('❌ 사용자 정보 가져오기 실패:', err);
+            }
+        };
+
+        fetchUserData(); // 사용자 정보 가져오기
+
         if (totalScore <= 5) {
             setInvestorInfo(investorTypes.ansook);
             setOtherInvestors([investorTypes.chacheol, investorTypes.yeolsik]);
@@ -45,9 +65,11 @@ const Result = ({ userIdx, totalScore, setTotalScore }) => {
         //백엔드에 점수 저장
         if (userIdx && totalScore !== undefined) {
             axios
-                .post(`http://localhost:8090/api/user/${userIdx}/score`, {
-                    score: totalScore,
-                })
+                .post(
+                    `http://localhost:8090/api/user/score`,
+                    { score: totalScore },
+                    { withCredentials: true } // 쿠키를 함께 보내도록 설정
+                )
                 .then(() => console.log('✅ 점수 저장 완료:', totalScore))
                 .catch((err) => console.log('❌ 점수 저장 실패:', err));
         }
@@ -56,18 +78,11 @@ const Result = ({ userIdx, totalScore, setTotalScore }) => {
     // 다시하기 버튼 클릭 시 점수 초기화
     const handleRestart = () => {
         setTotalScore(0); // 점수 초기화
-        navigate('/'); // 홈으로 이동
+        navigate('/question'); // 홈으로 이동
     };
 
     return (
         <div className="result-container">
-            {/* 상단 로고 */}
-            {/*<img*/}
-            {/*    src="/assets/images/analyzeTest/sol_logo.svg"*/}
-            {/*    alt="sol_logo"*/}
-            {/*    className="sol_logo"*/}
-            {/*/>*/}
-
             {/* 현재 투자자 성향 결과 */}
             <div className="investor-result">
                 <p className="result-name">{investorInfo.name}</p>
@@ -90,18 +105,18 @@ const Result = ({ userIdx, totalScore, setTotalScore }) => {
 
             {/* 다시하기 버튼, () => navigate('/') */}
             <div className="buttons">
-                <button className="retry-button" onClick={handleRestart}>
-                    <img
-                        src="/assets/images/analyzeTest/again.svg"
-                        alt="again"
-                    />
-                </button>
-                <button
+                <img
+                    src="/assets/images/analyzeTest/again.svg"
+                    alt="again"
+                    className="retry-button"
+                    onClick={handleRestart}
+                />
+                <img
+                    src="/assets/images/analyzeTest/out.svg"
+                    alt="out"
                     className="out-button"
-                    onClick={() => navigate('/challenge')}
-                >
-                    <img src="/assets/images/analyzeTest/out.svg" alt="out" />
-                </button>
+                    onClick={() => navigate('/home')}
+                />
             </div>
 
             {/* 다른 유형들 표시 */}
