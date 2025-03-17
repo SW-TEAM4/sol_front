@@ -6,11 +6,6 @@ const AnalyzeTest = () => {
 
     return (
         <div className="wrap-container">
-            {/*<img*/}
-            {/*    src="/assets/images/analyzeTest/sol_logo.svg"*/}
-            {/*    alt="sol_logo"*/}
-            {/*    className="sol_logo"*/}
-            {/*/>*/}
             <div className="banner-container">
                 <img
                     src="/assets/images/analyzeTest/banner.svg"
@@ -37,9 +32,12 @@ const AnalyzeTest = () => {
                     나는 어떤 성향일까?
                 </p>
             </div>
-            <button className="start-button" onClick={() => navigate('/q1')}>
-                <img src="/assets/images/analyzeTest/start.svg" alt="start" />
-            </button>
+            <img
+                src="/assets/images/analyzeTest/start.svg"
+                alt="start"
+                className="start-button"
+                onClick={() => navigate('/q1')}
+            />
             <p className="next-time" onClick={() => navigate('/challenge')}>
                 다음에 할게요
             </p>

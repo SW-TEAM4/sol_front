@@ -1,11 +1,18 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pigImage from '../../images/pig.svg';
 import moneyImage from '../../images/money.svg';
 import penguinImage from '../../images/penguin.svg';
+import Challenge from '../../pages/challenge';
 
 const HomeMainContent = () => {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleChallengeCardClick = () => {
+        setIsModalOpen(true); // 클릭 시 모달 열기
+    };
 
     return (
         <>
@@ -16,7 +23,7 @@ const HomeMainContent = () => {
                     <h1 className="section-title">챌린지</h1>
                     <div
                         className="challenge-card"
-                        onClick={() => navigate('/challenge')}
+                        onClick={handleChallengeCardClick}
                         style={{ cursor: 'pointer' }}
                     >
                         <div className="challenge-text">
@@ -81,6 +88,12 @@ const HomeMainContent = () => {
                     </span>
                 </div>
             </div>
+
+            {/* Challenge 컴포넌트 추가 */}
+            <Challenge
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+            />
         </>
     );
 };
