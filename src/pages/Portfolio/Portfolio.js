@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import "./Portfolio.css";
 import personal_investor1 from '../../images/personal_investor1.svg';
 import personal_investor2 from '../../images/personal_investor2.svg';
 import personal_investor3 from '../../images/personal_investor3.svg';
 import portfolio_default from '../../images/portfolio_default.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Portfolio = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        // 여기서 리디렉트가 일어나면 "/account"에 접근이 안 됨
+        navigate('/assets');
+    }, []);
     // 보유 비중 데이터
     const assets = [
         { id: 0, value: 54.7, label: "KRW", color: "#6FAE3F" },

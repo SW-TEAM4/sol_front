@@ -23,6 +23,8 @@ const TransferModal = ({ open, onClose }) => {
     const [step, setStep] = useState(1);
     const [recipientName, setRecipientName] = useState('');
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    const [message, setMessage] = useState("");                             // 응답 메시지
+
 
     useEffect(() => {
         if (open) {
@@ -44,10 +46,34 @@ const TransferModal = ({ open, onClose }) => {
 
     const handleCheckAccounts = async () => {
         if (!toAccount) {
+            setMessage("조회되지 않는 계좌번호입니다.");
             return;
         }
         if (fromAccount === toAccount) {
+            setMessage("출금계좌와 입금 계좌가 동일합니다. 다른 계좌를 입력해 주세요.");
             return;
+        }
+
+
+        try {
+            const checkAccounts = await  axios.get(`http://localhost:8090/api/account/check-accounts`,
+            {
+                params: {
+                    fromAccount: fromAccount,
+                    toAccount: toAccount,
+                },
+                headers: {
+                    Authorization: getAuthToken(),
+                },
+                withCredentials: true,
+            });
+
+            if(checkAccounts !== "VALID") {
+                setMessage(checkAccounts.data);
+                return;
+            }
+        }catch (error) {
+            setMessage("계좌 확인 중 오류가 발생했습니다.");
         }
 
         try {
@@ -64,6 +90,7 @@ const TransferModal = ({ open, onClose }) => {
 
             console.log('받는 사람 이름:', getOtherUserName.data);
 
+            setMessage("");
             setStep(2);
         } catch (error) {
             console.error(
@@ -105,8 +132,13 @@ const TransferModal = ({ open, onClose }) => {
                 <AnimatePresence mode="wait">
                     {step === 1 && (
                         <motion.div className="transfer-step1">
-                            <Typography variant="h4" className="modal-title">
+                            <Typography variant="h5" className="modal-title">
                                 이체
+                                {message && (
+                                    <div className="trans-error-message">
+                                        {message}
+                                    </div>
+                                )}
                             </Typography>
 
                             <Box className="trans-form-container">
@@ -130,22 +162,28 @@ const TransferModal = ({ open, onClose }) => {
                                         금액{' '}
                                         <span className="sub-text">
                                             (출금 가능 금액:{' '}
-                                            {balance.toLocaleString()}원)
+                                            <strong>
+                                                {balance.toLocaleString()}
+                                            </strong>
+                                            원 )
                                         </span>
                                     </Typography>
                                     <input
-                                        type="text"
+                                        type="text" // 🔹 number → text로 변경 (화살표 제거 목적)
                                         value={amount}
                                         onChange={(e) =>
                                             setAmount(
-                                                e.target.value.replace(
-                                                    /[^0-9]/g,
-                                                    ''
-                                                )
+                                                Number(
+                                                    e.target.value.replace(
+                                                        /[^0-9]/g,
+                                                        ''
+                                                    ) || 0
+                                                ).toLocaleString()
                                             )
                                         }
                                         className="color-input-field"
                                         placeholder="0원"
+                                        inputMode="numeric" // 🔹 모바일 키보드 숫자 전용
                                     />
                                 </Box>
                             </Box>
@@ -154,7 +192,7 @@ const TransferModal = ({ open, onClose }) => {
                                 받는 분과 금액을 한 번 더 확인해 주세요.
                             </Typography>
 
-                            <Box className="button-container">
+                            <Box className="step1-button-container">
                                 <Button
                                     onClick={handleCheckAccounts}
                                     style={{
@@ -182,11 +220,20 @@ const TransferModal = ({ open, onClose }) => {
 
                     {step === 2 && (
                         <motion.div className="transfer-step2">
-                            <Typography variant="h4" className="modal-title">
+                            <Typography variant="h5" className="modal-title">
                                 이체
                             </Typography>
-
                             <Box className="transfer-content">
+                                <img
+                                    src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Airplane%20Departure.png"
+                                    alt="Airplane Departure"
+                                    width="160"
+                                    height="160"
+                                    className="blockImage"
+                                    draggable="false"
+                                    onMouseDown={(e) => e.preventDefault()}
+                                    onClick={(e) => e.currentTarget.blur()}
+                                />
                                 <Typography
                                     variant="h4"
                                     className="text-center large-text"
@@ -204,7 +251,7 @@ const TransferModal = ({ open, onClose }) => {
                                 </Typography>
                             </Box>
 
-                            <div className="button-container">
+                            <div className="step2-button-container">
                                 <Button
                                     onClick={() => setStep(1)}
                                     style={{
