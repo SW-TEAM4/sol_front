@@ -1,18 +1,21 @@
 .market-indices-container {
     width: 100%;
-    margin: 0;
+    height: 30px;
     overflow: hidden;
     position: relative;
     background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
 }
 
 .market-indices-scroll {
     display: flex;
     white-space: nowrap;
     width: 400%;
-    animation: marketScroll 40s linear infinite;
+    animation: marketScroll 30s linear infinite;
     will-change: transform;
     transform: translateZ(0);
+    align-items: center;
 }
 
 @keyframes marketScroll {
@@ -21,12 +24,12 @@
 }
 
 .market-index {
-    flex: 0 0 auto;
-    padding: 8px 20px;
+    padding: 0 20px;
+    justify-items: center;
+    background-color: #f8f9fa;
     display: flex;
     align-items: center;
-    background-color: #f8f9fa;
-    border-right: 1px solid #e9ecef;
+    height: 100%;
 }
 
 .market-index-text {
@@ -38,24 +41,14 @@
     font-size: 14px;
     color: #555;
     font-weight: normal;
-    margin-right: 10px;
-}
-
-.current-value {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-right: 5px;
+    margin: 0 10px 0 0;
 }
 
 .change-value {
     font-size: 14px;
     font-weight: normal;
+    margin: 0 0 0 10px;
 }
 
 .positive { color: #FF3B30; }
 .negative { color: #007AFF; }
-
-.mini-chart {
-    display: none; /* 이미지에는 차트가 없음 */
-}

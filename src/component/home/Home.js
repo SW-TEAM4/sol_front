@@ -7,6 +7,7 @@ import HomeMainContent from './HomeMainContent';
 import FootBanner from './FootBanner';
 import QuizSection from './QuizSection';
 import MarketIndices from './MarketIndices';
+import StockPicks from './StockPicks';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -48,6 +49,9 @@ const Home = () => {
 
             {/* 카테고리 섹션 */}
             <CategoryList />
+
+            {/* 지수 섹션 */}
+            <StockPicks />
 
             {/* 지수 섹션 */}
             <MarketIndices />

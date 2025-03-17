@@ -27,9 +27,9 @@ const MarketIndices = () => {
     const [indices, setIndices] = useState({
         kospi: { current: 0, change: 0, changePercent: 0, chartData: [] },
         kosdaq: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        dow: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        nasdaq: { current: 0, change: 0, changePercent: 0, chartData: [] },
         sp500: { current: 0, change: 0, changePercent: 0, chartData: [] },
+        nasdaq: { current: 0, change: 0, changePercent: 0, chartData: [] },
+        dow: { current: 0, change: 0, changePercent: 0, chartData: [] },
         usdKrw: { current: 0, change: 0, changePercent: 0, chartData: [] },
     });
     const [loading, setLoading] = useState(true);
@@ -37,9 +37,9 @@ const MarketIndices = () => {
     const [visibleIndices] = useState([
         'kospi',
         'kosdaq',
-        'dow',
-        'nasdaq',
         'sp500',
+        'nasdaq',
+        'dow',
         'usdKrw',
     ]);
 
@@ -47,9 +47,9 @@ const MarketIndices = () => {
     const indexInfo = {
         kospi: { name: '코스피 종합', type: 'korean' },
         kosdaq: { name: '코스닥 종합', type: 'korean' },
-        dow: { name: '다우 산업', type: 'american' },
-        nasdaq: { name: '나스닥 종합', type: 'american' },
         sp500: { name: 'S&P 500', type: 'american' },
+        nasdaq: { name: '나스닥 종합', type: 'american' },
+        dow: { name: '다우 산업', type: 'american' },
         usdKrw: { name: '원/달러 환율', type: 'currency' },
     };
 

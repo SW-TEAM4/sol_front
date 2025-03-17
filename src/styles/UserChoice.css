@@ -4,13 +4,15 @@
     width: 100%;
     padding: 0 10px;
 }
+
 .arrow-button {
     background-color: transparent;
     border: none;
-    font-size: 32px; /* 화살표 크기 조정 */
+    font-size: 32px;
     cursor: pointer;
     color: #333;
 }
+
 .user-info {
     display: flex;
     align-items: center;
@@ -25,7 +27,6 @@
     height: 150px;
     object-fit: contain;
 }
-
 
 .user-text {
     display: flex;
@@ -52,4 +53,74 @@
     margin-right: 10px;
     font-size: 27px;
     color: #555;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 992px) {
+    .user-text {
+        font-size: 24px;
+    }
+
+    .user-name-bold {
+        font-size: 28px;
+    }
+
+    .highlight {
+        font-size: 24px;
+    }
+
+    .user-tags, .user-tags span {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .user-text {
+        font-size: 20px;
+    }
+
+    .user-name-bold {
+        font-size: 24px;
+    }
+
+    .highlight {
+        font-size: 20px;
+    }
+
+    .user-tags, .user-tags span {
+        font-size: 18px;
+    }
+
+    .arrow-button {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .user-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .user-text {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .user-name-bold {
+        font-size: 22px;
+    }
+
+    .highlight {
+        font-size: 18px;
+    }
+
+    .user-tags, .user-tags span {
+        font-size: 16px;
+    }
 }
