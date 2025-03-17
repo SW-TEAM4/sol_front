@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { getBalance, getTransactionHistory, getUserName } from '../../api/accountApi';
+import {
+    getBalance,
+    getTransactionHistory,
+    getUserName,
+} from '../../api/accountApi';
 
 import Button from '@mui/material/Button';
 import TransferModal from '../../pages/transferModal';
-import axios from 'axios';
 
 // 빼기 버튼 컴포넌트
 const RemoveButton = ({ onClick }) => {
@@ -43,27 +46,30 @@ const BalanceDisplay = () => {
     };
 
     useEffect(() => {
-        const fetchBalance = async () => {
-            const data = await getBalance();
-            setBalance(data);
-            setUserName(await getUserName());
+        const fetchInitialData = async () => {
+            try {
+                const balanceData = await getBalance(); // 잔액 조회
+                setBalance(balanceData);
 
+                const userNameData = await getUserName(); // 사용자 이름 조회
+                setUserName(userNameData);
+            } catch (error) {
+                console.error('잔액 또는 사용자 정보 가져오기 실패:', error);
+            }
         };
-        fetchBalance();
+
+        fetchInitialData();
     }, []);
 
-    // 거래 내역 변경 시 잔고 업데이트
+    // 거래 내역 변경 시 잔고 업데이트 [Check 2025.03.16]
     useEffect(() => {
         const fetchUpdatedBalance = async () => {
             try {
                 const transactions = await getTransactionHistory();
+
                 if (transactions.length > 0) {
-                    const latestTransaction = transactions[0]; // 최신 거래 내역
-                    const updatedBalance =
-                        latestTransaction.des_wit_type === '1'
-                            ? latestTransaction.pre_balance
-                            : latestTransaction.pre_balance;
-                    setBalance(updatedBalance);
+                    const latestTransaction = transactions[0]; // 최신 거래 내역 가져오기
+                    setBalance(latestTransaction.pre_balance);
                 }
             } catch (error) {
                 console.error('거래 내역 조회 실패:', error);
@@ -71,7 +77,7 @@ const BalanceDisplay = () => {
         };
 
         fetchUpdatedBalance();
-    }, []);
+    }, [balance]);
 
     return (
         <div className="balance-container">
@@ -86,7 +92,10 @@ const BalanceDisplay = () => {
             </div>
 
             {isTransferModalOpen && (
-                <TransferModal open={isTransferModalOpen} onClose={() => setIsTransferModalOpen(false)} />
+                <TransferModal
+                    open={isTransferModalOpen}
+                    onClose={() => setIsTransferModalOpen(false)}
+                />
             )}
         </div>
     );

@@ -9,7 +9,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 0;
     position: sticky;
     top: 0;
     width: 100%;
@@ -20,8 +20,16 @@ html {
 
 /* 로고 영역 */
 .logo {
-    width: 120px;
-    height: 40px;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+/* 로고 이미지 */
+.logo-image {
+    max-height: 40px;
+    width: auto;
 }
 
 /* 오른쪽 그룹 (네비게이션, 알림, 계정) */
@@ -77,4 +85,70 @@ html {
 
 .account-button-link {
     text-decoration: none;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 15px 8%;
+    }
+
+    .header-right {
+        gap: 30px;
+    }
+
+    .nav-menu {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 15px 5%;
+    }
+
+    .nav-menu {
+        gap: 20px;
+    }
+
+    .nav-menu a {
+        font-size: 14px;
+    }
+
+    .account-section {
+        gap: 20px;
+    }
+
+    .notification-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .account-button {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .account-section {
+        width: 100%;
+        justify-content: center;
+    }
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/NewsList.css';
-import defaultImage from '../../images/bank.svg'; // 기본 이미지 경로
 
 const NewsList = () => {
     const [headlines, setHeadlines] = useState([]);
@@ -118,11 +117,7 @@ const NewsList = () => {
                         >
                             {/* 이미지를 왼쪽에 배치 */}
                             <div className="news-image-container">
-                                <img
-                                    src={defaultImage}
-                                    alt={`${item.title} 관련 이미지`}
-                                    className="news-image"
-                                />
+                                <span className="news-emoji">📰</span>
                             </div>
 
                             <div className="news-content">

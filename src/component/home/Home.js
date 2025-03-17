@@ -7,6 +7,7 @@ import HomeMainContent from './HomeMainContent';
 import FootBanner from './FootBanner';
 import QuizSection from './QuizSection';
 import MarketIndices from './MarketIndices';
+import StockPicks from './StockPicks';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -32,6 +33,8 @@ const Home = () => {
             console.log('userIdx 저장 완료:', savedUserIdx);
         } else {
             console.log('userIdx 쿠키가 존재하지 않음, 온보딩으로 이동');
+            window.location.reload();
+            //navigate('/'); // 로그인 안 했으면 온보딩 페이지로 이동
         }
     }, [navigate]);
 
@@ -48,6 +51,9 @@ const Home = () => {
 
             {/* 카테고리 섹션 */}
             <CategoryList />
+
+            {/* 지수 섹션 */}
+            <StockPicks />
 
             {/* 지수 섹션 */}
             <MarketIndices />

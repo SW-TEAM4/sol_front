@@ -24,6 +24,11 @@ import Question4 from './pages/question4';
 import Question5 from './pages/question5';
 import Result from './pages/result';
 
+import BasicInfoForm from './pages/BasicInfoForm';
+import RedirectHandler from './pages/onboarding/RedirectHandler';
+import Portfolio from './pages/Portfolio/Portfolio';
+
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -89,11 +94,11 @@ function App() {
                                 <Route path="/news" element={<NewsList />} />
                                 <Route
                                     path="/assets"
-                                    element={<PortfolioList />}
+                                    element={<Portfolio />}
                                 />
                                 <Route
-                                    path="/account"
-                                    element={<div>내 계좌 페이지 (준비중)</div>}
+                                    path="/parking"
+                                    element={<ParkingAccount/>}
                                 />
                                 <Route
                                     path="/challenge"
