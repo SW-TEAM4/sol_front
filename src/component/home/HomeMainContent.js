@@ -16,6 +16,18 @@ const HomeMainContent = ({ balance }) => {
         setIsModalOpen(true); // 클릭 시 모달 열기
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const ratio = await getTransferRatio();
+                setTransferRatio(ratio);
+            } catch (error) {
+                console.error('데이터 조회 실패:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             {/* 챌린지와 머니 섹션을 감싸는 컨테이너 */}
