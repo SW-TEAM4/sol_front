@@ -8,10 +8,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #1B1F3A, #260909, #3D0D0D);
+    background: #260909;
     transition: background 1s ease-in-out;
     color: white;
 }
+
 
 .step4_container.show {
     opacity: 1;
@@ -22,9 +23,11 @@
 .step4_solro {
     width: 250px;
     position: absolute;
-    top: 10%;
+    top: 11%;
     left: 15%;
 }
+
+
 
 /* ✅ 말풍선 공통 스타일 */
 .thought-bubble {
@@ -126,8 +129,8 @@
 .coin-icon {
     width: 220px;
     position: absolute;
-    right: -130px; /* ✅ 말풍선에서 살짝 오른쪽으로 이동 */
-    top: -230px; /* ✅ 말풍선보다 위로 이동 */
+    right: 150px;
+    top: 10px;
     z-index: 4; /* ✅ 말풍선보다 위에 오도록 설정 */
 }
 /* ✅ 돋보기 이미지 */
@@ -136,8 +139,16 @@
     position: absolute;
     bottom: 20%;
     left: 10%;
+    opacity: 0;  /* 초기 상태에서 숨김 */
+    transform: translateY(30px);  /* 아래에서 시작 */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* 부드럽게 등장 */
 }
 
+/* ✅ 돋보기 이미지 등장 애니메이션 */
+.magnifier.show {
+    opacity: 1; /* 보이게 설정 */
+    transform: translateY(0); /* 원래 위치로 이동 */
+}
 
 .step4_description {
     font-size: 55px;
