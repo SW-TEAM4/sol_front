@@ -7,7 +7,7 @@ import Challenge from '../../pages/challenge';
 import { getTransferRatio } from '../../api/accountApi';
 
 const HomeMainContent = ({ balance }) => {
-    // balance prop 받기ㅎㅇㅎㅇ
+    // balance prop 받기
     const [transferRatio, setTransferRatio] = useState(null);
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +15,18 @@ const HomeMainContent = ({ balance }) => {
     const handleChallengeCardClick = () => {
         setIsModalOpen(true); // 클릭 시 모달 열기
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const ratio = await getTransferRatio();
+                setTransferRatio(ratio);
+            } catch (error) {
+                console.error('데이터 조회 실패:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -75,6 +87,7 @@ const HomeMainContent = ({ balance }) => {
                 </div>
             </div>
 
+            {/* 파킹 통장 안내 섹션 */}
             {/* 파킹 통장 안내 섹션 */}
             <Link
                 to="/parking"
