@@ -8,9 +8,15 @@ import Sample from '../../assets/images/onboarding_sample.svg';
 const OnboardingStep4 = ({}) => {
     const textRef = useRef(null);
     const [showText, setShowText] = useState(false);
+    // const [showLogo, setShowLogo] = useState(false);
+    const [showMagnifier, setShowMagnifier] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
+            // windowHeight를 항상 현재 상태에 맞게 정의
+            const windowHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+
             if (textRef.current) {
                 const rect = textRef.current.getBoundingClientRect();
                 const windowHeight =
@@ -23,22 +29,18 @@ const OnboardingStep4 = ({}) => {
                 }
             }
 
-            // ✅ Step 4에서 Step 5로 배경 부드럽게 변경
-            const step4 = document.querySelector('.step4_container');
-            const step5 = document.querySelector('.step5_container');
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-
-            if (scrollY > windowHeight * 2.3) {
-                step4.style.background =
-                    'linear-gradient(180deg, #260909, #3D0D0D)';
-                step5.style.background =
-                    'linear-gradient(180deg, #3D0D0D, #4E1A1A)';
-            } else {
-                step4.style.background =
-                    'linear-gradient(180deg, #1B1F3A, #260909)';
-                step5.style.background =
-                    'linear-gradient(180deg, #260909, #3D0D0D)';
+            // 돋보기가 보일 때
+            const magnifierElement = document.querySelector('.magnifier');
+            if (magnifierElement) {
+                const magnifierRect = magnifierElement.getBoundingClientRect();
+                if (
+                    magnifierRect.top < windowHeight * 0.8 &&
+                    magnifierRect.bottom > 0
+                ) {
+                    setShowMagnifier(true);
+                } else {
+                    setShowMagnifier(false);
+                }
             }
         };
 
@@ -57,6 +59,13 @@ const OnboardingStep4 = ({}) => {
 
             {/* ✅ 주식 아이콘 */}
             <img src={Sample} alt="Stock Group" className="stock-group" />
+
+            {/* ✅ 돋보기 이미지 */}
+            <img
+                src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Coin.png"
+                alt="coin-icon"
+                className="coin-icon"
+            />
 
             {/* ✅ 말풍선 그룹 */}
             <div className="bubble-group">
@@ -93,7 +102,7 @@ const OnboardingStep4 = ({}) => {
             <img
                 src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Magnifying%20Glass%20Tilted%20Right.png"
                 alt="Magnifying Glass"
-                className="magnifier"
+                className={`magnifier ${showMagnifier ? 'show' : ''}`} // 스크롤시 애니메이션 적용
             />
 
             {/* ✅ 투자 선택 안내 텍스트 (스크롤 감지) */}
