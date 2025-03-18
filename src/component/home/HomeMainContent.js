@@ -7,7 +7,7 @@ import Challenge from '../../pages/challenge';
 import { getTransferRatio } from '../../api/accountApi';
 
 const HomeMainContent = ({ balance }) => {
-    // balance prop 받기
+    // balance prop 받기ㅎㅇㅎㅇ
     const [transferRatio, setTransferRatio] = useState(null);
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
