@@ -88,7 +88,10 @@ function App() {
                                 />
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/news" element={<NewsList />} />
-                                <Route path="/assets" element={<Portfolio />} />
+                                <Route
+                                    path="/assets"
+                                    element={<PortfolioList />}
+                                />
                                 <Route
                                     path="/parking"
                                     element={<ParkingAccount />}
