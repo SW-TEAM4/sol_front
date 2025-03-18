@@ -91,3 +91,22 @@ export const getMarketIndices = async () => {
         throw error;
     }
 };
+
+// 카테고리에 해당하는 주식 정보
+export const getStocksByCategory = async (category) => {
+    try {
+        const response = await axios.get(
+            `${BASE_URL}/stock/category/${category}`,
+            {
+                headers: {
+                    Authorization: getAuthToken(), // 인증 헤더 추가
+                },
+                withCredentials: true, // 쿠키 전송 활성화
+            }
+        );
+        return response.data; // 주식 데이터 반환
+    } catch (error) {
+        console.error('카테고리 주식 데이터 중 에러:', error);
+        throw error;
+    }
+};

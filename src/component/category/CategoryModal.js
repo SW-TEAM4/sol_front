@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/CategoryModal.css';
 import companyNameMapping from './CompanyNameMapping';
 import categoryImages from '../category/CategoryImages';
+import { getStocksByCategory } from '../../api/StockAPI';
 
 const CategoryModal = ({ category, onClose }) => {
     const [stocks, setStocks] = useState([]);
@@ -12,14 +13,8 @@ const CategoryModal = ({ category, onClose }) => {
         const fetchStocks = async () => {
             try {
                 setLoading(true);
-                // FastAPI 서버에 직접 요청
-                const response = await fetch(
-                    `http://127.0.0.1:8000/stocks/category/${category.name}`
-                );
-                if (!response.ok) {
-                    throw new Error('데이터를 불러오는데 실패했습니다');
-                }
-                const data = await response.json();
+                // Spring Boot API 호출
+                const data = await getStocksByCategory(category.name);
                 console.log('카테고리 데이터:', data); // 디버깅용
                 setStocks(data);
             } catch (err) {
@@ -100,7 +95,7 @@ const CategoryModal = ({ category, onClose }) => {
                                             </div>
                                             <div
                                                 className={`period-value ${
-                                                    changeValue >= 0
+                                                    changeValue <= 0
                                                         ? 'positive'
                                                         : 'negative'
                                                 }`}
@@ -145,7 +140,7 @@ const CategoryModal = ({ category, onClose }) => {
                                 {/* 변동률 */}
                                 <span
                                     className={`stock-change ${
-                                        stock.yesterdayChange >= 0
+                                        stock.yesterdayChange <= 0
                                             ? 'positive'
                                             : 'negative'
                                     }`}
