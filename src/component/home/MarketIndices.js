@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { getMarketIndices } from '../../api/StockAPI';
 import '../../styles/MarketIndices.css';
 
-const IndexCard = React.memo(({ name, data }) => {
-    const isRising = data.change >= 0;
+const IndexCard = ({ name, data }) => {
+    const isRising = data.changeValue >= 0;
     const cardClass = isRising ? 'rising' : 'falling';
 
     return (
@@ -15,93 +15,59 @@ const IndexCard = React.memo(({ name, data }) => {
                     className={`change-value ${isRising ? 'positive' : 'negative'}`}
                 >
                     {isRising ? '+' : ''}
-                    {data.change.toFixed(2)} ({isRising ? '+' : ''}
+                    {data.changeValue.toFixed(2)} ({isRising ? '+' : ''}
                     {data.changePercent.toFixed(1)}%)
                 </p>
             </div>
         </div>
     );
-});
+};
 
 const MarketIndices = () => {
-    const [indices, setIndices] = useState({
-        kospi: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        kosdaq: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        sp500: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        nasdaq: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        dow: { current: 0, change: 0, changePercent: 0, chartData: [] },
-        usdKrw: { current: 0, change: 0, changePercent: 0, chartData: [] },
-    });
+    const [indices, setIndices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [visibleIndices] = useState([
-        'kospi',
-        'kosdaq',
-        'sp500',
-        'nasdaq',
-        'dow',
-        'usdKrw',
-    ]);
-
-    // 지수 정보 (이름과 타입)
-    const indexInfo = {
-        kospi: { name: '코스피 종합', type: 'korean' },
-        kosdaq: { name: '코스닥 종합', type: 'korean' },
-        sp500: { name: 'S&P 500', type: 'american' },
-        nasdaq: { name: '나스닥 종합', type: 'american' },
-        dow: { name: '다우 산업', type: 'american' },
-        usdKrw: { name: '원/달러 환율', type: 'currency' },
-    };
-
-    const fetchIndices = useCallback(async () => {
-        try {
-            setLoading(true);
-            const response = await axios.get(
-                'http://localhost:8000/market/indices'
-            );
-            setIndices(response.data);
-            setError(null);
-        } catch (err) {
-            setError('데이터를 불러오는 중 오류가 발생했습니다.');
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
 
     useEffect(() => {
+        const fetchIndices = async () => {
+            try {
+                setLoading(true);
+                const rawData = await getMarketIndices();
+
+                // 데이터를 배열 형태로 저장
+                const formattedData = rawData.map((item) => ({
+                    name: item.indexName,
+                    current: Number(item.current),
+                    changeValue: Number(item.changeValue),
+                    changePercent: Number(item.changePercent),
+                }));
+
+                setIndices(formattedData);
+                setError(null);
+            } catch (err) {
+                setError('데이터를 불러오는 중 오류가 발생했습니다.');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchIndices();
-        const intervalId = setInterval(fetchIndices, 300000);
-        return () => clearInterval(intervalId);
-    }, [fetchIndices]);
+    }, []); // 컴포넌트가 처음 렌더링될 때만 실행
 
     if (loading) {
-        return (
-            <div className="market-indices-container loading">로딩 중...</div>
-        );
+        return <div>로딩 중...</div>;
     }
     if (error) {
-        return <div className="market-indices-container error">{error}</div>;
+        return <div>{error}</div>;
     }
-
-    // 필요한 지수만 렌더링
-    const renderVisibleIndices = () => {
-        return visibleIndices.map((key) => (
-            <IndexCard
-                key={key}
-                name={indexInfo[key].name}
-                data={indices[key]}
-            />
-        ));
-    };
 
     return (
         <div className="market-indices-container">
             <div className="market-indices-scroll">
-                {renderVisibleIndices()}
-                {renderVisibleIndices()}
-                {renderVisibleIndices()}
-                {renderVisibleIndices()}
+                {indices.map((item, index) => (
+                    <IndexCard key={index} name={item.name} data={item} />
+                ))}
             </div>
         </div>
     );
