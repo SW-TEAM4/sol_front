@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import '../../styles/PortfolioList.css';
+import { getPortfolioList } from '../../api/stockApi';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,24 +15,18 @@ const PortfolioList = () => {
         const fetchPortfolioData = async () => {
             try {
                 setLoading(true);
-                // FastAPI 직접 호출
-                const response = await fetch(
-                    'http://127.0.0.1:8000/portfolio/list'
-                );
-                if (!response.ok) {
-                    throw new Error('데이터를 불러오는데 실패했습니다');
-                }
-
-                // 원본 데이터 (배열)
-                const rawData = await response.json();
-                console.log('FastAPI에서 받은 원본 데이터:', rawData);
+                const rawData = await getPortfolioList(); // StockApi.js의 함수 호출
+                console.log('Spring Boot에서 받은 원본 데이터:', rawData);
 
                 if (!Array.isArray(rawData) || rawData.length === 0) {
                     throw new Error('유효한 포트폴리오 데이터가 없습니다');
                 }
 
-                // 데이터 가공 - Spring Boot 서버가 했던 작업을 직접 수행
-                const totalCashBalance = rawData[0]?.krwBalance || 0; // 모든 항목이 같은 krwBalance 값을 가짐
+                // 데이터 가공
+                const totalCashBalance = rawData.reduce(
+                    (sum, item) => sum + (item.krwBalance || 0),
+                    0
+                );
                 const totalPurchaseAmount = rawData.reduce(
                     (sum, item) => sum + (item.purchaseAmount || 0),
                     0
@@ -49,7 +44,7 @@ const PortfolioList = () => {
                         ? (totalProfitLoss / totalPurchaseAmount) * 100
                         : 0;
 
-                // Spring Boot 서버가 반환하던 형식으로 데이터 구조화
+                // 데이터 구조화
                 const formattedData = {
                     portfolioList: rawData,
                     totalCashBalance,
