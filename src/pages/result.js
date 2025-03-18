@@ -45,7 +45,7 @@ const Result = ({ totalScore, setTotalScore }) => {
 
                 setUserIdx(response.data.result.userIdx); // userIdx 설정
             } catch (err) {
-                console.log('❌ 사용자 정보 가져오기 실패:', err);
+                console.log('사용자 정보 가져오기 실패:', err);
             }
         };
 
@@ -70,8 +70,8 @@ const Result = ({ totalScore, setTotalScore }) => {
                     { score: totalScore },
                     { withCredentials: true } // 쿠키를 함께 보내도록 설정
                 )
-                .then(() => console.log('✅ 점수 저장 완료:', totalScore))
-                .catch((err) => console.log('❌ 점수 저장 실패:', err));
+                .then(() => console.log('점수 저장 완료:', totalScore))
+                .catch((err) => console.log('점수 저장 실패:', err));
         }
     }, [totalScore, userIdx]);
 
@@ -84,7 +84,7 @@ const Result = ({ totalScore, setTotalScore }) => {
     return (
         <div className="result-container">
             {/* 현재 투자자 성향 결과 */}
-            <div className="investor-result">
+            <div className="result-investor-result">
                 <p className="result-name">{investorInfo.name}</p>
                 <img
                     src={investorInfo.img}
@@ -104,35 +104,37 @@ const Result = ({ totalScore, setTotalScore }) => {
             </div>
 
             {/* 다시하기 버튼, () => navigate('/') */}
-            <div className="buttons">
+            <div className="result-buttons">
                 <img
                     src="/assets/images/analyzeTest/again.svg"
                     alt="again"
-                    className="retry-button"
+                    className="result-retry-button"
                     onClick={handleRestart}
                 />
                 <img
                     src="/assets/images/analyzeTest/out.svg"
                     alt="out"
-                    className="out-button"
+                    className="result-out-button"
                     onClick={() => navigate('/home')}
                 />
             </div>
 
             {/* 다른 유형들 표시 */}
-            <div className="other-investors">
-                <p className="sub-title">또 다른 성향</p>
-                <p className="sub-text">이런 성향을 가진 친구들도 있어요!</p>
-                <div className="other-investors-list">
+            <div className="result-other-investors">
+                <p className="result-sub-title">또 다른 성향</p>
+                <p className="result-sub-text">
+                    이런 성향을 가진 친구들도 있어요!
+                </p>
+                <div className="result-other-investors-list">
                     {otherInvestors.map((investor, index) => (
-                        <div key={index} className="investor-card">
-                            <p className="other-name">{investor.name}</p>
+                        <div key={index} className="result-investor-card">
+                            <p className="result-other-name">{investor.name}</p>
                             <img
                                 src={investor.img}
                                 alt={investor.name}
-                                className="other-img"
+                                className="result-other-img"
                             />
-                            <p className="other-description">
+                            <p className="result-other-description">
                                 {investor.description
                                     ?.split('\n')
                                     .map((line, index) => (
