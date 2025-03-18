@@ -6,7 +6,7 @@ import penguinImage from '../../images/penguin.svg';
 import { getTransferRatio } from '../../api/accountApi';
 
 const HomeMainContent = ({ balance }) => {
-    // balance prop 받기
+    // balance prop 받기ㅎㅇㅎㅇ
     const [transferRatio, setTransferRatio] = useState(null);
     const navigate = useNavigate();
 
