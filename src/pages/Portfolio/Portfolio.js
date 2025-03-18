@@ -147,7 +147,6 @@ const Portfolio = () => {
             investorClass >= 11 && investorClass <= 15 ? "열식이" :
             ""; // 기본값 설정
     return (
-        <div className="portfolio-center">
             <div className="portfolio-card">
                 {/* 🔹 사용자 정보 */}
                 <div className="portfolio-user-info">
@@ -365,7 +364,6 @@ const Portfolio = () => {
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 
