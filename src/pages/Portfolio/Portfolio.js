@@ -13,10 +13,18 @@ const Portfolio = () => {
     const navigate = useNavigate();
 
     //   useState를 최상단에서 선언
-    const [portfolioData, setPortfolioData] = useState(null);
+    const [portfolioData, setPortfolioData] = useState([]);
     const [portfolioUserData, setPortfolioUserData] = useState(null);
+    const [summaryData, setSummaryData] = useState({
+        totalPurchaseAmount: 0,
+        totalCurrentValue: 0,
+        totalProfitLoss: 0,
+        totalProfitLossRate: 0,
+        totalAssets: 0
+    });              // 포트폴리오 요약 데이터
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [chartData, setChartData] = useState([]);
 
     //   페이지 로드 후 자동 리디렉트
     useEffect(() => {
@@ -26,8 +34,9 @@ const Portfolio = () => {
     const fetchPortfolioData = async () => {
         try {
             setLoading(true);
+            console.log(" 포트폴리오 데이터 요청 시작");
             const response = await getPortfolioList(); // 포트폴리오 API 호출
-            console.log('portfolio response: ', response);
+            console.log(" 포트폴리오 데이터 응답:", response);
             if (response.length === 0) {
                 throw new Error('데이터를 불러오는데 실패했습니다');
             }
@@ -43,6 +52,7 @@ const Portfolio = () => {
 
     const getUserInvestmentInfo = async () => {
         try {
+            console.log("사용자 포트폴리오 정보 요청 시작");
             const response = await getUserPortfolioInform();
             console.log('유저 포트폴리오 response: ', response);
             // if (!response.data.length === 0) {
@@ -103,6 +113,73 @@ const Portfolio = () => {
             }));
         }
     }, [portfolioUserData]);
+
+    //  포트폴리오 요약 데이터 계산
+    useEffect(() => {
+        console.log(" useEffect 실행됨");
+        console.log(" loading 상태:", loading);
+        console.log(" portfolioData 상태:", portfolioData);
+        console.log(" portfolioUserData 상태:", portfolioUserData);
+
+        if (loading) {
+            console.log(" 실행 중단");
+            return;
+        }
+
+        if (portfolioData.length === 0 || !portfolioUserData) {
+            console.log("⚠ portfolioData가 비어 있음 또는 portfolioUserData가 없음 - 실행 중단");
+            return;
+        }
+
+        console.log(" 데이터가 존재");
+
+        /*주식 금액 먼저 더하기 */
+        const totalEvaluationAmount = portfolioData.reduce(
+            (sum, asset) => sum + (asset.closingPrice * 1 || 0), // * asset.stockCount (주식 수량 고려 가능)
+            0
+        );
+
+        // 하나의 reduce로 모든 값 계산
+        const summary = portfolioData.reduce(
+            (acc, asset, index) => {
+                const stockValue = asset.closingPrice */* asset.stockCount*/1 || 0; // 현재 평가 금액 계산
+                acc.totalPurchaseAmount += asset.purchaseAmount || 0;                  // 총 매수 금액
+                acc.totalCurrentValue += stockValue;                                   // 총 평가 금액
+
+
+                acc.chartData.push({
+                    id: index,
+                    value:
+                        totalEvaluationAmount > 0
+                            ? ((stockValue / totalEvaluationAmount) * 100).toFixed(2)
+                            : 0, // 비율 계산
+                    amount: stockValue.toLocaleString(), // 금액 표기
+                    label: asset.stockName, // 종목명
+                    color: ['#6FAE3F', '#1E56A0', '#F4A900', '#7442C8', '#E86A33'][index % 5], // 색상
+                });
+                return acc;
+            },
+            { totalPurchaseAmount: 0,
+                totalCurrentValue: 0,
+                totalEvaluationAmount: 0, //  총 평가 금액 (차트 비율 계산용)
+                chartData: [],            //  차트 데이터 저장
+             }
+        );
+
+        // 평가손익 및 수익률 계산
+        summary.totalProfitLoss = summary.totalCurrentValue - summary.totalPurchaseAmount;  // 총 평가 손익 = 총 평가금액 - 총 매수 금액
+        summary.totalProfitLossRate =                                                       // 총 평가 수익률 = (총 평가 손익 / 총 매수 금액) * 100
+            summary.totalPurchaseAmount > 0
+                ? (summary.totalProfitLoss / summary.totalPurchaseAmount) * 100
+                : 0;
+
+        // 총 보유자산 = 총 평가 금액 + 보유 현금
+        summary.totalAssets = summary.totalCurrentValue + (portfolioUserData.balance || 0);
+
+        // 상태 업데이트
+        setSummaryData(summary);
+        setChartData(summary.chartData);
+    }, [portfolioData, portfolioUserData]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -181,112 +258,121 @@ const Portfolio = () => {
                 </div>
             </div>
 
-            {/*<div className="portfolio-summary-container">*/}
-            {/*    <div className="portfolio-summary">*/}
-            {/*        <div className="portfolio-summary-grid">*/}
-            {/*            <div className="portfolio-summary-item">*/}
-            {/*                <p className="portfolio-label">총 보유 현금 금액</p>*/}
-            {/*                <p className="portfolio-value large">*/}
-            {/*                    {porfolioUserData.balance.toLocaleString()}*/}
-            {/*                    <span className="portfolio-unit">KRW</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*            <div className="portfolio-summary-item">*/}
-            {/*                <p className="portfolio-label">총 보유자산</p>*/}
-            {/*                <p className="portfolio-value large">*/}
-            {/*                    {(*/}
-            {/*                        portfolioData.totalCurrentValue +*/}
-            {/*                        porfolioUserData.balance*/}
-            {/*                    ).toLocaleString()}*/}
-            {/*                    <span className="portfolio-unit">KRW</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
+            <div className="portfolio-summary-container">
+                <div className="portfolio-summary">
+                    <div className="portfolio-summary-grid">
+                        <div className="portfolio-summary-item">
+                            <p className="portfolio-label">총 보유 현금 금액</p>
+                            <p className="portfolio-value large">
+                                {portfolioUserData?.balance.toLocaleString() || "0"}
+                                <span className="portfolio-unit">KRW</span>
+                            </p>
+                        </div>
+                        <div className="portfolio-summary-item">
+                            <p className="portfolio-label">총 보유자산</p>
+                            <p className="portfolio-value large">
+                                {summaryData?.totalAssets
+                                    .toLocaleString() || "0"}
+                                <span className="portfolio-unit">KRW</span>
+                            </p>
+                        </div>
+                    </div>
 
-            {/*        <hr className="summary-divider" />*/}
+                    <hr className="summary-divider" />
 
-            {/*        <div className="portfolio-invest-data">*/}
-            {/*            <div className="portfolio-data-row">*/}
-            {/*                <p className="portfolio-label">총 매수 금액</p>*/}
-            {/*                <p className="portfolio-value">*/}
-            {/*                    {portfolioData.totalPurchaseAmount.toLocaleString()}*/}
-            {/*                    <span className="portfolio-unit">KRW</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*            /!* 🔹 총 평가손익 (빨간색/파란색 적용) *!/*/}
-            {/*            <div className="portfolio-data-row">*/}
-            {/*                <p className="portfolio-label">총 평가손익</p>*/}
-            {/*                <p*/}
-            {/*                    className={`portfolio-value ${portfolioData.totalProfitLoss < 0 ? 'profit-negative' : 'profit-positive'}`}*/}
-            {/*                >*/}
-            {/*                    {portfolioData.totalProfitLoss.toLocaleString()}*/}
-            {/*                    <span className="portfolio-unit">KRW</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*            <div className="portfolio-data-row">*/}
-            {/*                <p className="portfolio-label">현재 평가 금액</p>*/}
-            {/*                <p className="portfolio-value">*/}
-            {/*                    {portfolioData.totalCurrentValue.toLocaleString()}*/}
-            {/*                    <span className="portfolio-unit">KRW</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
+                    <div className="portfolio-invest-data">
+                        <div className="portfolio-data-row">
+                            <p className="portfolio-label">총 매수 금액</p>
+                            <p className="portfolio-value">
+                                {summaryData?.totalPurchaseAmount.toLocaleString() || "0"}
+                                <span className="portfolio-unit">KRW</span>
+                            </p>
+                        </div>
+                        {/* 🔹 총 평가손익 (빨간색/파란색 적용) */}
+                        <div className="portfolio-data-row">
+                            <p className="portfolio-label">총 평가손익</p>
+                            <p
+                                className={`portfolio-value ${
+                                summaryData.totalProfitLoss < 0
+                                    ? 'profit-negative'
+                                    : 'profit-positive'
+                            }`}
+                            >
+                                {summaryData?.totalProfitLoss.toLocaleString() || "0"}
+                                <span className="portfolio-unit">KRW</span>
+                            </p>
+                        </div>
+                        <div className="portfolio-data-row">
+                            <p className="portfolio-label">현재 평가 금액</p>
+                            <p className="portfolio-value">
+                                {summaryData?.totalCurrentValue.toLocaleString() || "0"}
+                                <span className="portfolio-unit">KRW</span>
+                            </p>
+                        </div>
 
-            {/*            <div className="portfolio-data-row">*/}
-            {/*                <p className="portfolio-label">총 평가수익률</p>*/}
-            {/*                <p*/}
-            {/*                    className={`portfolio-value ${portfolioData.totalProfitLossRate < 0 ? 'profit-negative' : 'profit-positive'}`}*/}
-            {/*                >*/}
-            {/*                    {portfolioData.totalProfitLossRate.toFixed(2)}*/}
-            {/*                    <span className="portfolio-unit">%</span>*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
+                        <div className="portfolio-data-row">
+                            <p className="portfolio-label">총 평가수익률</p>
+                            <p
+                                className={`portfolio-value ${
+                                    summaryData.totalProfitLossRate < 0
+                                        ? 'profit-negative'
+                                        : 'profit-positive'
+                                }`}
+                            >
+                                {summaryData?.totalProfitLossRate.toFixed(2) || "0"}
+                                <span className="portfolio-unit">%</span>
+                            </p>
+                        </div>
+                        </div>
+                    </div>
 
-            {/*    /!* 🔹 원형 차트 *!/*/}
-            {/*    <div className="portfolio-chart-wrapper">*/}
-            {/*        <div className="portfolio-chart-legend">*/}
-            {/*            {assets.map((item) => (*/}
-            {/*                <div key={item.id} className="legend-item">*/}
-            {/*                    <span*/}
-            {/*                        className="legend-color"*/}
-            {/*                        style={{ backgroundColor: item.color }}*/}
-            {/*                    ></span>*/}
-            {/*                    <span className="legend-label">*/}
-            {/*                        {item.label}*/}
-            {/*                    </span>*/}
-            {/*                    <span className="legend-value">*/}
-            {/*                        {item.amount} KRW*/}
-            {/*                    </span>*/}
-            {/*                </div>*/}
-            {/*            ))}*/}
-            {/*        </div>*/}
-            {/*        <div className="portfolio-chart-container">*/}
-            {/*            <PieChart*/}
-            {/*                series={[*/}
-            {/*                    {*/}
-            {/*                        data: assets,*/}
-            {/*                        innerRadius: 50,*/}
-            {/*                        outerRadius: 100,*/}
-            {/*                        arcLabel: (item) =>*/}
-            {/*                            `${item.value.toLocaleString()} %`,*/}
-            {/*                    },*/}
-            {/*                ]}*/}
-            {/*                slotProps={{ legend: { hidden: true } }}*/}
-            {/*                sx={{*/}
-            {/*                    [`& .${pieArcLabelClasses.root}`]: {*/}
-            {/*                        fill: '#000',*/}
-            {/*                        fontSize: 10,*/}
-            {/*                        fontWeight: 'bold',*/}
-            {/*                    },*/}
-            {/*                }}*/}
-            {/*                width={250}*/}
-            {/*                height={250}*/}
-            {/*            />*/}
-            {/*            <div className="chart-center-text">보유 비중</div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+
+
+                 {/*  원형 차트*/}
+                <div className="portfolio-chart-wrapper">
+                    <div className="portfolio-chart-legend">
+                        {chartData.map((item) => (
+                            <div key={item.id} className="legend-item">
+                                <span
+                                    className="legend-color"
+                                    style={{ backgroundColor: item.color }}
+                                ></span>
+                                <span className="legend-label">
+                                    {item.label}
+                                </span>
+                                <span className="legend-value">
+                                    {item.amount} KRW
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="portfolio-chart-container">
+                        <PieChart
+                            series={[
+                                {
+                                    data: chartData,
+                                    innerRadius: 50,
+                                    outerRadius: 100,
+                                },
+                            ]}
+                            slotProps={{ legend: { hidden: true },
+                                         tooltip: {
+                                                    trigger: 'item',
+                                                    formatter: (params) => `${params.data.label}: ${params.data.value}%`
+                                         }
+                        }}
+                            sx={{
+                                [`& .${pieArcLabelClasses.root}`]: {
+                                    display:'none',
+                                },
+                            }}
+                            width={250}
+                            height={250}
+                        />
+                        <div className="chart-center-text">보유 비중</div>
+                    </div>
+                </div>
+            </div>
 
             {/* 🔹 보유 자산 목록 */}
             <div className="portfolio-container">
@@ -307,9 +393,9 @@ const Portfolio = () => {
                             {portfolioData.map((asset, index) => (
                                 <tr key={index}>
                                     <td>{asset.stockName}</td>
-                                    <td>{asset.stockCount}</td>
+                                    <td>{/*{asset.stockCount}*/}1</td>
                                     <td>
-                                        {asset.averagePrice.toLocaleString()}
+                                        {/*{asset.averagePrice.toLocaleString()}*/}
                                         <span className="portfolio-unit">
                                             KRW
                                         </span>
@@ -322,8 +408,8 @@ const Portfolio = () => {
                                     </td>
                                     <td>
                                         {Number(
-                                            asset.closingPrice *
-                                                asset.stockCount
+                                            asset.closingPrice * 1
+                                            /* *  asset.stockCount*/
                                         ).toLocaleString()}
                                         <span className="portfolio-unit">
                                             KRW
@@ -341,9 +427,7 @@ const Portfolio = () => {
                                     >
                                         {asset.purchaseAmount > 0
                                             ? (
-                                                  (asset.profitLoss /
-                                                      asset.purchaseAmount) *
-                                                  100
+                                                  asset.profitLossRate
                                               ).toFixed(2)
                                             : '0'}
                                         <span className="portfolio-unit">

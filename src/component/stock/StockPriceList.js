@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { WebSocketContext } from './WebsocketManage';
 import './StockPriceList.css';
 
-const StockPriceList = ({ onStockSelect }) => {
+const StockPriceList = ({ selectedStock: externalSelectedStock, onStockSelect }) => {
     const { kafkaData, kafkaSecondData } = useContext(WebSocketContext) || {};
     const [stockData, setStockData] = useState([
         // {
@@ -305,7 +305,9 @@ const StockPriceList = ({ onStockSelect }) => {
 
     useEffect(() => {
         if (onStockSelect && selectedStock === null) {
-            const defaultStock = stockData.find((stock) => stock.ticker === '005930'); // 삼성전자 ticker
+            const defaultStock = stockData.find(
+                (stock) => stock.ticker === '005930'
+            ); // 삼성전자 ticker
             setSelectedStock(defaultStock);
             onStockSelect(defaultStock); // 기본 주식 선택
         }
@@ -370,7 +372,9 @@ const StockPriceList = ({ onStockSelect }) => {
                     setTimeout(() => {
                         setStockData((prevData) =>
                             prevData.map((stock) =>
-                                stock.ticker === kafkaData.ticker ? { ...stock, highlightAnimation: '' } : stock
+                                stock.ticker === kafkaData.ticker
+                                    ? { ...stock, highlightAnimation: '' }
+                                    : stock
                             )
                         );
                     }, 1000);
@@ -465,7 +469,9 @@ const StockPriceList = ({ onStockSelect }) => {
                     setTimeout(() => {
                         setStockData((prevData) =>
                             prevData.map((stock) =>
-                                stock.ticker === kafkaSecondData.ticker ? { ...stock, highlightAnimation: '' } : stock
+                                stock.ticker === kafkaSecondData.ticker
+                                    ? { ...stock, highlightAnimation: '' }
+                                    : stock
                             )
                         );
                     }, 1000);
@@ -579,13 +585,19 @@ const StockPriceList = ({ onStockSelect }) => {
         <div className="stock-price-list-container">
             {/* 필터와 실시간 표시 */}
             <div className="stock-price-list-chart-header">
-                <select className="stock-price-list-filter-select" value={filterBy} onChange={handleFilterChange}>
-                    <option value="">전체</option>
-                    <option value="tradingVolume">거래대금</option>
-                    <option value="price">가격</option>
-                    <option value="diff">전일대비</option>
-                </select>
                 <div className="stock-price-list-realtime">실시간</div>
+                <div className="stock-price-list-dropdown">
+                    <select
+                        className="stock-price-list-filter-select"
+                        value={filterBy}
+                        onChange={handleFilterChange}
+                    >
+                        <option value="">전체</option>
+                        <option value="tradingVolume">거래대금</option>
+                        <option value="price">가격</option>
+                        <option value="diff">전일대비</option>
+                    </select>
+                </div>
             </div>
 
             {/* 종목 리스트 */}
@@ -604,12 +616,21 @@ const StockPriceList = ({ onStockSelect }) => {
                     return (
                         <li
                             key={index}
-                            className={`stock-price-list-stock-item ${highlightClass}`}
+                            className={`stock-price-list-stock-item ${highlightClass} ${externalSelectedStock?.ticker === stock.ticker ? 'selected' : ''}`}
                             onClick={() => handleStockClick(stock)}
                         >
-                            <div className="stock-price-list-stock-content">
-                                <span className="stock-price-list-stock-name">{stock.name}</span>
-                                <div className={`stock-price-list-stock-info ${stock.highlightColor}`}>
+                            <div
+                                className={`stock-price-list-stock-content ${externalSelectedStock?.ticker === stock.ticker ? 'selected' : ''}`}
+                            >
+                                <span className="stock-price-list-stock-index">
+                                    {index + 1}
+                                </span>
+                                <span className="stock-price-list-stock-name">
+                                    {stock.name}
+                                </span>
+                                <div
+                                    className={`stock-price-list-stock-info ${stock.highlightColor}`}
+                                >
                                     <span className="stock-price-list-stock-price">
                                         {Number(stock.price).toLocaleString()}원
                                     </span>
@@ -618,9 +639,17 @@ const StockPriceList = ({ onStockSelect }) => {
                                     >
                                         {Number(stock.diff) > 0
                                             ? `+${Number(stock.diff).toLocaleString()}`
-                                            : Number(stock.diff).toLocaleString()}
+                                            : Number(
+                                                  stock.diff
+                                              ).toLocaleString()}
                                         원
-                                        <span className={stock.diffRate > 0 ? 'text-red' : 'text-blue'}>
+                                        <span
+                                            className={
+                                                stock.diffRate > 0
+                                                    ? 'text-red'
+                                                    : 'text-blue'
+                                            }
+                                        >
                                             ({Math.abs(stock.diffRate)}%)
                                         </span>
                                     </div>
