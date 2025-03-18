@@ -11,7 +11,7 @@ import {
     HistogramSeries,
 } from 'lightweight-charts';
 import { WebSocketContext } from './WebsocketManage';
-import { fetchStockData } from '../../api/StockAPI';
+import { fetchStockData } from '../../api/LiveStockAPI';
 import ChartTypeButton from './ChartTypeButton';
 import './StockChart.css';
 
@@ -67,19 +67,19 @@ const StockChart = ({ ticker }) => {
 
             const prevFrom = logicalRange.from;
             const prevTo = logicalRange.to;
-            console.log('prevFrom: ', prevFrom, ' prevTo: ', prevTo);
+            // console.log('prevFrom: ', prevFrom, ' prevTo: ', prevTo);
 
             if (prevFrom < 10 && !isFetchingRef.current) {
                 isFetchingRef.current = true; // Fetch 진행 중임을 표시
                 const nextPage = pageRef.current + 1;
-                console.log(
-                    '핸들스크롤에서 셋페이지, prev page: ',
-                    pageRef.current,
-                    ' nextPage: ',
-                    nextPage,
-                    ' 타입: ',
-                    type
-                );
+                // console.log(
+                //     '핸들스크롤에서 셋페이지, prev page: ',
+                //     pageRef.current,
+                //     ' nextPage: ',
+                //     nextPage,
+                //     ' 타입: ',
+                //     type
+                // );
                 pageRef.current = nextPage; // useRef로 직접 업데이트 (re-render 발생 안함)
                 setTimeout(() => {
                     fetchData(nextPage, type);
@@ -92,20 +92,20 @@ const StockChart = ({ ticker }) => {
     const fetchData = async (page, newType) => {
         // 타입이 다르거나 page가 1이면 추가 데이터 가져오지 않는다
         if (newType !== type || page === 1) {
-            console.log(
-                '아직 타입과 뉴타입이 다름, type: ',
-                type + ' newType: ',
-                newType
-            );
+            // console.log(
+            //     '아직 타입과 뉴타입이 다름, type: ',
+            //     type + ' newType: ',
+            //     newType
+            // );
             return;
         }
 
-        console.log(
-            'fetchData 실행 - page: ',
-            page + ' type: ',
-            type + ' newType: ',
-            newType
-        );
+        // console.log(
+        //     'fetchData 실행 - page: ',
+        //     page + ' type: ',
+        //     type + ' newType: ',
+        //     newType
+        // );
 
         try {
             const response = await fetchStockData(ticker, newType, page);
@@ -216,7 +216,7 @@ const StockChart = ({ ticker }) => {
                         enableResize: false,
                     },
                 },
-                height: 400, // 차트 영역 높이
+                height: 300, // 차트 영역 높이
                 localization: {
                     locale: 'ko-KR',
                     dateFormat:

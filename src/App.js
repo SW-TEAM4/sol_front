@@ -11,11 +11,9 @@ import NewsList from './component/news/NewsList';
 import './App.css';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
-import PortfolioList from './component/portfolio/PortfolioList';
 import ParkingAccount from './pages/ParkingAccount';
 import BasicInfoForm from './pages/BasicInfoForm';
 import RedirectHandler from './pages/onboarding/RedirectHandler';
-import Challenge from './pages/challenge';
 import AnalyzeTest from './pages/analyzeTest';
 import Question1 from './pages/question1';
 import Question2 from './pages/question2';
@@ -24,6 +22,8 @@ import Question4 from './pages/question4';
 import Question5 from './pages/question5';
 import Result from './pages/result';
 import Portfolio from './pages/Portfolio/Portfolio';
+import { WebSocketProvider } from './component/stock/WebsocketManage';
+import StockDashboard from './component/stock/StockDashboard';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -74,108 +74,120 @@ function App() {
     }
 
     return (
-        <Router>
-            <div className="App">
-                {/* 로그인된 상태에서만 Header와 Footer 표시 */}
-                {isLoggedIn && (
-                    <>
-                        <Header />
-                        <div className="content-container">
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={<Navigate to="/home" />}
-                                />
-                                <Route path="/home" element={<Home />} />
-                                <Route path="/news" element={<NewsList />} />
-                                <Route
-                                    path="/assets"
-                                    element={<PortfolioList />}
-                                />
-                                <Route
-                                    path="/parking"
-                                    element={<ParkingAccount />}
-                                />
-                                <Route
-                                    path="/basic-info"
-                                    element={<BasicInfoForm />}
-                                />
-                                <Route
-                                    path="/redirect"
-                                    element={<RedirectHandler />}
-                                />
-                                <Route
-                                    path="*"
-                                    element={<Navigate to="/home" />}
-                                />
-                                <Route
-                                    path="/question"
-                                    element={<AnalyzeTest />}
-                                />
-                                <Route
-                                    path="/q1"
-                                    element={<Question1 addScore={addScore} />}
-                                />
-                                <Route
-                                    path="/q2"
-                                    element={
-                                        <Question2
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q3"
-                                    element={
-                                        <Question3
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q4"
-                                    element={
-                                        <Question4
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q5"
-                                    element={
-                                        <Question5
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/result"
-                                    element={
-                                        <Result
-                                            totalScore={totalScore}
-                                            setTotalScore={setTotalScore}
-                                        />
-                                    }
-                                />
-                            </Routes>
-                        </div>
-                        <Footer />
-                    </>
-                )}
+        <WebSocketProvider>
+            <Router>
+                <div className="App">
+                    {/* 로그인된 상태에서만 Header와 Footer 표시 */}
+                    {isLoggedIn && (
+                        <>
+                            <Header />
+                            <div className="content-container">
+                                <Routes>
+                                    <Route
+                                        path="/"
+                                        element={<Navigate to="/home" />}
+                                    />
+                                    <Route path="/home" element={<Home />} />
+                                    <Route
+                                        path="/news"
+                                        element={<NewsList />}
+                                    />
+                                    {/*<Route*/}
+                                    {/*    path="/assets"*/}
+                                    {/*    element={<Portfolio />}*/}
+                                    {/*/>*/}
+                                    <Route
+                                        path="/assets"
+                                        element={<StockDashboard />}
+                                    />
 
-                {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
-                {!isLoggedIn && (
-                    <Routes>
-                        <Route path="/" element={<OnboardingFinal />} />
-                        <Route path="*" element={<Navigate to="/" />} />
-                    </Routes>
-                )}
-            </div>
-        </Router>
+                                    <Route
+                                        path="/parking"
+                                        element={<ParkingAccount />}
+                                    />
+                                    <Route
+                                        path="/basic-info"
+                                        element={<BasicInfoForm />}
+                                    />
+                                    <Route
+                                        path="/redirect"
+                                        element={<RedirectHandler />}
+                                    />
+                                    <Route
+                                        path="*"
+                                        element={<Navigate to="/home" />}
+                                    />
+                                    <Route
+                                        path="/question"
+                                        element={<AnalyzeTest />}
+                                    />
+                                    <Route
+                                        path="/q1"
+                                        element={
+                                            <Question1 addScore={addScore} />
+                                        }
+                                    />
+                                    <Route
+                                        path="/q2"
+                                        element={
+                                            <Question2
+                                                addScore={addScore}
+                                                subtractScore={subtractScore}
+                                            />
+                                        }
+                                    />
+                                    <Route
+                                        path="/q3"
+                                        element={
+                                            <Question3
+                                                addScore={addScore}
+                                                subtractScore={subtractScore}
+                                            />
+                                        }
+                                    />
+                                    <Route
+                                        path="/q4"
+                                        element={
+                                            <Question4
+                                                addScore={addScore}
+                                                subtractScore={subtractScore}
+                                            />
+                                        }
+                                    />
+                                    <Route
+                                        path="/q5"
+                                        element={
+                                            <Question5
+                                                addScore={addScore}
+                                                subtractScore={subtractScore}
+                                            />
+                                        }
+                                    />
+                                    <Route
+                                        path="/result"
+                                        element={
+                                            <Result
+                                                totalScore={totalScore}
+                                                setTotalScore={setTotalScore}
+                                            />
+                                        }
+                                    />
+                                </Routes>
+                            </div>
+                            <Footer />
+                        </>
+                    )}
+
+                    {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
+                    {!isLoggedIn && (
+                        <Routes>
+                            <Route path="/" element={<OnboardingFinal />} />
+                            <Route path="*" element={<Navigate to="/" />} />
+                        </Routes>
+                    )}
+                </div>
+            </Router>
+        </WebSocketProvider>
     );
 }
 export default App;
