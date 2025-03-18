@@ -8,11 +8,32 @@ import FootBanner from './FootBanner';
 import QuizSection from './QuizSection';
 import MarketIndices from './MarketIndices';
 import StockPicks from './StockPicks';
+import { getBalance } from '../../api/accountApi';
 
 const Home = () => {
     const navigate = useNavigate();
     const [userIdx, setUserIdx] = useState(null);
+    const [balance, setBalance] = useState(null); // 잔고 상태 관리
 
+    // 초기 잔고 로드
+    useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                const balanceData = await getBalance();
+                setBalance(balanceData);
+            } catch (error) {
+                console.error('잔고 가져오기 실패:', error);
+            }
+        };
+        fetchBalance();
+    }, []);
+
+    // 캐시백 받으면 호출되는 함수
+    const handleCashback = (amount) => {
+        setBalance((prevBalance) => prevBalance + amount);
+    };
+
+    // 사용자 인증 처리
     useEffect(() => {
         const getCookie = (name) => {
             const cookies = document.cookie.split('; ');
@@ -25,40 +46,23 @@ const Home = () => {
             return null;
         };
 
-        const savedUserIdx = getCookie('userIdx'); // 쿠키에서 userIdx 가져오기
-
+        const savedUserIdx = getCookie('userIdx');
         if (savedUserIdx) {
-            localStorage.setItem('userIdx', savedUserIdx); // localStorage에 저장
-            setUserIdx(savedUserIdx); // 상태 업데이트
-            console.log('userIdx 저장 완료:', savedUserIdx);
+            localStorage.setItem('userIdx', savedUserIdx);
+            setUserIdx(savedUserIdx);
         } else {
-            console.log('userIdx 쿠키가 존재하지 않음, 온보딩으로 이동');
             window.location.reload();
-            //navigate('/'); // 로그인 안 했으면 온보딩 페이지로 이동
         }
     }, [navigate]);
 
     return (
         <div className="home-container">
-            {/* 사용자 정보 섹션 */}
             <UserChoice />
-
-            {/* 메인 콘텐츠 (챌린지, 모은 돈, 파킹 통장 안내) */}
-            <HomeMainContent />
-
-            {/* 퀴즈 섹션 */}
-            <QuizSection />
-
-            {/* 카테고리 섹션 */}
+            <HomeMainContent balance={balance} /> {/* balance prop 전달 */}
+            <QuizSection onCashback={handleCashback} /> {/* 함수 전달 */}
             <CategoryList />
-
-            {/* 지수 섹션 */}
             <StockPicks />
-
-            {/* 지수 섹션 */}
             <MarketIndices />
-
-            {/* 하단 배너 섹션 */}
             <FootBanner />
         </div>
     );
