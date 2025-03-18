@@ -3,18 +3,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import pigImage from '../../images/pig.svg';
 import moneyImage from '../../images/money.svg';
 import penguinImage from '../../images/penguin.svg';
-import Challenge from '../../pages/challenge';
 import { getTransferRatio } from '../../api/accountApi';
 
 const HomeMainContent = ({ balance }) => {
     // balance prop 받기
     const [transferRatio, setTransferRatio] = useState(null);
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleChallengeCardClick = () => {
-        setIsModalOpen(true); // 클릭 시 모달 열기
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const ratio = await getTransferRatio();
+                setTransferRatio(ratio);
+            } catch (error) {
+                console.error('데이터 조회 실패:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +43,7 @@ const HomeMainContent = ({ balance }) => {
                     <h1 className="section-title">챌린지</h1>
                     <div
                         className="challenge-card"
-                        onClick={handleChallengeCardClick}
+                        onClick={() => navigate('/challenge')}
                         style={{ cursor: 'pointer' }}
                     >
                         <div className="challenge-text">
@@ -115,12 +121,6 @@ const HomeMainContent = ({ balance }) => {
                     </div>
                 </div>
             </Link>
-
-            {/* Challenge 컴포넌트 추가 */}
-            <Challenge
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-            />
         </>
     );
 };
