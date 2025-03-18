@@ -374,12 +374,15 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                                 {/*{currentWeek + 1}주차 &gt;*/}
                                 <img src="/assets/images/analyzeTest/rightButton.svg" />
                             </button>
-                            <p>Click Me!</p>
+                            <p style={{ opacity: '0.4' }}>Click Me!</p>
                         </div>
                         <div className="challenge-stamps-container">
                             {renderStamps()}
                         </div>
-                        <p className="footer-text">
+                        <p
+                            className="challenge-footer-text"
+                            style={{ marginBottom: '10px' }}
+                        >
                             도전은 계속된다!
                             <br /> 귀여운 스탬프로 도전 기록을 남겨요.
                         </p>
