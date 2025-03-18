@@ -22,7 +22,25 @@ export const getPortfolioList = async () => {
             },
             withCredentials: true, // 쿠키 전송 활성화
         });
-        return response.data; // 포트폴리오 데이터 반환
+
+        const rawData = response.data || [];
+
+        if (rawData.length === 0) {
+            return [];
+        }
+        // 데이터 변환
+        return rawData.map((item) => {
+            return {
+                ticker: item['ticker'],
+                stockName: item['stockName'],
+                stockCount: item['stockCount'],
+                averagePrice: item['averagePrice'],
+                closingPrice: item['closingPrice'],
+                purchaseAmount: item['purchaseAmount'],
+                profitLoss: item['profitLoss'],
+                profitLossRate: item['profitLossRate'],
+            };
+        });
     } catch (error) {
         console.error(
             'Error fetching portfolio data:',
