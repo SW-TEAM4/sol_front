@@ -76,7 +76,7 @@ const Portfolio = () => {
         } // 쿠키에 없으면 null 반환
         return `Bearer ${jwtCookie.split('=')[1]}`;
     };
-    const gethUserInvestmentInfo = async () => {
+    const getUserInvestmentInfo = async () => {
         try {
             const userIdx = getUserIdx();
             const getbalance = await axios.get(
@@ -102,7 +102,7 @@ const Portfolio = () => {
 
 
         fetchPortfolioData();
-        gethUserInvestmentInfo();
+        getUserInvestmentInfo();
     }, []);
 
     //   데이터가 로딩 중이면 "Loading..." 표시
