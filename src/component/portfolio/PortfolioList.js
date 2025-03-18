@@ -2,12 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import '../../styles/PortfolioList.css';
-import { getPortfolioList } from '../../api/stockApi';
+import { getPortfolioList } from '../../api/StockAPI';
+import Portfolio from '../../pages/Portfolio/Portfolio';
+import StockDashboard from '../stock/StockDashboard';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PortfolioList = () => {
-    const [portfolioData, setPortfolioData] = useState(null);
+    return (
+        <div className="portfolio-list-container">
+            {/* 포트폴리오 섹션 */}
+
+
+            {/* 주식 대시보드 섹션 */}
+            <div className="stock-dashboard-section">
+                <h2>주식 대시보드</h2>
+                <StockDashboard />
+
+
+            </div>
+        </div>
+    );
+    /*const [portfolioData, setPortfolioData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -151,12 +167,12 @@ const PortfolioList = () => {
                 </h3>
             </div>
 
-            {/* 원형 그래프 */}
+            {/!* 원형 그래프 *!/}
             <div className="portfolio-chart">
                 <Pie data={pieData} options={pieOptions} />
             </div>
 
-            {/* 보유 자산 목록 테이블 */}
+            {/!* 보유 자산 목록 테이블 *!/}
             <table className="portfolio-table">
                 <thead>
                     <tr>
@@ -205,7 +221,7 @@ const PortfolioList = () => {
                 </tbody>
             </table>
         </div>
-    );
+    );*/
 };
 
 export default PortfolioList;
