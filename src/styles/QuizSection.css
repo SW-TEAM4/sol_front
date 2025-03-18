@@ -80,6 +80,12 @@
     transform: scale(1.1);
 }
 
+/* 비활성화된 버튼 스타일 */
+.quiz-image-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* 버튼 내 이미지 크기 설정 */
 .quiz-button-image {
     width: 50px;
@@ -141,6 +147,35 @@
     transition: all 0.2s ease;
 }
 
+/* 로딩 오버레이 */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 로딩 스피너 */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* 반응형 디자인 */
 @media (max-width: 992px) {
     .quiz-header p {
@@ -159,6 +194,11 @@
 
     .quiz-image {
         height: 300px;
+    }
+
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -189,49 +229,13 @@
         height: 200px;
         margin-top: 15px;
     }
+
+    .loading-spinner {
+        width: 35px;
+        height: 35px;
+        border-width: 4px;
+    }
 }
-
-/*@media (max-width: 576px) {*/
-/*    .quiz-content {*/
-/*        flex-direction: row; !* 가로 배열 유지 *!*/
-/*        align-items: center; !* 중앙 정렬 유지 *!*/
-/*        display: flex;*/
-/*        justify-content: space-between; !* 요소들 사이에 공간 분배 *!*/
-
-/*    }*/
-/*    .quiz-header p {*/
-/*        font-size: 20px;*/
-/*    }*/
-
-/*    .quiz-card {*/
-/*        width: 120px; !* 더 작게 조정 *!*/
-/*        height: 120px;*/
-/*        padding: 8px; !* 패딩 축소 *!*/
-/*    }*/
-
-/*    .quiz-card p {*/
-/*        margin-bottom: -10px;*/
-/*        font-size: 12px; !* 글자 크기 더 축소 *!*/
-/*    }*/
-
-
-/*    .quiz-image {*/
-/*        display: flex;*/
-/*        height: 120px;*/
-/*        margin-left: auto; !* 오른쪽 정렬을 위해 왼쪽 여백을 자동으로 설정 *!*/
-/*        order: 1; !* 순서를 뒤로 배치하여 오른쪽에 위치하도록 함 *!*/
-/*    }*/
-
-/*    .quiz-button-container {*/
-/*        gap: 20px; !* 간격 축소 *!*/
-/*    }*/
-
-/*    .quiz-button-image {*/
-/*        width: 30px;*/
-/*        margin-bottom: 10px;*/
-/*    }*/
-/*}*/
-
 
 @media (max-width: 576px) {
     .quiz-content {
@@ -282,5 +286,29 @@
 
     .quiz-button-image {
         width: 25px;
+    }
+
+    .loading-spinner {
+        width: 30px;
+        height: 30px;
+        border-width: 3px;
+    }
+
+    .quiz-modal-content {
+        padding: 20px;
+        max-width: 300px;
+    }
+
+    .quiz-modal-content img {
+        width: 70px;
+    }
+
+    .quiz-modal-content p {
+        font-size: 14px;
+    }
+
+    .close-modal-button {
+        padding: 8px 16px;
+        font-size: 14px;
     }
 }

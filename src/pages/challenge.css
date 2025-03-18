@@ -199,6 +199,7 @@
     background-color: transparent;
 }
 
+
 .challenge-stamp-image {
     width: 65px;
     height: 65px;
@@ -212,13 +213,14 @@
 
 /* 스탬프가 찍힐 때 애니메이션 효과 */
 .stamped .challenge-stamp-image {
-    animation: stampAnimation 0.6s ease-out; /* 🎉 회전 애니메이션 */
+    animation: stampAnimation 0.6s ease-out; /* 회전 애니메이션 */
 }
 
 /* 하단 문구 */
 .challenge-footer-text {
     margin-top: 10px;
     margin-left: 10px;
+    margin-bottom: 20px;
     font-size: 20px;
     font-weight: bold;
 }

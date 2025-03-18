@@ -150,3 +150,33 @@ export const getUserName = async () => {
     });
     return response.data;
 };
+
+// 캐시백 입금
+export const addCashback = async (amount, displayName) => {
+    try {
+        const accountNo = await getAccountNo(); // 사용자 계좌번호 가져오기
+        console.log('캐시백 추가 계좌번호:', accountNo);
+
+        const response = await axios.post(`${BASE_URL}/add-transaction`, null, {
+            params: {
+                accountNumber: accountNo, // 계좌 번호
+                amount: amount, // 금액 (퀴즈는 100원)
+                desWitType: '0', // 0: 입금
+                displayName: displayName, // 본인
+            },
+            headers: {
+                Authorization: getAuthToken(),
+            },
+            withCredentials: true,
+        });
+
+        console.log('캐시백 추가 성공:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error(
+            '캐시백 추가 실패:',
+            error.response ? error.response.data : error
+        );
+        throw error;
+    }
+};
