@@ -1,18 +1,26 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import pigImage from '../../images/pig.svg';
 import moneyImage from '../../images/money.svg';
 import penguinImage from '../../images/penguin.svg';
-import Challenge from '../../pages/challenge';
+import { getTransferRatio } from '../../api/accountApi';
 
-const HomeMainContent = () => {
+const HomeMainContent = ({ balance }) => {
+    // balance prop 받기
+    const [transferRatio, setTransferRatio] = useState(null);
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleChallengeCardClick = () => {
-        setIsModalOpen(true); // 클릭 시 모달 열기
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const ratio = await getTransferRatio();
+                setTransferRatio(ratio);
+            } catch (error) {
+                console.error('데이터 조회 실패:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -23,7 +31,7 @@ const HomeMainContent = () => {
                     <h1 className="section-title">챌린지</h1>
                     <div
                         className="challenge-card"
-                        onClick={handleChallengeCardClick}
+                        onClick={() => navigate('/challenge')}
                         style={{ cursor: 'pointer' }}
                     >
                         <div className="challenge-text">
@@ -61,7 +69,10 @@ const HomeMainContent = () => {
                                     }}
                                 >
                                     <div className="money-amount">
-                                        1,564,005원 ›
+                                        {balance !== null
+                                            ? `${balance.toLocaleString()}원`
+                                            : '?????원'}
+                                        ›
                                     </div>
                                 </Link>
                             </div>
@@ -71,29 +82,32 @@ const HomeMainContent = () => {
             </div>
 
             {/* 파킹 통장 안내 섹션 */}
-            <div className="parking-info">
-                <img
-                    src={penguinImage}
-                    alt="Account"
-                    className="parking-image"
-                />
-                <div className="parking-text">
-                    <p>
-                        매달{' '}
-                        <strong className="percentage-highlight">10%</strong>의
-                        파킹 통장 잔액이 신한투자증권 계좌로 이체됩니다.
-                    </p>
-                    <span className="parking-text-highlight">
-                        비율은 지갑에서 바꿀 수 있어요!
-                    </span>
+            <Link
+                to="/parking"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+                <div className="parking-info">
+                    <img
+                        src={penguinImage}
+                        alt="Account"
+                        className="parking-image"
+                    />
+                    <div className="parking-text">
+                        <p>
+                            매달{' '}
+                            <strong className="percentage-highlight">
+                                {transferRatio !== null
+                                    ? `${transferRatio.toLocaleString()}%`
+                                    : '?????%'}
+                            </strong>
+                            의 파킹 통장 잔액이 신한투자증권 계좌로 이체됩니다.
+                        </p>
+                        <span className="parking-text-highlight">
+                            비율은 지갑에서 바꿀 수 있어요!
+                        </span>
+                    </div>
                 </div>
-            </div>
-
-            {/* Challenge 컴포넌트 추가 */}
-            <Challenge
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-            />
+            </Link>
         </>
     );
 };

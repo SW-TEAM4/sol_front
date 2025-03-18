@@ -54,7 +54,7 @@ const MarketIndices = () => {
     };
 
     const fetchIndices = useCallback(async () => {
-        /*ry {
+        try {
             setLoading(true);
             const response = await axios.get(
                 'http://localhost:8000/market/indices'
@@ -66,7 +66,7 @@ const MarketIndices = () => {
             console.error(err);
         } finally {
             setLoading(false);
-        }*/
+        }
     }, []);
 
     useEffect(() => {

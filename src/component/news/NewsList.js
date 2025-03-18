@@ -115,10 +115,10 @@ const NewsList = () => {
                                 )
                             }
                         >
-                            {/* 이미지를 왼쪽에 배치 */}
-                            <div className="news-image-container">
-                                <span className="news-emoji">📰</span>
-                            </div>
+                            {/*/!* 이미지를 왼쪽에 배치 *!/*/}
+                            {/*<div className="news-image-container">*/}
+                            {/*    <span className="news-emoji">📰</span>*/}
+                            {/*</div>*/}
 
                             <div className="news-content">
                                 <div className="news-header">
