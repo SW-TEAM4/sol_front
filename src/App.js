@@ -12,7 +12,7 @@ import './App.css';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
 import PortfolioList from './component/portfolio/PortfolioList';
-// import ParkingAccount from './pages/ParkingAccount';
+import ParkingAccount from './pages/ParkingAccount';
 import BasicInfoForm from './pages/BasicInfoForm';
 import RedirectHandler from './pages/onboarding/RedirectHandler';
 import Challenge from './pages/challenge';
@@ -23,11 +23,7 @@ import Question3 from './pages/question3';
 import Question4 from './pages/question4';
 import Question5 from './pages/question5';
 import Result from './pages/result';
-
-import BasicInfoForm from './pages/BasicInfoForm';
-import RedirectHandler from './pages/onboarding/RedirectHandler';
 import Portfolio from './pages/Portfolio/Portfolio';
-
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -92,13 +88,10 @@ function App() {
                                 />
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/news" element={<NewsList />} />
-                                <Route
-                                    path="/assets"
-                                    element={<Portfolio />}
-                                />
+                                <Route path="/assets" element={<Portfolio />} />
                                 <Route
                                     path="/parking"
-                                    element={<ParkingAccount/>}
+                                    element={<ParkingAccount />}
                                 />
                                 <Route
                                     path="/challenge"
