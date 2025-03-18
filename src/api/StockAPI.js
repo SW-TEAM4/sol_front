@@ -13,6 +13,10 @@ const getAuthToken = () => {
     return `Bearer ${jwtCookie.split('=')[1]}`;
 };
 
+const getUserIdx = () => {
+    return localStorage.getItem('userIdx');
+};
+
 // 포트폴리오 데이터 가져오기
 export const getPortfolioList = async () => {
     try {
@@ -41,6 +45,28 @@ export const getPortfolioList = async () => {
                 profitLossRate: item['profitLossRate'],
             };
         });
+    } catch (error) {
+        console.error(
+            'Error fetching portfolio data:',
+            error.response || error
+        );
+        throw error;
+    }
+};
+
+export const getUserPortfolioInform = async () => {
+    try {
+        const userIdx = getUserIdx();
+        if (userIdx) {
+            const response = await axios.get(`${BASE_URL}/accountInformation`, {
+                params: { userIdx },
+                headers: {
+                    Authorization: getAuthToken(), // 인증 헤더 추가
+                },
+                withCredentials: true, // 쿠키 전송 활성화
+            });
+            return response;
+        }
     } catch (error) {
         console.error(
             'Error fetching portfolio data:',
