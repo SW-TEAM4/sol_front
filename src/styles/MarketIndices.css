@@ -1,3 +1,4 @@
+/* 전체 컨테이너 */
 .market-indices-container {
     width: 100%;
     height: 30px;
@@ -8,21 +9,22 @@
     align-items: center;
 }
 
+/* 스크롤 영역 */
 .market-indices-scroll {
     display: flex;
     white-space: nowrap;
-    width: 400%;
-    animation: marketScroll 30s linear infinite;
+    width: 400%; /* 스크롤 영역 너비 */
+    animation: marketScroll 30s linear infinite; /* 스크롤 애니메이션 */
     will-change: transform;
-    transform: translateZ(0);
-    align-items: center;
 }
 
+/* 스크롤 애니메이션 */
 @keyframes marketScroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-25%); }
+    100% { transform: translateX(-90%); }
 }
 
+/* 개별 지수 카드 스타일 */
 .market-index {
     padding: 0 20px;
     justify-items: center;
@@ -32,6 +34,7 @@
     height: 100%;
 }
 
+/* 텍스트 스타일 */
 .market-index-text {
     display: flex;
     align-items: center;
@@ -41,14 +44,18 @@
     font-size: 14px;
     color: #555;
     font-weight: normal;
-    margin: 0 10px 0 0;
+    margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.current-value,
+.change-value {
+    font-size: 14px;
 }
 
 .change-value {
-    font-size: 14px;
-    font-weight: normal;
-    margin: 0 0 0 10px;
+    margin-left: 10px; /* 왼쪽 여백 */
 }
 
-.positive { color: #FF3B30; }
-.negative { color: #007AFF; }
+/* 상승/하락 색상 */
+.positive { color: #FF3B30; } /* 상승 시 빨간색 */
+.negative { color: #007AFF; } /* 하락 시 파란색 */
