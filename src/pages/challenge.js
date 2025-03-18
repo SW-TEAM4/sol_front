@@ -3,7 +3,6 @@ import './challenge.css';
 import axios from 'axios';
 
 const Challenge = ({ isModalOpen, setIsModalOpen }) => {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
     const [isStampModalOpen, setIsStampModalOpen] = useState(false);
     const [stamps, setStamps] = useState(Array(30).fill(false));
     const [currentWeek, setCurrentWeek] = useState(1);
@@ -142,19 +141,27 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
         setIsStampModalOpen(true);
     };
 
-    // '오늘 스탬프 찍기' 버튼 클릭 시 가장 앞의 false 값을 true로 변경
+    const CATEGORY_MAP = {
+        0: '연결된 증권 계좌로 이체',
+        1: '이자 입금',
+        2: '챌린지 이체',
+        3: '캐시백',
+    };
+
+    // '오늘 스탬프 찍기' 버튼 클릭
     const handleStampClick = async () => {
-        if (hasStampedToday) {
-            alert('오늘은 이미 스탬프를 찍었습니다!');
-            return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
-        }
+        // if (hasStampedToday) {
+        //     alert('오늘은 이미 스탬프를 찍었습니다!');
+        //     return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
+        // }
         try {
-            // 💰 1000원 이동 API 호출
+            // 1000원 이동 API 호출
             const formData = new URLSearchParams();
             formData.append('accountNumber', accountNumber); // JWT에서 가져온 계좌번호
             formData.append('amount', 1000); // 출금 금액 1000원
             formData.append('desWitType', '1'); // 출금
-            formData.append('displayName', '투자 챌린지'); // 거래 이름
+            const transferType = 2;
+            formData.append('displayName', CATEGORY_MAP[transferType]); // 거래 이름
 
             // POST 요청: application/x-www-form-urlencoded 형식으로 데이터 전송
             await axios.post(
@@ -168,7 +175,7 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                 }
             );
 
-            // ✅ 스탬프 저장
+            // 스탬프 저장
             const response = await axios.post(
                 'http://localhost:8090/api/stamp/save',
                 {},
@@ -179,14 +186,14 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                     },
                 }
             );
-            if (response.data === '스탬프 저장 성공') {
+            if (response.data.code === 5002) {
+                // 스탬프 찍기 상태 즉시 반영
                 const newStamps = [...stamps];
                 newStamps[currentStamp] = true;
-                setStamps([...newStamps]);
+                setStamps(newStamps); // [...newStamps]
                 setCurrentStamp(currentStamp + 1); // 현재 스탬프 위치 업데이트
-                return;
 
-                // ✅ 스탬프를 찍었으므로 상태 업데이트
+                // 스탬프를 찍었으므로 상태 업데이트
                 const today = new Date().toISOString().slice(0, 10);
                 setHasStampedToday(true);
                 localStorage.setItem(`stampedToday_${userIdx}`, today); // 사용자별 저장
@@ -223,18 +230,19 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
 
         return stamps.slice(startDay, endDay).map((stamp, index) => {
             const day = startDay + index + 1; // 해당 날짜
+            const isFaded = day === 3; // 3일차만 흐리게 표시
 
             // 7, 14, 21, 28일 차에는 specialCoin.svg를 표시
             const isSpecialDay = [7, 14, 21, 28].includes(day);
-            // const canStamp =
-            //     [7, 14, 21, 28].includes(day) &&
-            //     day <= daysSinceStart &&
-            //     !stamp; // 스탬프를 찍을 수 있는 조건
+            const canStamp =
+                [7, 14, 21, 28].includes(day) &&
+                day <= daysSinceStart &&
+                !stamp; // 스탬프를 찍을 수 있는 조건
 
             // 아직 차례가 오지 않은 날 (현재 주차에 포함되지 않은 날)
             if (day > daysSinceStart) {
                 return (
-                    <div key={index} className="challenge-stamp">
+                    <div key={day} className="challenge-stamp">
                         {isSpecialDay ? (
                             <img
                                 src="/assets/images/analyzeTest/monkey.svg"
@@ -252,7 +260,7 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
             // 지나간 날짜
             if (day < daysSinceStart && !stamp) {
                 return (
-                    <div key={index} className="challenge-stamp">
+                    <div key={day} className="challenge-stamp">
                         <img
                             src="/assets/images/analyzeTest/coin1.svg"
                             alt="지나간 스탬프"
@@ -263,8 +271,9 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
             }
 
             return (
+                // ${stamp ? 'stamped' : ''}
                 <div
-                    key={index}
+                    key={day}
                     className={`challenge-stamp ${stamp ? 'stamped' : ''}`}
                 >
                     {
@@ -277,10 +286,10 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                                         : '/assets/images/analyzeTest/coin1.svg'
                                 }
                                 alt={isSpecialDay ? '특별 스탬프' : '스탬프'}
-                                className="challenge-stamp-image"
-                                // onClick={() =>
-                                //     canStamp && handleStampClick(day)
-                                // } // 이미 찍은 스탬프를 클릭 가능하도록 처리
+                                className={`challenge-stamp-image ${isFaded ? 'empty' : ''}`}
+                                onClick={() =>
+                                    canStamp && handleStampClick(day)
+                                } // 이미 찍은 스탬프를 클릭 가능하도록 처리
                             />
                         ) : isSpecialDay ? (
                             <img
@@ -302,9 +311,6 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
 
     return (
         <>
-            {/*<button className="challenge-open-button" onClick={openModal}>*/}
-            {/*    투자 챌린지*/}
-            {/*</button>*/}
             {isModalOpen && (
                 <div className="challenge-modal-overlay" onClick={closeModal}>
                     <div
@@ -363,7 +369,7 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                                 {/*&lt; {currentWeek}주차*/}
                                 <img src="/assets/images/analyzeTest/leftButton.svg" />
                             </button>
-                            <span>✊ {currentWeek}주차 도전중!</span>
+                            <span>{currentWeek}주차 도전중!</span>
                             <button onClick={() => handleWeekChange('next')}>
                                 {/*{currentWeek + 1}주차 &gt;*/}
                                 <img src="/assets/images/analyzeTest/rightButton.svg" />

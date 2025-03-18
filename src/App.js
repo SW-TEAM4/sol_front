@@ -94,10 +94,6 @@ function App() {
                                     element={<ParkingAccount />}
                                 />
                                 <Route
-                                    path="/challenge"
-                                    element={<Challenge />}
-                                />
-                                <Route
                                     path="/basic-info"
                                     element={<BasicInfoForm />}
                                 />
