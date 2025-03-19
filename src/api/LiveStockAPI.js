@@ -87,3 +87,43 @@ export const fetchStockData = async (ticker, type, page) => {
         // isRequestInProgress = false;
     }
 };
+
+export const fetchDefaultStockData = async () => {
+    console.log('진짜 API');
+
+    try {
+        // isRequestInProgress = true;
+        const response = await axios.get(`${BASE_URL}/default`, {
+            headers: {
+                Authorization: getAuthToken(), // 인증 헤더 추가
+            },
+            withCredentials: true, // 쿠키 전송 활성화
+        });
+
+        const rawData = response.data || [];
+
+        if (rawData.length === 0) {
+            return [];
+        }
+
+        // 데이터 변환
+        return rawData.map((item) => {
+            return {
+                ticker: item['ticker'],
+                name: item['tickerName'],
+                startPrice: item['startPrice'],
+                price: item['endPrice'],
+                highPrice: item['highPrice'],
+                lowPrice: item['lowPrice'],
+                diffRate: item['diffRate'],
+                diff: item['diff'],
+                volume: item['volume'],
+            };
+        });
+    } catch (error) {
+        console.error('Error fetching stock data:', error);
+        return []; // 오류 발생 시 빈 배열 반환
+    } finally {
+        // isRequestInProgress = false;
+    }
+};

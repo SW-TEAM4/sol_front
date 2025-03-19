@@ -58,13 +58,16 @@ export const getUserPortfolioInform = async () => {
     try {
         const userIdx = getUserIdx();
         if (userIdx) {
-            const response = await axios.get(`${BASE_URL}/accountInformation`, {
-                params: { userIdx },
-                headers: {
-                    Authorization: getAuthToken(), // 인증 헤더 추가
-                },
-                withCredentials: true, // 쿠키 전송 활성화
-            });
+            const response = await axios.get(
+                `${BASE_URL}/portfolio/accountInformation`,
+                {
+                    params: { userIdx },
+                    headers: {
+                        Authorization: getAuthToken(), // 인증 헤더 추가
+                    },
+                    withCredentials: true, // 쿠키 전송 활성화
+                }
+            );
             return response;
         }
     } catch (error) {
