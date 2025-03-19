@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #F6F7F9;
+    background-color: #CEE2FF50;
     font-family: 'Noto Sans', sans-serif;
-    border-left: 1px solid #ddd; /* 왼쪽 세로선 */
-    border-right: 1px solid #ddd; /* 오른쪽 세로선 */
-    border-top: 1px solid #ddd;
+ /*   border-left: 1px solid #ddd; !* 왼쪽 세로선 *!
+    border-right: 1px solid #ddd; !* 오른쪽 세로선 *!
+    border-top: 1px solid #ddd;*/
 }
 
 .stock-price-list-chart-header {
@@ -16,7 +16,7 @@
     align-items: center;
     padding: 10px;
     margin-bottom: 8px;
-    background-color: #F6F7F9;
+    background-color: #CEE2FF50;
     font-size: 11px;
     color: #666666;
     font-weight: bold;
@@ -33,7 +33,7 @@
 }
 
 .stock-price-list-filter-select {
-    background-color: #F6F7F9; /* 배경색 변경 */
+    background-color: #CEE2FF50; /* 배경색 변경 */
     border: none; /* 테두리 제거 */
     border-radius: 8px;
     padding: 8px 12px;
@@ -175,7 +175,7 @@
     text-align: right;
 }
 .stock-price-list-stock-content.selected {
-    background-color: #E9ECF0; /* 선택된 항목 배경색 */
+    background-color: #CEE2FF50; /* 선택된 항목 배경색 */
     border-radius: 8px; /* 둥근 테두리 */
     transition: background-color 0.3s ease;
 }

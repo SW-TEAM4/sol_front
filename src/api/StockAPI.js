@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8090/api';
+const BASE_URL = 'http://localhost:8090/api/';
 
 // 쿠키에서 JWT 토큰을 가져오는 함수
 const getAuthToken = () => {
@@ -20,7 +20,7 @@ const getUserIdx = () => {
 // 포트폴리오 데이터 가져오기
 export const getPortfolioList = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/portfolio/list`, {
+        const response = await axios.get(`${BASE_URL}portfolio/list`, {
             headers: {
                 Authorization: getAuthToken(), // 인증 헤더 추가
             },
@@ -58,7 +58,7 @@ export const getUserPortfolioInform = async () => {
     try {
         const userIdx = getUserIdx();
         if (userIdx) {
-            const response = await axios.get(`${BASE_URL}/accountInformation`, {
+            const response = await axios.get(`${BASE_URL}portfolio/accountInformation`, {
                 params: { userIdx },
                 headers: {
                     Authorization: getAuthToken(), // 인증 헤더 추가
