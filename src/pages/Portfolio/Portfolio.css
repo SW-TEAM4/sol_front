@@ -6,11 +6,13 @@
 }
 
 .portfolio-container {
- /*   min-height: 100vh;*/
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 24px;
-    margin-left:-6px;
+    max-width: 1200px;
+    width: 100%;
+    margin: -35px auto 0;
 }
 
 /*    카드 스타일 - 화면을 더 넓게 사용 */
@@ -18,9 +20,11 @@
     background-color: white;
     width: 100%;
     max-width: 1200px;
+    min-width: 800px; /* 최소 크기 설정 */
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    margin-top: -40px;
 }
 
 /*    투자 개요 및 차트 */
@@ -28,6 +32,7 @@
     display: flex;
     align-items: flex-start;
     width: 100%;
+    max-width: 1200px;
     padding: 10px 0;
     position: relative;
 }
@@ -39,7 +44,7 @@
     background-color: #E5E7EB;
     height: 72%;
     position: absolute;
-    left: 56.2%;
+    left: 52%;
     top: 32px;
 }
 /*    가로선 추가 (세로선과 연결) */
@@ -55,10 +60,10 @@
 /*    투자 개요 */
 .portfolio-summary {
     flex: 1;
-    min-width: 55%;
-    max-width: 55%;
+    min-width: 600px;
+    max-width: 600px;
     padding: 20px;
-    margin-right: 50px; /*    차트와의 간격 증가 */
+    margin-right: 50px; /* 차트와의 간격 증가 */
 }
 
 /*    상단 요약 (총 보유 현금 금액, 총 보유자산을 한 줄 정렬) */
@@ -83,7 +88,7 @@
     height: 1px;
     background: #E5E7EB;
     margin: 12px 0;
-    width: 99.3%;
+    width: 99%;
     margin-top: -20px;
 }
 
@@ -151,7 +156,9 @@
 /*    원형 차트 컨테이너 */
 .portfolio-chart-container {
     display: flex;
-    width: 350px; /*   차트 크기 고정 */
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
 }
 
 /*    차트 왼쪽 범례 */
@@ -206,20 +213,17 @@
 
 /*    보유 자산 목록 */
 .portfolio-table-container {
-    max-height: 300px; /*   테이블 최대 높이 설정 */
-    /*overflow-y: auto;  !*   수직(세로) 스크롤 활성화 *!*/
-    overflow-x: hidden; /*   가로 스크롤 제거 */
-    width: 103%;
-    margin-top: -80px;
-    padding-right: 30px; /*   스크롤바를 오른쪽으로 미룸 */
-   /* border: 1px solid #e5e7eb; !*   테두리 추가 *!*/
+    max-height: 300px;
+    overflow-x: hidden;
+    width: 100%;
+    min-width: 800px;
+    max-width: 1200px;
+    padding-right: 30px;
 }
 /*    차트 중앙 텍스트 */
 .chart-center-text {
     position: absolute;
-    top: 42%;
-    left: 92.6%;
-    transform: translate(-50%, -50%); /*    중앙 정렬 */
+    transform: translate(280%, 690%); /*    중앙 정렬 */
     font-size: 12px;
     font-weight: bold;
     color: #4b5563;
@@ -227,10 +231,32 @@
 /*    테이블 스타일 */
 .portfolio-table {
     width: 100%;
+    max-width: 1200px;
+    min-width: 800px;
     border-collapse: collapse;
-    table-layout: fixed; /*   테이블 레이아웃 고정 */
-    border:2px solid #f0f0f0;
+    table-layout: fixed;
+    border: 2px solid #f0f0f0;
 }
+/* 반응형 디자인 개선 */
+@media (max-width: 1024px) {
+    .portfolio-summary-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .portfolio-summary {
+        min-width: auto;
+        max-width: 100%;
+    }
+    .portfolio-chart-container {
+        min-width: auto;
+        max-width: 100%;
+    }
+    .portfolio-table-container {
+        min-width: auto;
+        max-width: 100%;
+    }
+}
+
 .portfolio-table thead {
     position: sticky;
     top: 0;
@@ -306,6 +332,7 @@
     align-items: center;
     gap: 16px;  /* 이미지와 텍스트 사이의 간격을 16px로 설정 */
     margin-left:20px;
+    margin-top:50px
 }
 
 /* 사용자 이미지 */

@@ -151,12 +151,13 @@ const InterestDisplay = () => {
                         }}
                     >
                         <img
-                            src={accountCardImg}
-                            width="417"
-                            height="322"
+                            src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBSCDNG.gif"
+                            width="300"
+                            height="189"
                             alt="SOL 카드"
                         />
                     </div>
+                    <p>신한카드 처음 (ANNIVERSE)</p>
                 </DialogContent>
             </Dialog>
 
