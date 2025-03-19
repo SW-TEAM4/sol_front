@@ -128,9 +128,7 @@ const Portfolio = () => {
         }
 
         if (portfolioData.length === 0 || !portfolioUserData) {
-            console.log(
-                'portfolioData가 비어 있음 또는 portfolioUserData가 없음 - 실행 중단'
-            );
+            console.log("portfolioData가 비어 있음 또는 portfolioUserData가 없음 - 실행 중단");
             return;
         }
 
@@ -319,9 +317,7 @@ const Portfolio = () => {
                         <div className="portfolio-summary-item">
                             <p className="portfolio-label">총 보유 현금 금액</p>
                             <p className="portfolio-value large">
-                                {(
-                                    portfolioUserData?.balance ?? 0
-                                ).toLocaleString()}
+                                {(portfolioUserData?.balance ?? 0).toLocaleString()}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
