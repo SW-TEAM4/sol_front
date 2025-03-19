@@ -14,7 +14,7 @@ const Result = ({ totalScore, setTotalScore }) => {
         ansook: {
             name: '안숙이',
             description:
-                '당신은 안전이 최우선!\n리스크는 싫어! 꾸준하고 안정적인 수익을 선호하는 편입니다.',
+                '당신은 안전이 최우선! 리스크는 싫어!\n 꾸준하고 안정적인 수익을 선호하는 편입니다.',
             img: '/assets/images/analyzeTest/ansook.svg',
         },
         chacheol: {

@@ -19,8 +19,8 @@
 }
 
 .category-title {
-    font-size: 24px;
-    margin-bottom: 30px;
+    font-size: 28px;
+    margin-bottom: 50px;
     line-height: 1.4;
     text-align: left;
     width: 100%;
@@ -31,15 +31,16 @@
 .category-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px 65px;
+    gap: 97px 75px;
     width: 100%;
+    margin-left: 150px;
 }
 
 /* 카테고리 아이템 */
 .category-item {
     border: 1px solid #ddd;
-    width: 100%; /* 너비를 100%로 설정하여 컨테이너에 맞게 조정 */
-    height: 79px;
+    width: 87%;
+    height: 94px;
     border-radius: 15px;
     display: flex;
     flex-direction: row;
@@ -52,13 +53,14 @@
 .category-icon {
     height: 82px;
     width: 82px;
-    margin-right: 20px;
+    margin-right: 10px;
     flex-shrink: 0; /* 아이콘 크기 유지 */
+    margin-left: 20px;
 }
 
 /* 카테고리 이름 */
 .category-name {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     overflow: hidden; /* 넘치는 텍스트 숨김 */
