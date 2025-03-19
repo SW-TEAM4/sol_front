@@ -127,7 +127,7 @@ const Portfolio = () => {
         }
 
         if (portfolioData.length === 0 || !portfolioUserData) {
-            console.log("⚠ portfolioData가 비어 있음 또는 portfolioUserData가 없음 - 실행 중단");
+            console.log("portfolioData가 비어 있음 또는 portfolioUserData가 없음 - 실행 중단");
             return;
         }
 
@@ -135,14 +135,14 @@ const Portfolio = () => {
 
         /*주식 금액 먼저 더하기 */
         const totalEvaluationAmount = portfolioData.reduce(
-            (sum, asset) => sum + (asset.closingPrice * 1 || 0), // * asset.stockCount (주식 수량 고려 가능)
+            (sum, asset) => sum + (asset.closingPrice * asset.stockCount || 0), // * asset.stockCount (주식 수량 고려 가능)
             0
         );
 
         // 하나의 reduce로 모든 값 계산
         const summary = portfolioData.reduce(
             (acc, asset, index) => {
-                const stockValue = asset.closingPrice */* asset.stockCount*/1 || 0; // 현재 평가 금액 계산
+                const stockValue = asset.closingPrice * asset.stockCount || 0; // 현재 평가 금액 계산
                 acc.totalPurchaseAmount += asset.purchaseAmount || 0;                  // 총 매수 금액
                 acc.totalCurrentValue += stockValue;                                   // 총 평가 금액
 
@@ -250,7 +250,9 @@ const Portfolio = () => {
                                 {portfolioUserData?.userName} 님의 주식 투자
                                 성향을 알려주세요.
                             </p>
-                            <button className="portfolio-investment-test-btn">
+                            <button className="portfolio-investment-test-btn"
+                                    onClick={() => navigate('/question')}
+                            >
                                 투자 성향 테스트 하기
                             </button>
                         </div>
@@ -264,7 +266,7 @@ const Portfolio = () => {
                         <div className="portfolio-summary-item">
                             <p className="portfolio-label">총 보유 현금 금액</p>
                             <p className="portfolio-value large">
-                                {portfolioUserData?.balance.toLocaleString() || "0"}
+                                {(portfolioUserData?.balance ?? 0).toLocaleString()}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
@@ -393,23 +395,23 @@ const Portfolio = () => {
                             {portfolioData.map((asset, index) => (
                                 <tr key={index}>
                                     <td>{asset.stockName}</td>
-                                    <td>{/*{asset.stockCount}*/}1</td>
+                                    <td>{asset.stockCount}</td>
                                     <td>
-                                        {/*{asset.averagePrice.toLocaleString()}*/}
+                                        {asset.averagePrice?.toLocaleString()}
                                         <span className="portfolio-unit">
                                             KRW
                                         </span>
                                     </td>
                                     <td>
-                                        {asset.purchaseAmount.toLocaleString()}
+                                        {asset.purchaseAmount?.toLocaleString()}
                                         <span className="portfolio-unit">
                                             KRW
                                         </span>
                                     </td>
                                     <td>
                                         {Number(
-                                            asset.closingPrice * 1
-                                            /* *  asset.stockCount*/
+                                            asset.closingPrice
+                                             *  asset.stockCount
                                         ).toLocaleString()}
                                         <span className="portfolio-unit">
                                             KRW
