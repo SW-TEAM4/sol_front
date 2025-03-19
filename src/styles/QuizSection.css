@@ -13,7 +13,7 @@
     align-items: center;
     width: 100%;
     border-radius: 12px;
-    gap: 20px;
+    gap: 100px;
 }
 
 /* 퀴즈 헤더 */
@@ -23,23 +23,24 @@
 }
 
 .quiz-header p {
-    font-size: 30px;
+    font-size: 28px;
+    margin-bottom: 28px;
 }
 
 /* 카드 컨테이너 */
 .quiz-cards {
     display: flex;
-    gap: 40px;
+    gap: 60px;
     flex-shrink: 0;
 }
 
 /* 개별 퀴즈 카드 */
 .quiz-card {
-    background-color: rgba(0, 0, 0, 0.03);
-    padding: 40px;
+    background-color: #FFFDED;
+    /*padding: 40px;*/
     border-radius: 12px;
-    width: 273px;
-    height: 273px;
+    width: 344px;
+    height: 341px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,12 +51,13 @@
 .quiz-card p {
     font-size: 22px;
     text-align: center;
+    font-weight: 500;
 }
 
 /* 병아리 이미지 */
 .quiz-image {
     width: auto;
-    height: 380px;
+    height: 400px;
 }
 
 /* O/X 버튼 컨테이너 */
@@ -93,8 +95,8 @@
 
 /* 정답/오답 메시지 */
 .quiz-message {
-    margin-top: 15px;
-    font-style: italic;
+
+    font-size: 12px;
     color: #555;
 }
 

@@ -25,28 +25,24 @@
 
 .modal-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
     padding: 16px;
-    background-color: #fff8e1;
-}
-
-.back-button, .close-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.modal-title {
-    font-size: 18px;
-    margin: 0;
+    background-color: #fff8e1; /* 배경색 */
+    position: relative; /* 제목을 중앙에 배치하기 위해 상대적 위치 사용 */
 }
 
 .modal-category-image {
     width: 100px;
     height: 100px;
-    margin-left: 10px;
+    margin-right: 20px; /* 이미지와 제목 간격 조정 */
+    position: absolute; /* 이미지 위치를 고정 */
+    left: 16px; /* 이미지 왼쪽 배치 */
+}
+
+.home-modal-title {
+    font-size: 20px;
+    text-align: center;
 }
 
 .category-info {

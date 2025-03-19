@@ -152,7 +152,7 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
     const handleStampClick = async () => {
         if (hasStampedToday) {
             alert('오늘은 이미 스탬프를 찍었습니다!');
-            return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
+            // return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
         }
         try {
             // 1000원 이동 API 호출
