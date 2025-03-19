@@ -1,31 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/UserChoice.css';
 import profileImage from '../../images/profile.svg';
-import profileImage2 from '../../images/profile2.svg';
-import profileImage3 from '../../images/profile3.svg';
 
 const UserChoice = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [userData, setUserData] = useState([
-        {
-            name: '로딩 중...',
-            stock: '삼성전자',
-            tags: [],
-            image: profileImage,
-        },
-        {
-            name: '로딩 중...',
-            stock: '파킹통장',
-            tags: [],
-            image: profileImage2,
-        },
-        {
-            name: '로딩 중...',
-            stock: '20%정도',
-            tags: [],
-            image: profileImage3,
-        },
-    ]);
+    const [userData, setUserData] = useState([]);
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -42,7 +21,6 @@ const UserChoice = () => {
                     if (data.isSuccess && data.result) {
                         const { username, gender, age, job } = data.result;
 
-                        // 매핑 객체 정의
                         const genderMap = { M: '#남성', F: '#여성' };
                         const ageMapping = {
                             1: '#10대',
@@ -61,17 +39,32 @@ const UserChoice = () => {
                             5: '#기타',
                         };
 
-                        setUserData((prevData) =>
-                            prevData.map((item) => ({
-                                ...item,
+                        const userTags = [
+                            ageMapping[age],
+                            jobMapping[job],
+                            genderMap[gender],
+                        ];
+
+                        setUserData([
+                            {
                                 name: `${username}님`,
-                                tags: [
-                                    ageMapping[age],
-                                    jobMapping[job],
-                                    genderMap[gender],
-                                ],
-                            }))
-                        );
+                                stock: '삼성전자',
+                                tags: userTags,
+                                image: profileImage,
+                            },
+                            {
+                                name: `${username}님`,
+                                stock: '파킹통장',
+                                tags: userTags,
+                                image: profileImage,
+                            },
+                            {
+                                name: `${username}님`,
+                                stock: '20%정도',
+                                tags: userTags,
+                                image: profileImage,
+                            },
+                        ]);
                     }
                 } else {
                     console.error('API 호출 실패:', response.status);
@@ -97,26 +90,39 @@ const UserChoice = () => {
                 ‹
             </button>
 
-            <div className="user-info">
+            <div className="user-content">
                 <img
-                    src={userData[currentIndex].image}
+                    src={
+                        userData.length > 0
+                            ? userData[currentIndex].image
+                            : profileImage
+                    }
                     alt="Profile"
                     className="profile-image"
                 />
                 <div className="user-text">
-                    <span>
-                        <strong>{userData[currentIndex].name}</strong>의 또래는
-                        <br />
-                        <span className="highlight">
-                            {userData[currentIndex].stock}
-                        </span>
-                        에 많이 투자하고 있어요!
-                    </span>
-                    <div className="user-tags">
-                        {userData[currentIndex].tags.map((tag, index) => (
-                            <span key={index}>{tag}</span>
-                        ))}
-                    </div>
+                    {userData.length > 0 ? (
+                        <>
+                            <span>
+                                <strong>{userData[currentIndex].name}</strong>의
+                                또래는
+                                <br />
+                                <span className="highlight">
+                                    {userData[currentIndex].stock}
+                                </span>
+                                에 많이 투자하고 있어요!
+                            </span>
+                            <div className="user-tags">
+                                {userData[currentIndex].tags.map(
+                                    (tag, index) => (
+                                        <span key={index}>{tag}</span>
+                                    )
+                                )}
+                            </div>
+                        </>
+                    ) : (
+                        <span>사용자 정보를 불러오는 중입니다...</span>
+                    )}
                 </div>
             </div>
 

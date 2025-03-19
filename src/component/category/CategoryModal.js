@@ -49,8 +49,16 @@ const CategoryModal = ({ category, onClose }) => {
         return `${Math.round(numericPrice).toLocaleString()}원`;
     };
 
+    // 모달창 닫기 메서드
+    const closeModal = (e) => {
+        // 클릭한 곳이 모달창 바깥 영역일 경우에만 닫기 실행
+        if (e.target.classList.contains('modal-overlay')) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content">
                 {/* 모달 헤더 */}
                 <div className="modal-header">
@@ -60,13 +68,7 @@ const CategoryModal = ({ category, onClose }) => {
                         alt={`${category.displayName} 이미지`}
                         className="modal-category-image"
                     />
-                    <h2 className="modal-title">
-                        {`${category.displayName} (${stocks.length}개)`}
-                    </h2>
-
-                    <button className="close-button" onClick={onClose}>
-                        ×
-                    </button>
+                    <h2 className="home-modal-title">{`${category.displayName}`}</h2>
                 </div>
 
                 {/* 수익률 요약 */}

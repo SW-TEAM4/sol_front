@@ -58,14 +58,6 @@
     flex-direction: column;
 }
 
-.news-emoji {
-    font-size: 60px; /* 이모지 크기 조정 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px; /* 기존 이미지와 동일한 너비 유지 */
-    height: 100px; /* 기존 이미지와 동일한 높이 유지 */
-}
 
 .news-item {
     display: flex;
