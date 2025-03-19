@@ -167,10 +167,12 @@ html, body {
 }
 
 /* ✅ 텍스트 스타일 */
-.step3_box p {
+.p2 {
     font-size: 32px;
     color: white;
     line-height: 1.4;
+    position: relative;
+    margin-top: -30px;
 }
 
 /* ✅ 박스 내부 이미지 */

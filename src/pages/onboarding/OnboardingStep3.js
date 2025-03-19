@@ -106,7 +106,7 @@ const OnboardingStep3 = () => {
                             alt="Calendar"
                             className="box-image"
                         />
-                        <p>
+                        <p className="p2">
                             파킹통장에서 증권계좌로
                             <br />
                             넘어가는 비율을 자유롭게 조정하세요!
