@@ -1,10 +1,11 @@
 .stock-info-container {
-    padding: 16px;
+    padding: 5px;
     background-color: white;
     border-bottom: 1px solid #ddd;
+    flex-direction: column;
 }
 
-/* 상단 정보 (이름, 코드, 고가, 저가) */
+/* 상단 정보 (이름, 버튼 ) */
 .stock-info-stock-header {
     display: flex;
     justify-content: space-between;
@@ -24,6 +25,7 @@
 
 .stock-info-stock-highlow {
     display: flex;
+    justify-content: flex-end;
     gap: 12px;
     font-size: 14px;
 }
@@ -41,8 +43,8 @@
 /* 가격 + 등락폭 */
 .stock-info-stock-price-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .stock-info-stock-price {
@@ -52,6 +54,7 @@
 
 .stock-info-stock-diff {
     font-size: 14px;
+    margin-left: 5px;
 }
 
 .text-red {
