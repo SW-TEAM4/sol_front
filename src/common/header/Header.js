@@ -49,9 +49,9 @@ const Header = () => {
                         onClick={handleLogout}
                         style={{ cursor: 'pointer' }} // 클릭 가능하게 설정
                     />
-                    <Link to="/account" className="account-button-link">
-                        <button className="account-button">My account</button>
-                    </Link>
+                    {/*<Link to="/account" className="account-button-link">*/}
+                    {/*    <button className="account-button">My account</button>*/}
+                    {/*</Link>*/}
                 </div>
             </div>
         </header>
