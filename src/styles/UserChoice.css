@@ -23,15 +23,27 @@
 }
 
 .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 165px;
+    height: 165px;
+    object-fit: contain;
+}
+
+.profile-image2 {
+    width: 165px;
+    height: 165px;
+    object-fit: contain;
+}
+
+.profile-image3 {
+    width: 165px;
+    height: 165px;
     object-fit: contain;
 }
 
 .user-text {
     display: flex;
     flex-direction: column;
-    font-size: 30px;
+    font-size: 35px;
     gap: 15px;
 }
 
@@ -42,7 +54,7 @@
 
 .highlight {
     color: #0056b3;
-    font-size: 30px;
+    font-size:40px;
 }
 
 .user-tags {
@@ -50,7 +62,7 @@
 }
 
 .user-tags span {
-    margin-right: 10px;
+    margin-right: 45px;
     font-size: 27px;
     color: #555;
 }
