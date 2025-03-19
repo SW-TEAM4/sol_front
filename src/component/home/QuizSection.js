@@ -122,7 +122,7 @@ const QuizSection = ({ onCashback }) => {
                         <div key={card.id} className="quiz-card">
                             {card.isAnswered ? (
                                 <p className="quiz-message">
-                                    이미 퀴즈 푸셨습니다.
+                                    이미 퀴즈 풀었어요.
                                     <br />
                                     내일 만나요 😊
                                 </p>

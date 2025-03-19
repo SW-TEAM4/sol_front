@@ -5,8 +5,6 @@ import UserChoice from './UserChoice';
 import '../../styles/Home.css';
 import HomeMainContent from './HomeMainContent';
 import QuizSection from './QuizSection';
-import MarketIndices from './MarketIndices';
-import StockPicks from './StockPicks';
 import { getBalance } from '../../api/accountApi';
 
 const Home = () => {

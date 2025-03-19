@@ -10,7 +10,7 @@
 .sections-container {
     display: flex;
     justify-content: space-between;
-    gap: 110px;
+    gap: 80px;
 }
 
 /* 2. 섹션 기본 스타일 */
@@ -39,7 +39,7 @@
     width: 435px;
 }
 
-.challenge-image {
+.home-challenge-image {
     width: 120px;
     height: 120px;
 }
@@ -115,10 +115,10 @@
     justify-content: space-between;
     align-items: center;
     display: flex;
-    padding: 15px 30px;
-    width: auto;
+    padding: 15px 20px;
+    width: 93%;
     background-color: rgba(111, 196, 218, 0.29);
-    gap: 85px;
+    gap: 70px;
 }
 
 .parking-image {

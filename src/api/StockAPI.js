@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8090/api/';
+const BASE_URL = 'http://localhost:8090/api';
 
 // 쿠키에서 JWT 토큰을 가져오는 함수
 const getAuthToken = () => {
@@ -20,7 +20,7 @@ const getUserIdx = () => {
 // 포트폴리오 데이터 가져오기
 export const getPortfolioList = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}portfolio/list`, {
+        const response = await axios.get(`${BASE_URL}/portfolio/list`, {
             headers: {
                 Authorization: getAuthToken(), // 인증 헤더 추가
             },
@@ -68,7 +68,6 @@ export const getUserPortfolioInform = async () => {
                     withCredentials: true, // 쿠키 전송 활성화
                 }
             );
-
             return response;
         }
     } catch (error) {
@@ -99,6 +98,8 @@ export const getMarketIndices = async () => {
 // 카테고리에 해당하는 주식 정보
 export const getStocksByCategory = async (category) => {
     try {
+        console.log('카테고리 요청 시작:', category); // 디버깅 로그 추가
+
         const response = await axios.get(
             `${BASE_URL}/stock/category/${category}`,
             {
@@ -108,9 +109,34 @@ export const getStocksByCategory = async (category) => {
                 withCredentials: true, // 쿠키 전송 활성화
             }
         );
+
+        console.log('카테고리 데이터 응답:', response.data); // 디버깅 로그 추가
+
         return response.data; // 주식 데이터 반환
     } catch (error) {
-        console.error('카테고리 주식 데이터 중 에러:', error);
+        console.error('카테고리 주식 데이터 중 에러:', error.response || error);
+        throw error;
+    }
+};
+
+// 뉴스 헤드라인 가져오기
+export const getNewsHeadlines = async () => {
+    try {
+        const response = await axios.get(
+            `${BASE_URL}/news/headlines?limit=15`,
+            {
+                headers: {
+                    Authorization: getAuthToken(), // 인증 헤더 추가
+                },
+                withCredentials: true, // 쿠키 전송 활성화
+            }
+        );
+        return response.data; // 뉴스 데이터 반환
+    } catch (error) {
+        console.error(
+            '뉴스 데이터를 가져오는 중 오류 발생:',
+            error.response || error
+        );
         throw error;
     }
 };
