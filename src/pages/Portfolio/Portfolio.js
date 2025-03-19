@@ -84,7 +84,7 @@ const Portfolio = () => {
         console.log('포트폴리오 유저 data set', portfolioUserData);
 
         if (!portfolioUserData.hasOwnProperty('profileImage')) {
-            const investorClass = portfolioUserData.investorClass || 100; // 기본값 0
+            const investorClass = portfolioUserData.personalInvestor || 100; // 기본값 0
 
             const profileImage =
                 portfolioUserData.personalInvestor === 100
