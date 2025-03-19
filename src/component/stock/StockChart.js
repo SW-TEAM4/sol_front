@@ -16,7 +16,7 @@ import ChartTypeButton from './ChartTypeButton';
 import './StockChart.css';
 
 const StockChart = ({ ticker }) => {
-    const { kafkaData } = useContext(WebSocketContext) || {}; // 웹소켓으로 부터 받아오는 오늘 데이터
+    const { kafkaData, kafkaSecondData } = useContext(WebSocketContext) || {}; // 웹소켓으로 부터 받아오는 오늘 데이터
     const [candlestickData, setCandlestickData] = useState([]); // 캔들 구성 데이터
     const [histogramData, setHistogramData] = useState([]); // 히스토그램 구성 데이터
     const [type, setType] = useState('daily'); // 차트 타입 (일간, 주간, 월간, 연간)
@@ -353,12 +353,12 @@ const StockChart = ({ ticker }) => {
         }
     }
 
-    // 최초 마운트 시에만 호출되도록 useEffect로 감싸기
-    useEffect(() => {
-        console.log('초기 마운트 호출 ticker:', ticker + ' type: ', type);
-        ticker = '005930';
-        loadInitialData(ticker, type); // 최초 호출
-    }, []); // 빈 배열로 지정하여 한 번만 호출되게 설정
+    // // 최초 마운트 시에만 호출되도록 useEffect로 감싸기
+    // useEffect(() => {
+    //     console.log('초기 마운트 호출 ticker:', ticker + ' type: ', type);
+    //     ticker = '005930';
+    //     loadInitialData(ticker, type); // 최초 호출
+    // }, []); // 빈 배열로 지정하여 한 번만 호출되게 설정
 
     // 차트 데이터 변경 시 차트에 적용
     useEffect(() => {
@@ -434,6 +434,95 @@ const StockChart = ({ ticker }) => {
             const existingHistogramIndex = prevData.findIndex(
                 (item) => formatDateForType(item.time, type) === formattedTime
             );
+
+            const volume = parseFloat(kafkaData.volume);
+
+            if (existingHistogramIndex !== -1) {
+                // 기존 volume 업데이트 (누적)
+                const updatedData = [...prevData];
+                updatedData[existingHistogramIndex] = {
+                    ...updatedData[existingHistogramIndex],
+                    volume: volume,
+                };
+                return updatedData;
+            } else {
+                // 새로운 volume 데이터 추가
+                return [
+                    ...prevData,
+                    {
+                        time:
+                            type === 'monthly' ? kafkaData.date : formattedTime,
+                        value: volume,
+                        color:
+                            kafkaData.startPrice <= kafkaData.price
+                                ? '#d25357'
+                                : '#5d83ee',
+                    },
+                ];
+            }
+        });
+    }, [kafkaData, type]);
+    useEffect(() => {
+        if (!kafkaSecondData || kafkaSecondData?.ticker !== ticker) {
+            return; // 현재 티커와 다르면 무시
+        }
+
+        const formattedTime = formatDateForType(kafkaSecondData.date, type);
+        // 기존 데이터가 있는지 확인
+        setCandlestickData((prevData) => {
+            const existingCandleIndex = prevData.findIndex(
+                (item) => formatDateForType(item.time, type) === formattedTime
+            );
+            // const existingCandleIndex = prevData.findIndex((item) => item.time === kafkaData.date);
+
+            const openPrice = parseFloat(kafkaSecondData.startPrice); // startPrice를 숫자로 변환
+            const highPrice = parseFloat(kafkaSecondData.highPrice); // highPrice를 숫자로 변환
+            const lowPrice = parseFloat(kafkaSecondData.lowPrice); // lowPrice를 숫자로 변환
+            const closePrice = parseFloat(kafkaSecondData.price); // endPrice를 숫자로 변환
+
+            if (existingCandleIndex !== -1) {
+                // 기존 데이터 업데이트
+                const updatedData = [...prevData];
+                updatedData[existingCandleIndex] = {
+                    ...updatedData[existingCandleIndex],
+                    high: Math.max(
+                        updatedData[existingCandleIndex].high,
+                        highPrice
+                    ),
+                    low: Math.min(
+                        updatedData[existingCandleIndex].low,
+                        lowPrice
+                    ),
+                    close: closePrice, // 최신 close 값으로 업데이트
+                };
+                return updatedData;
+            } else {
+                // 새로운 데이터 추가
+                return [
+                    ...prevData,
+                    {
+                        time:
+                            type === 'monthly'
+                                ? kafkaSecondData.date
+                                : formattedTime,
+                        // time: kafkaData.date,
+                        open: openPrice,
+                        high: highPrice,
+                        low: lowPrice,
+                        close: closePrice,
+                    },
+                ];
+                console.log(
+                    '카프카 두번째 파이프라인 데이터 기존 차트에 데이터 추가',
+                    kafkaSecondData
+                );
+            }
+        });
+
+        setHistogramData((prevData) => {
+            const existingHistogramIndex = prevData.findIndex(
+                (item) => formatDateForType(item.time, type) === formattedTime
+            );
             // const existingHistogramIndex = prevData.findIndex((item) => item.time === kafkaData.date);
 
             const openPrice = parseFloat(kafkaData.startPrice); // startPrice를 숫자로 변환
@@ -466,7 +555,7 @@ const StockChart = ({ ticker }) => {
                 ];
             }
         });
-    }, [kafkaData, type]);
+    }, [kafkaSecondData, type]);
 
     // 차트 타입 또는 티커 변경 시 페이지 초기화 및 스크롤 섭스크라이버 초기화
     useEffect(() => {
