@@ -1,15 +1,15 @@
 .chart-container {
     box-sizing: border-box;
     width: 100%; /* 전체 너비 */
-
-
+    min-height: 300px;
 }
 
 .chart-container .chart-type-button {
-    margin-bottom: 20px; /* 버튼과 차트 간의 간격 */
+    margin-bottom: 5px; /* 버튼과 차트 간의 간격 */
     display: flex; /* 버튼을 가로로 나열 */
     justify-content: flex-start; /* 버튼 중앙 정렬 */
     background: #17171c;
+
 }
 
 .chart-type-button button {

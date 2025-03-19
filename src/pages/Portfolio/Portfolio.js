@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import './Portfolio.css';
 import personal_investor1 from '../../images/personal_investor1.svg';
@@ -8,8 +8,10 @@ import portfolio_default from '../../images/portfolio_default.svg';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getPortfolioList, getUserPortfolioInform } from '../../api/StockAPI';
+import { WebSocketContext } from '../../component/stock/WebsocketManage';
 
 const Portfolio = () => {
+    const { kafkaData, kafkaSecondData } = useContext(WebSocketContext) || {};
     const navigate = useNavigate();
 
     //   useState를 최상단에서 선언
@@ -20,8 +22,8 @@ const Portfolio = () => {
         totalCurrentValue: 0,
         totalProfitLoss: 0,
         totalProfitLossRate: 0,
-        totalAssets: 0
-    });              // 포트폴리오 요약 데이터
+        totalAssets: 0,
+    }); // 포트폴리오 요약 데이터
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [chartData, setChartData] = useState([]);
@@ -34,9 +36,9 @@ const Portfolio = () => {
     const fetchPortfolioData = async () => {
         try {
             setLoading(true);
-            console.log(" 포트폴리오 데이터 요청 시작");
+            console.log(' 포트폴리오 데이터 요청 시작');
             const response = await getPortfolioList(); // 포트폴리오 API 호출
-            console.log(" 포트폴리오 데이터 응답:", response);
+            console.log(' 포트폴리오 데이터 응답:', response);
             if (response.length === 0) {
                 throw new Error('데이터를 불러오는데 실패했습니다');
             }
@@ -52,7 +54,7 @@ const Portfolio = () => {
 
     const getUserInvestmentInfo = async () => {
         try {
-            console.log("사용자 포트폴리오 정보 요청 시작");
+            console.log('사용자 포트폴리오 정보 요청 시작');
             const response = await getUserPortfolioInform();
             console.log('유저 포트폴리오 response: ', response);
             // if (!response.data.length === 0) {
@@ -82,10 +84,10 @@ const Portfolio = () => {
         console.log('포트폴리오 유저 data set', portfolioUserData);
 
         if (!portfolioUserData.hasOwnProperty('profileImage')) {
-            const investorClass = portfolioUserData.investorClass || 0; // 기본값 0
+            const investorClass = portfolioUserData.investorClass || 100; // 기본값 0
 
             const profileImage =
-                portfolioUserData.personalInvestor === 'null'
+                portfolioUserData.personalInvestor === 100
                     ? portfolio_default
                     : investorClass >= 0 && investorClass <= 5
                       ? personal_investor1
@@ -96,8 +98,8 @@ const Portfolio = () => {
                           : portfolio_default; // 기본 프로필 이미지
 
             const profileName =
-                portfolioUserData.personalInvestor === 'null'
-                    ? 'null'
+                portfolioUserData.personalInvestor === 100
+                    ? ''
                     : investorClass >= 0 && investorClass <= 5
                       ? '안숙이'
                       : investorClass >= 6 && investorClass <= 10
@@ -113,16 +115,15 @@ const Portfolio = () => {
             }));
         }
     }, [portfolioUserData]);
-
-    //  포트폴리오 요약 데이터 계산
+    // 포트폴리오 요약 데이터 계산
     useEffect(() => {
-        console.log(" useEffect 실행됨");
-        console.log(" loading 상태:", loading);
-        console.log(" portfolioData 상태:", portfolioData);
-        console.log(" portfolioUserData 상태:", portfolioUserData);
+        console.log(' useEffect 실행됨');
+        console.log(' loading 상태:', loading);
+        console.log(' portfolioData 상태:', portfolioData);
+        console.log(' portfolioUserData 상태:', portfolioUserData);
 
         if (loading) {
-            console.log(" 실행 중단");
+            console.log(' 실행 중단');
             return;
         }
 
@@ -131,7 +132,7 @@ const Portfolio = () => {
             return;
         }
 
-        console.log(" 데이터가 존재");
+        console.log(' 데이터가 존재');
 
         /*주식 금액 먼저 더하기 */
         const totalEvaluationAmount = portfolioData.reduce(
@@ -143,43 +144,92 @@ const Portfolio = () => {
         const summary = portfolioData.reduce(
             (acc, asset, index) => {
                 const stockValue = asset.closingPrice * asset.stockCount || 0; // 현재 평가 금액 계산
-                acc.totalPurchaseAmount += asset.purchaseAmount || 0;                  // 총 매수 금액
-                acc.totalCurrentValue += stockValue;                                   // 총 평가 금액
-
+                acc.totalPurchaseAmount += asset.purchaseAmount || 0; // 총 매수 금액
+                acc.totalCurrentValue += stockValue; // 총 평가 금액
 
                 acc.chartData.push({
                     id: index,
                     value:
                         totalEvaluationAmount > 0
-                            ? ((stockValue / totalEvaluationAmount) * 100).toFixed(2)
+                            ? (
+                                  (stockValue / totalEvaluationAmount) *
+                                  100
+                              ).toFixed(2)
                             : 0, // 비율 계산
                     amount: stockValue.toLocaleString(), // 금액 표기
                     label: asset.stockName, // 종목명
-                    color: ['#6FAE3F', '#1E56A0', '#F4A900', '#7442C8', '#E86A33'][index % 5], // 색상
+                    color: [
+                        '#6FAE3F',
+                        '#1E56A0',
+                        '#F4A900',
+                        '#7442C8',
+                        '#E86A33',
+                    ][index % 5], // 색상
                 });
                 return acc;
             },
-            { totalPurchaseAmount: 0,
+            {
+                totalPurchaseAmount: 0,
                 totalCurrentValue: 0,
                 totalEvaluationAmount: 0, //  총 평가 금액 (차트 비율 계산용)
-                chartData: [],            //  차트 데이터 저장
-             }
+                chartData: [], //  차트 데이터 저장
+            }
         );
 
         // 평가손익 및 수익률 계산
-        summary.totalProfitLoss = summary.totalCurrentValue - summary.totalPurchaseAmount;  // 총 평가 손익 = 총 평가금액 - 총 매수 금액
-        summary.totalProfitLossRate =                                                       // 총 평가 수익률 = (총 평가 손익 / 총 매수 금액) * 100
+        summary.totalProfitLoss =
+            summary.totalCurrentValue - summary.totalPurchaseAmount; // 총 평가 손익 = 총 평가금액 - 총 매수 금액
+        summary.totalProfitLossRate = // 총 평가 수익률 = (총 평가 손익 / 총 매수 금액) * 100
             summary.totalPurchaseAmount > 0
                 ? (summary.totalProfitLoss / summary.totalPurchaseAmount) * 100
                 : 0;
 
         // 총 보유자산 = 총 평가 금액 + 보유 현금
-        summary.totalAssets = summary.totalCurrentValue + (portfolioUserData.balance || 0);
+        summary.totalAssets =
+            summary.totalCurrentValue + (portfolioUserData.balance || 0);
 
         // 상태 업데이트
         setSummaryData(summary);
         setChartData(summary.chartData);
     }, [portfolioData, portfolioUserData]);
+
+    // 카프카 실시간 데이터 처리
+    useEffect(() => {
+        if (!kafkaData && !kafkaSecondData) {
+            return;
+        }
+        setPortfolioData((prevData) => {
+            return prevData.map((portfolio) => {
+                let newClosingPrice = portfolio.closingPrice;
+                if (kafkaData && portfolio.ticker === kafkaData.ticker) {
+                    newClosingPrice = kafkaData.price;
+                } else if (
+                    kafkaSecondData &&
+                    portfolio.ticker === kafkaSecondData.ticker
+                ) {
+                    newClosingPrice = kafkaSecondData.price;
+                } else {
+                    return portfolio; // 변경 사항 없으면 기존 데이터 유지
+                }
+
+                const newProfitLoss =
+                    (newClosingPrice - portfolio.averagePrice) *
+                    portfolio.stockCount;
+                const newProfitLossRate = parseFloat(
+                    ((newProfitLoss / portfolio.purchaseAmount) * 100).toFixed(
+                        2
+                    )
+                );
+
+                return {
+                    ...portfolio,
+                    closingPrice: newClosingPrice,
+                    profitLoss: newProfitLoss,
+                    profitLossRate: newProfitLossRate,
+                };
+            });
+        });
+    }, [kafkaData, kafkaSecondData]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -230,7 +280,7 @@ const Portfolio = () => {
                     className="portfolio-user-img"
                 />
                 <div className="portfolio-user-text-container">
-                    {portfolioUserData?.personalInvestor !== 'null' ? (
+                    {portfolioUserData?.personalInvestor !== 100 ? (
                         // investorClass가 있으면 투자 성향 출력
                         <p className="portfolio-user-text">
                             {portfolioUserData?.userName} 님의 주식 투자 성향은
@@ -250,8 +300,9 @@ const Portfolio = () => {
                                 {portfolioUserData?.userName} 님의 주식 투자
                                 성향을 알려주세요.
                             </p>
-                            <button className="portfolio-investment-test-btn"
-                                    onClick={() => navigate('/question')}
+                            <button
+                                className="portfolio-investment-test-btn"
+                                onClick={() => navigate('/question')}
                             >
                                 투자 성향 테스트 하기
                             </button>
@@ -273,8 +324,8 @@ const Portfolio = () => {
                         <div className="portfolio-summary-item">
                             <p className="portfolio-label">총 보유자산</p>
                             <p className="portfolio-value large">
-                                {summaryData?.totalAssets
-                                    .toLocaleString() || "0"}
+                                {summaryData?.totalAssets.toLocaleString() ||
+                                    '0'}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
@@ -286,7 +337,8 @@ const Portfolio = () => {
                         <div className="portfolio-data-row">
                             <p className="portfolio-label">총 매수 금액</p>
                             <p className="portfolio-value">
-                                {summaryData?.totalPurchaseAmount.toLocaleString() || "0"}
+                                {summaryData?.totalPurchaseAmount.toLocaleString() ||
+                                    '0'}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
@@ -295,19 +347,21 @@ const Portfolio = () => {
                             <p className="portfolio-label">총 평가손익</p>
                             <p
                                 className={`portfolio-value ${
-                                summaryData.totalProfitLoss < 0
-                                    ? 'profit-negative'
-                                    : 'profit-positive'
-                            }`}
+                                    summaryData.totalProfitLoss < 0
+                                        ? 'profit-negative'
+                                        : 'profit-positive'
+                                }`}
                             >
-                                {summaryData?.totalProfitLoss.toLocaleString() || "0"}
+                                {summaryData?.totalProfitLoss.toLocaleString() ||
+                                    '0'}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
                         <div className="portfolio-data-row">
                             <p className="portfolio-label">현재 평가 금액</p>
                             <p className="portfolio-value">
-                                {summaryData?.totalCurrentValue.toLocaleString() || "0"}
+                                {summaryData?.totalCurrentValue.toLocaleString() ||
+                                    '0'}
                                 <span className="portfolio-unit">KRW</span>
                             </p>
                         </div>
@@ -321,16 +375,15 @@ const Portfolio = () => {
                                         : 'profit-positive'
                                 }`}
                             >
-                                {summaryData?.totalProfitLossRate.toFixed(2) || "0"}
+                                {summaryData?.totalProfitLossRate.toFixed(2) ||
+                                    '0'}
                                 <span className="portfolio-unit">%</span>
                             </p>
                         </div>
-                        </div>
                     </div>
+                </div>
 
-
-
-                 {/*  원형 차트*/}
+                {/*  원형 차트*/}
                 <div className="portfolio-chart-wrapper">
                     <div className="portfolio-chart-legend">
                         {chartData.map((item) => (
@@ -357,15 +410,17 @@ const Portfolio = () => {
                                     outerRadius: 100,
                                 },
                             ]}
-                            slotProps={{ legend: { hidden: true },
-                                         tooltip: {
-                                                    trigger: 'item',
-                                                    formatter: (params) => `${params.data.label}: ${params.data.value}%`
-                                         }
-                        }}
+                            slotProps={{
+                                legend: { hidden: true },
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: (params) =>
+                                        `${params.data.label}: ${params.data.value}%`,
+                                },
+                            }}
                             sx={{
                                 [`& .${pieArcLabelClasses.root}`]: {
-                                    display:'none',
+                                    display: 'none',
                                 },
                             }}
                             width={250}
@@ -410,8 +465,8 @@ const Portfolio = () => {
                                     </td>
                                     <td>
                                         {Number(
-                                            asset.closingPrice
-                                             *  asset.stockCount
+                                            asset.closingPrice *
+                                                asset.stockCount
                                         ).toLocaleString()}
                                         <span className="portfolio-unit">
                                             KRW
@@ -428,9 +483,7 @@ const Portfolio = () => {
                                         }
                                     >
                                         {asset.purchaseAmount > 0
-                                            ? (
-                                                  asset.profitLossRate
-                                              ).toFixed(2)
+                                            ? asset.profitLossRate.toFixed(2)
                                             : '0'}
                                         <span className="portfolio-unit">
                                             %
