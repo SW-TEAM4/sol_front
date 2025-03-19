@@ -34,7 +34,9 @@ html {
 .logo-image {
     height: 45px;
     width: auto;
-    margin-top: -23px;
+    margin-top: -20px;
+    position: relative;
+    margin-bottom: 18px;
 }
 
 /* 오른쪽 그룹 (네비게이션, 알림, 계정) */
