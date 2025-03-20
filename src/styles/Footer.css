@@ -3,9 +3,76 @@
     width: 100%;
     margin-bottom: 20px;
     justify-items: center;
+    position: relative;
+}
 
+/* 푸터 콘텐츠와 버튼을 가로 정렬 */
+.footer-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* 콘텐츠와 버튼 사이 간격 */
 }
 
 .footer-space {
     height: 20px;
+}
+
+/* ✅ 토글 버튼 컨테이너 */
+.footer-toggle-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+/* ✅ 토글 버튼 스타일 */
+.footer-toggle-button {
+    background-color: #f1f1f1;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 10px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+}
+
+.footer-toggle-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* ✅ 리스트 스타일 */
+.footer-list {
+    background-color: white;
+    list-style: none;
+    padding: 10px 15px;
+    margin: 0;
+    position: absolute;
+    bottom: 100%; /* 위쪽으로 펼쳐지게 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+/* 리스트 아이템 스타일 */
+.footer-list li {
+    padding: 8px 0;
+    text-align: center;
+}
+
+.footer-list a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.footer-list a:hover {
+    color: #007bff;
 }

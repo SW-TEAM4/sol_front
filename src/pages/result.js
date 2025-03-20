@@ -127,7 +127,7 @@ const Result = ({ totalScore, setTotalScore }) => {
                     src="/assets/images/analyzeTest/out.svg"
                     alt="out"
                     className="result-out-button"
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate('/assets')}
                 />
             </div>
 

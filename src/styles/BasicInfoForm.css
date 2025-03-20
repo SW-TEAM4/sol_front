@@ -46,18 +46,18 @@
 
 /* 버튼 스타일 */
 .btn {
-    background-color: #1F1F1F;
-    color: #656569;
+    background-color: #fff;
+    border: 1px solid #263FBD;
     font-size: 12px;
+    color: #263FBD;
     padding: 10px 25px;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .btn.selected {
-    background-color: #1F1F1F; /* 선택된 버튼 */
+    background-color: #263FBD; /* 선택된 버튼 */
     color: #fff;
 }
 
@@ -68,11 +68,11 @@
 
 /* 기본 정보 입력 완료 버튼 */
 .submit-btn {
-    background-color: #1F1F1F;
-    color: white;
+    background-color: #263FBD;
+    border: 1px solid #263FBD;
+    color: #fff;
     font-size: 14px;
     padding: 12px 60px;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 20px;
@@ -80,7 +80,7 @@
 
 /* 기본 정보 입력 완료 버튼 비활성화 */
 .submit-btn.disabled {
-    background-color: #1F1F1F;
-    color: #656569;
+    background-color: #fff;
+    color: #263FBD;
     cursor: not-allowed;
 }
