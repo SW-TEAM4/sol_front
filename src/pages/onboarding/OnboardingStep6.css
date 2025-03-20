@@ -4,7 +4,7 @@
     justify-content: space-between;
     background-color: #ffffff;
     color: black;
-    min-height: 60vh;
+    min-height: 30vh;
     padding: 5%;
     position: relative;
     top:10px;
@@ -51,16 +51,16 @@
 }
 
 .step6_main_title {
-    font-size: 90px;
+    font-size: 70px;
     font-weight: bold;
-    line-height: 1.1;
+    line-height: 1.3;
 }
 
 /* ✅ 특정 텍스트만 스타일 다르게 */
 .highlight-text {
     color: #000000; /* ✅ 초록색으로 변경 (네이버 컬러) */
     font-weight: bold;
-    font-size: 70px; /* ✅ 기본보다 10% 더 크게 */
+    font-size: 60px; /* ✅ 기본보다 10% 더 크게 */
     line-height: 1.2;
 }
 
@@ -69,7 +69,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 35px;
 }
 
 .kakao_login,
@@ -88,7 +88,7 @@
 
 .step6_buttons{
     position: relative;
-    right: 250px;
+    right: 226px;
     top: -30px;
 }
 
@@ -97,6 +97,7 @@
 .clickable_svg {
     cursor: pointer; /* ✅ 마우스를 올리면 클릭 가능하게 변경 */
     transition: transform 0.2s ease;
+    width: 450px;
 }
 
 /* ✅ 클릭 시 살짝 확대 효과 */
@@ -140,7 +141,7 @@
 
 /* ✅ 공 패턴 이미지 크기 조정 (정확한 크기 유지) */
 .ball_pattern_scroll img {
-    width: 25%; /* ✅ 패턴이 4개 배치되므로 25% 설정 */
+    width: 30%; /* ✅ 패턴이 4개 배치되므로 25% 설정 */
     height: auto;
     flex-shrink: 0;
 }

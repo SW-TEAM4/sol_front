@@ -148,10 +148,6 @@ const TransferModal = ({ open, onClose }) => {
                 <AnimatePresence mode="wait">
                     {step === 1 && (
                         <motion.div className="transfer-step1">
-                            <Typography variant="h5" className="modal-title">
-                                이체
-                            </Typography>
-
                             {message && (
                                 <div className="trans-error-message">
                                     {message}
@@ -228,9 +224,6 @@ const TransferModal = ({ open, onClose }) => {
 
                     {step === 2 && (
                         <motion.div className="transfer-step2">
-                            <Typography variant="h5" className="modal-title">
-                                이체
-                            </Typography>
                             <Box className="transfer-content">
                                 <img
                                     src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Airplane%20Departure.png"

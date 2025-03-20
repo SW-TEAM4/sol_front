@@ -50,7 +50,7 @@ const HomeMainContent = ({ balance }) => {
                         <img
                             src={pigImage}
                             alt="Pig"
-                            className="challenge-image"
+                            className="home-challenge-image"
                         />
                     </div>
                 </div>
@@ -78,7 +78,6 @@ const HomeMainContent = ({ balance }) => {
                                         {balance !== null
                                             ? `${balance.toLocaleString()}원`
                                             : '?????원'}
-                                        ›
                                     </div>
                                 </Link>
                             </div>
@@ -87,7 +86,6 @@ const HomeMainContent = ({ balance }) => {
                 </div>
             </div>
 
-            {/* 파킹 통장 안내 섹션 */}
             {/* 파킹 통장 안내 섹션 */}
             <Link
                 to="/parking"

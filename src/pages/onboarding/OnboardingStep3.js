@@ -6,7 +6,7 @@ import Calendar from '../../assets/images/Calendar.svg';
 import OKBoy from '../../assets/images/ok_boy.svg';
 import SolLogo from '../../assets/images/sol_logo.svg';
 
-const OnboardingStep3 = ({}) => {
+const OnboardingStep3 = () => {
     const textRef = useRef(null);
     const boxRefs = [useRef(null), useRef(null), useRef(null)];
 
@@ -14,10 +14,7 @@ const OnboardingStep3 = ({}) => {
     const [visibleBoxes, setVisibleBoxes] = useState([false, false, false]);
 
     useEffect(() => {
-        const options = {
-            root: null,
-            threshold: 0.3,
-        };
+        const options = { root: null, threshold: 0.3 };
 
         const observerCallback = (entries) => {
             entries.forEach((entry) => {
@@ -61,36 +58,10 @@ const OnboardingStep3 = ({}) => {
         };
     }, []);
 
-    useEffect(() => {
-        // ✅ 스크롤 시 Step 3 → Step 4 배경색이 자연스럽게 변하도록 설정
-        const handleScroll = () => {
-            const step3 = document.querySelector('.step3_wrapper');
-            const step4 = document.querySelector('.step4_container');
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-
-            // ✅ 스크롤 위치에 따라 배경색을 점진적으로 전환
-            if (scrollY > windowHeight * 1.3) {
-                step3.style.background =
-                    'linear-gradient(180deg, #1B1F3A, #260909)';
-                step4.style.background =
-                    'linear-gradient(180deg, #260909, #3D0D0D)';
-            } else {
-                step3.style.background =
-                    'linear-gradient(180deg, #090E26, #1B1F3A)';
-                step4.style.background =
-                    'linear-gradient(180deg, #1B1F3A, #260909)';
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <div className="step3_wrapper">
             <div className="step3_container">
-                {/* ✅ 제목 컨테이너 (스크롤 감지 적용됨) */}
+                {/* ✅ 제목 컨테이너 */}
                 <div
                     ref={textRef}
                     className={`step3_text-container ${showText ? 'show' : ''}`}
@@ -113,7 +84,7 @@ const OnboardingStep3 = ({}) => {
                     </div>
                 </div>
 
-                {/* 🏆 반투명 박스들 (지그재그 배치) */}
+                {/* 🏆 반투명 박스들 */}
                 <div className="step3_boxes">
                     <div
                         ref={boxRefs[0]}
@@ -135,7 +106,7 @@ const OnboardingStep3 = ({}) => {
                             alt="Calendar"
                             className="box-image"
                         />
-                        <p>
+                        <p className="p2">
                             파킹통장에서 증권계좌로
                             <br />
                             넘어가는 비율을 자유롭게 조정하세요!

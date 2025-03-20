@@ -1,49 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/NewsList.css';
+import { getNewsHeadlines } from '../../api/StockAPI';
 
 const NewsList = () => {
     const [headlines, setHeadlines] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // 뉴스 헤드라인 가져오기
     useEffect(() => {
-        setLoading(true);
-        fetch('http://127.0.0.1:8000/news/headlines') // 경로 수정
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('서버 응답이 올바르지 않습니다.');
-                }
-                return response.json();
-            })
-            .then((data) => {
+        const fetchHeadlines = async () => {
+            try {
+                setLoading(true);
+                const data = await getNewsHeadlines(); // StockAPI의 함수 호출
+                console.log('받은 뉴스 데이터:', data); // 디버깅용 로그 추가
+
                 // 유효한 뉴스 항목만 필터링
-                const filteredHeadlines = (data.headlines || []).filter(
-                    (item) =>
-                        item.title &&
-                        item.title !== '제목 없음' &&
-                        item.link &&
-                        item.summary
-                );
+                const filteredHeadlines = (data || []).filter((item) => {
+                    const isValid = item.title && item.link && item.summary;
+
+                    if (!isValid) {
+                        console.warn('필터링된 항목:', item);
+                    }
+                    return isValid;
+                });
+
                 setHeadlines(filteredHeadlines);
-                setLoading(false);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error('뉴스 데이터를 가져오는 중 오류 발생:', error);
                 setError(
                     '뉴스를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.'
                 );
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchHeadlines();
     }, []);
 
     // 상대적 시간 표시 (예: '3분 전')
-    const getRelativeTime = (dateTimeStr) => {
-        if (!dateTimeStr) {
+    const getRelativeTime = (timeInfo) => {
+        if (!timeInfo) {
             return '';
         }
 
-        const date = new Date(dateTimeStr.replace(/-/g, '/'));
+        const date = new Date(timeInfo.replace(/-/g, '/'));
         const now = new Date();
         const diffMs = now - date;
         const diffSec = Math.floor(diffMs / 1000);
@@ -99,7 +100,7 @@ const NewsList = () => {
 
     return (
         <div className="news-container">
-            <h1 className="news-title">매일경제 증권 뉴스</h1>
+            <h1 className="news-title">오늘의 경제 뉴스</h1>
 
             {headlines.length > 0 ? (
                 <div className="news-list">
@@ -109,25 +110,23 @@ const NewsList = () => {
                             key={index}
                             onClick={() =>
                                 window.open(
-                                    item.link,
+                                    item.link || '#', // 링크 없을 경우 기본값 사용
                                     '_blank',
                                     'noopener,noreferrer'
                                 )
                             }
                         >
-                            {/*/!* 이미지를 왼쪽에 배치 *!/*/}
-                            {/*<div className="news-image-container">*/}
-                            {/*    <span className="news-emoji">📰</span>*/}
-                            {/*</div>*/}
-
                             <div className="news-content">
                                 <div className="news-header">
-                                    <h2>{item.title}</h2>
+                                    <h2>{item.title || '제목 없음'}</h2>{' '}
+                                    {/* 제목 없을 경우 기본값 */}
                                     <span className="news-time">
-                                        {getRelativeTime(item.time_info)}
+                                        {getRelativeTime(item.timeInfo || '')}
                                     </span>
                                 </div>
-                                <p className="news-summary">{item.summary}</p>
+                                <p className="news-summary">
+                                    {item.summary || '요약 정보 없음'}
+                                </p>
                             </div>
                         </div>
                     ))}

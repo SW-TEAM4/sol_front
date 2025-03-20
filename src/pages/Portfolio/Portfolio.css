@@ -6,11 +6,13 @@
 }
 
 .portfolio-container {
- /*   min-height: 100vh;*/
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 24px;
-    margin-left:-6px;
+    max-width: 1200px;
+    width: 100%;
+    margin: -35px auto 0;
 }
 
 /*    카드 스타일 - 화면을 더 넓게 사용 */
@@ -18,6 +20,7 @@
     background-color: white;
     width: 100%;
     max-width: 1200px;
+    min-width: 800px; /* 최소 크기 설정 */
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -25,40 +28,24 @@
 
 /*    투자 개요 및 차트 */
 .portfolio-summary-container {
+    position: relative; /* 부모 기준 */
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    padding: 10px 0;
-    position: relative;
+    max-width: 1200px; /* 부모의 최대 크기 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
 }
 
-/*    세로 줄 추가 (자산 요약과 그래프 사이) */
-.portfolio-summary-container::after {
-    content: "";
-    width: 1px;
-    background-color: #E5E7EB;
-    height: 72%;
-    position: absolute;
-    left: 56.2%;
-    top: 32px;
-}
-/*    가로선 추가 (세로선과 연결) */
-.portfolio-summary-container::before {
-    content: "";
-    width: 100%;
-    background-color: #E5E7EB;
-    height: 1px;
-    position: absolute;
-    bottom: 58px;
-    left: 17px;
-}
+
 /*    투자 개요 */
 .portfolio-summary {
     flex: 1;
-    min-width: 55%;
-    max-width: 55%;
-    padding: 20px;
-    margin-right: 50px; /*    차트와의 간격 증가 */
+    min-width: 400px; /* 최소 크기 줄이기 */
+    max-width: 600px;
+    padding: 20px 50px 20px 20px;
+    margin-right: 50px;
+    border-right: 1px solid #E5E7EB;
 }
 
 /*    상단 요약 (총 보유 현금 금액, 총 보유자산을 한 줄 정렬) */
@@ -66,7 +53,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr); /*    2열로 정렬 (총 매수 금액과 동일) */
     gap: 22px 12px; /*    위-아래(12px), 좌우(20px) 간격 설정 */
-    padding-bottom: 16px;
+    border-bottom: 1px solid #E5E7EB; /* ✅ 회색 밑줄 추가 */
+    padding-bottom: 10px; /* ✅ 내용과 선 사이 여백 */
 }
 /*    투자 개요 데이터 한 줄 정렬 */
 .portfolio-summary-item {
@@ -79,12 +67,14 @@
 
 /*    구분선 */
 .summary-divider {
-    border: 0;
-    height: 1px;
-    background: #E5E7EB;
-    margin: 12px 0;
-    width: 99.3%;
-    margin-top: -20px;
+    border: none;
+    height: 1px; /* 선의 두께 조정 */
+    background-color: #E5E7EB;
+    width: 30vw;
+    max-width: 1200px; /* 최대 너비 제한 */
+    margin: 20px auto; /* 위아래 간격 조정 */
+    position: relative;
+    top: -20px; /* 20px 위로 이동 */
 }
 
 /*    투자 개요 데이터 (2열 배치) */
@@ -92,6 +82,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px 12px;
+    margin-top: 5%;
 }
 
 /*    데이터 한 줄 정렬 */
@@ -115,7 +106,6 @@
     text-align: right;
     color: #333333;
     flex: 1;
-    margin-right:27px;
 }
 .portfolio-value.large {
     font-size: 20px; /*    더 큰 크기 */
@@ -151,7 +141,9 @@
 /*    원형 차트 컨테이너 */
 .portfolio-chart-container {
     display: flex;
-    width: 350px; /*   차트 크기 고정 */
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
 }
 
 /*    차트 왼쪽 범례 */
@@ -206,20 +198,17 @@
 
 /*    보유 자산 목록 */
 .portfolio-table-container {
-    max-height: 300px; /*   테이블 최대 높이 설정 */
-    /*overflow-y: auto;  !*   수직(세로) 스크롤 활성화 *!*/
-    overflow-x: hidden; /*   가로 스크롤 제거 */
-    width: 103%;
-    margin-top: -80px;
-    padding-right: 30px; /*   스크롤바를 오른쪽으로 미룸 */
-   /* border: 1px solid #e5e7eb; !*   테두리 추가 *!*/
+    max-height: 300px;
+    overflow-x: hidden;
+    width: 100%;
+    min-width: 800px;
+    max-width: 1180px;
+    padding-right: 30px;
 }
 /*    차트 중앙 텍스트 */
 .chart-center-text {
     position: absolute;
-    top: 42%;
-    left: 92.6%;
-    transform: translate(-50%, -50%); /*    중앙 정렬 */
+    transform: translate(280%, 690%); /*    중앙 정렬 */
     font-size: 12px;
     font-weight: bold;
     color: #4b5563;
@@ -227,10 +216,37 @@
 /*    테이블 스타일 */
 .portfolio-table {
     width: 100%;
+    max-width: 1200px;
+    min-width: 800px;
     border-collapse: collapse;
-    table-layout: fixed; /*   테이블 레이아웃 고정 */
-    border:2px solid #f0f0f0;
+    table-layout: fixed;
+    border: 2px solid #f0f0f0;
 }
+/* 반응형 디자인 개선 */
+@media (max-width: 1024px) {
+    .portfolio-summary-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .portfolio-summary {
+        min-width: auto;
+        max-width: 100%;
+    }
+    .portfolio-chart-container {
+        min-width: auto;
+        max-width: 100%;
+    }
+    .portfolio-table-container {
+        min-width: auto;
+        max-width: 100%;
+    }
+
+    .summary-divider {
+        width: 90%; /* 작은 화면에서는 너비 줄이기 */
+        margin: 10px auto;
+    }
+}
+
 .portfolio-table thead {
     position: sticky;
     top: 0;
@@ -289,8 +305,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 60px; /*    간격 조정 */
-    margin-left:-49px;
+    margin-left:auto;
+    margin-right:-71px;
 }
 .portfolio-center{
     display: flex;
@@ -306,6 +322,8 @@
     align-items: center;
     gap: 16px;  /* 이미지와 텍스트 사이의 간격을 16px로 설정 */
     margin-left:20px;
+    margin-top:15px;
+    margin-bottom: 2%;
 }
 
 /* 사용자 이미지 */
@@ -375,4 +393,3 @@
     text-align: center;
     vertical-align: middle;
 }
-

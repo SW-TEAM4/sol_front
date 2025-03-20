@@ -1,6 +1,7 @@
 .carousel-container {
     display: flex;
     align-items: center;
+    justify-content: center; /* 가운데 정렬 */
     width: 100%;
     padding: 0 10px;
 }
@@ -13,114 +14,40 @@
     color: #333;
 }
 
-.user-info {
+/* 이미지와 텍스트를 묶는 컨테이너 */
+.user-content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: left;
-    gap: 30px;
+    justify-content: center; /* 가운데 정렬 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    gap: 30px; /* 이미지와 텍스트 간격 */
     width: 90%;
+    max-width: 1200px; /* 최대 너비 제한 */
 }
 
 .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 165px;
+    height: 165px;
     object-fit: contain;
 }
 
 .user-text {
     display: flex;
     flex-direction: column;
-    font-size: 30px;
-    gap: 15px;
+    font-size: 30px; /* 기본 글씨 크기 */
+    gap: 15px; /* 텍스트 간격 */
+    width: 500px;
+    word-wrap: break-word; /* 긴 단어 줄바꿈 */
+    word-break: break-word; /* 긴 단어 줄바꿈 */
 }
 
-.user-name-bold {
-    font-size: 35px;
-    font-weight: 700;
-}
-
+/* 강조된 텍스트 */
 .highlight {
     color: #0056b3;
-    font-size: 30px;
+    font-size: 38px;
 }
 
-.user-tags {
-    font-size: 27px;
-}
-
+/* 태그 스타일 */
 .user-tags span {
-    margin-right: 10px;
-    font-size: 27px;
-    color: #555;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 992px) {
-    .user-text {
-        font-size: 24px;
-    }
-
-    .user-name-bold {
-        font-size: 28px;
-    }
-
-    .highlight {
-        font-size: 24px;
-    }
-
-    .user-tags, .user-tags span {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 768px) {
-    .profile-image {
-        width: 120px;
-        height: 120px;
-    }
-
-    .user-text {
-        font-size: 20px;
-    }
-
-    .user-name-bold {
-        font-size: 24px;
-    }
-
-    .highlight {
-        font-size: 20px;
-    }
-
-    .user-tags, .user-tags span {
-        font-size: 18px;
-    }
-
-    .arrow-button {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 576px) {
-    .user-info {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .user-text {
-        text-align: center;
-        font-size: 18px;
-    }
-
-    .user-name-bold {
-        font-size: 22px;
-    }
-
-    .highlight {
-        font-size: 18px;
-    }
-
-    .user-tags, .user-tags span {
-        font-size: 16px;
-    }
+    margin-right: 15px; /* 태그 간격 축소 */
 }

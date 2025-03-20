@@ -1,0 +1,77 @@
+.stock-info-container {
+    /*padding: 5px;*/
+    background-color: white;
+    flex-direction: column;
+}
+
+/* 상단 정보 (이름, 버튼 ) */
+.stock-info-stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-info-stock-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stock-info-stock-ticker {
+    font-size: 18px;
+    color: #7b7b83;
+}
+
+.stock-info-stock-highlow {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.stock-info-high-price {
+    color: red;
+    font-weight: bold;
+}
+
+.stock-info-low-price {
+    color: blue;
+    font-weight: bold;
+}
+
+/* 가격 + 등락폭 */
+.stock-info-stock-price-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stock-info-stock-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.stock-info-stock-diff {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-blue {
+    color: blue;
+}
+
+.stock-info-close-button{
+    background: none;
+    border: none;
+    color: black;
+    font-size: 18px; /* X 크기 */
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;  /* 가로 길이 */
+    height: 18px; /* 세로 길이 */
+    display: flex;
+}

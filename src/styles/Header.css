@@ -1,11 +1,14 @@
 /* 항상 스크롤바 표시하여 레이아웃 변경 방지 */
+* {
+    font-family: "noto sans KR";
+}
 html {
     overflow-y: scroll;
 }
 
 /* 헤더 컨테이너 */
 .header-container {
-    padding: 20px 12%;
+    padding: 0px 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,6 +19,7 @@ html {
     z-index: 1000;
     background-color: #ffffff;
     box-sizing: border-box;
+    gap: 100px; /* 원하는 만큼 조절 */
 }
 
 /* 로고 영역 */
@@ -28,8 +32,11 @@ html {
 
 /* 로고 이미지 */
 .logo-image {
-    max-height: 40px;
+    height: 45px;
     width: auto;
+    margin-top: -20px;
+    position: relative;
+    margin-bottom: 18px;
 }
 
 /* 오른쪽 그룹 (네비게이션, 알림, 계정) */
@@ -42,24 +49,24 @@ html {
 /* 네비게이션 메뉴 */
 .nav-menu {
     display: flex;
-    gap: 63px;
+    gap: 55px;
     align-items: center;
 }
 
 .nav-menu a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 22px;
     color: black;
-    font-weight: bold;
+    font-weight: 500;
 }
 
-/* 계정 섹션 */
-.account-section {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    height: 100%;
-}
+/*!* 계정 섹션 *!*/
+/*.account-section {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 40px;*/
+/*    height: 100%;*/
+/*}*/
 
 .notification-icon {
     width: 30px;
@@ -68,24 +75,24 @@ html {
     vertical-align: middle;
 }
 
-.account-button {
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    cursor: pointer;
-    white-space: nowrap;
-    transition-duration: 0.3s;
-    vertical-align: middle;
-    display: inline-flex;
-    align-items: center;
-    height: 30px;
-}
+/*.account-button {*/
+/*    font-size: 14px;*/
+/*    padding: 6px 12px;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid #ddd;*/
+/*    background-color: #ffffff;*/
+/*    cursor: pointer;*/
+/*    white-space: nowrap;*/
+/*    transition-duration: 0.3s;*/
+/*    vertical-align: middle;*/
+/*    display: inline-flex;*/
+/*    align-items: center;*/
+/*    height: 30px;*/
+/*}*/
 
-.account-button-link {
-    text-decoration: none;
-}
+/*.account-button-link {*/
+/*    text-decoration: none;*/
+/*}*/
 
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
@@ -124,10 +131,10 @@ html {
         height: 25px;
     }
 
-    .account-button {
-        font-size: 12px;
-        padding: 4px 8px;
-    }
+    /*.account-button {*/
+    /*    font-size: 12px;*/
+    /*    padding: 4px 8px;*/
+    /*}*/
 }
 
 @media (max-width: 576px) {

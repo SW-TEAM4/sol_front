@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/CategoryModal.css';
 import companyNameMapping from './CompanyNameMapping';
 import categoryImages from '../category/CategoryImages';
+import { getStocksByCategory } from '../../api/StockAPI';
 
 const CategoryModal = ({ category, onClose }) => {
     const [stocks, setStocks] = useState([]);
@@ -12,14 +13,8 @@ const CategoryModal = ({ category, onClose }) => {
         const fetchStocks = async () => {
             try {
                 setLoading(true);
-                // FastAPI 서버에 직접 요청
-                const response = await fetch(
-                    `http://127.0.0.1:8000/stocks/category/${category.name}`
-                );
-                if (!response.ok) {
-                    throw new Error('데이터를 불러오는데 실패했습니다');
-                }
-                const data = await response.json();
+                // Spring Boot API 호출
+                const data = await getStocksByCategory(category.name);
                 console.log('카테고리 데이터:', data); // 디버깅용
                 setStocks(data);
             } catch (err) {
@@ -54,8 +49,16 @@ const CategoryModal = ({ category, onClose }) => {
         return `${Math.round(numericPrice).toLocaleString()}원`;
     };
 
+    // 모달창 닫기 메서드
+    const closeModal = (e) => {
+        // 클릭한 곳이 모달창 바깥 영역일 경우에만 닫기 실행
+        if (e.target.classList.contains('modal-overlay')) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content">
                 {/* 모달 헤더 */}
                 <div className="modal-header">
@@ -65,13 +68,7 @@ const CategoryModal = ({ category, onClose }) => {
                         alt={`${category.displayName} 이미지`}
                         className="modal-category-image"
                     />
-                    <h2 className="modal-title">
-                        {`${category.displayName} (${stocks.length}개)`}
-                    </h2>
-
-                    <button className="close-button" onClick={onClose}>
-                        ×
-                    </button>
+                    <h2 className="home-modal-title">{`${category.displayName}`}</h2>
                 </div>
 
                 {/* 수익률 요약 */}
@@ -100,7 +97,7 @@ const CategoryModal = ({ category, onClose }) => {
                                             </div>
                                             <div
                                                 className={`period-value ${
-                                                    changeValue >= 0
+                                                    changeValue <= 0
                                                         ? 'positive'
                                                         : 'negative'
                                                 }`}
@@ -145,7 +142,7 @@ const CategoryModal = ({ category, onClose }) => {
                                 {/* 변동률 */}
                                 <span
                                     className={`stock-change ${
-                                        stock.yesterdayChange >= 0
+                                        stock.yesterdayChange <= 0
                                             ? 'positive'
                                             : 'negative'
                                     }`}

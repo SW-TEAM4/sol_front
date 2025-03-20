@@ -4,10 +4,7 @@ import CategoryList from './CategoryList';
 import UserChoice from './UserChoice';
 import '../../styles/Home.css';
 import HomeMainContent from './HomeMainContent';
-import FootBanner from './FootBanner';
 import QuizSection from './QuizSection';
-import MarketIndices from './MarketIndices';
-import StockPicks from './StockPicks';
 import { getBalance } from '../../api/accountApi';
 
 const Home = () => {
@@ -61,9 +58,8 @@ const Home = () => {
             <HomeMainContent balance={balance} /> {/* balance prop 전달 */}
             <QuizSection onCashback={handleCashback} /> {/* 함수 전달 */}
             <CategoryList />
-            <StockPicks />
-            <MarketIndices />
-            <FootBanner />
+            {/*<StockPicks />*/}
+            {/*<MarketIndices />*/}
         </div>
     );
 };

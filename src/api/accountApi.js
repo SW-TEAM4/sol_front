@@ -17,7 +17,6 @@ const getAuthToken = () => {
 const getUserIdx = () => {
     return localStorage.getItem('userIdx');
 };
-
 // 계좌번호를 가져오는 함수
 export const getAccountNo = async () => {
     const userIdx = getUserIdx();

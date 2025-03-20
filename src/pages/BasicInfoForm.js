@@ -10,7 +10,6 @@ const BasicInfoForm = () => {
     const [selectedJob, setSelectedJob] = useState(null);
     const navigate = useNavigate(); // Initialize navigate
 
-
     // 모든 항목이 선택되었는지 확인
     const isFormComplete = selectedGender && selectedAge && selectedJob;
 
@@ -79,9 +78,9 @@ const BasicInfoForm = () => {
 
     return (
         <div className="form-container">
-            <img src={logo} alt="SOL 로고" className="logo" />
+            {/*<img src={logo} alt="SOL 로고" className="logo" />*/}
             {/* 성별 선택 */}
-            <p className="question">우지호님의 성별을 선택해주세요</p>
+            <p className="question">성별을 선택해주세요</p>
             <div className="button-group gender-group">
                 {['남자', '여자'].map((gender) => (
                     <button
@@ -95,7 +94,7 @@ const BasicInfoForm = () => {
             </div>
 
             {/* 연령대 선택 */}
-            <p className="question">우지호님의 연령대를 알려주세요</p>
+            <p className="question">연령대를 알려주세요</p>
             <div className="button-group">
                 {['10대', '20대', '30대', '40대', '50대', '60대 이상'].map(
                     (age) => (
@@ -111,7 +110,7 @@ const BasicInfoForm = () => {
             </div>
 
             {/* 직업 선택 */}
-            <p className="question">우지호님은 어떤 직업을 갖고 계신가요?</p>
+            <p className="question">어떤 직업을 갖고 계신가요?</p>
             <div className="button-group">
                 {['학생', '대학생', '직장인', '프리랜서', '주부', '기타'].map(
                     (job) => (
