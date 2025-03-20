@@ -63,12 +63,6 @@
     font-weight: bold;
 }
 
-.category-count {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-}
-
 .performance-summary {
     padding: 15px;
     border-bottom: 1px solid #eee;
@@ -122,23 +116,23 @@
 
 .stock-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
+    justify-content: space-evenly;
+    padding: 12px;
     border-bottom: 1px solid #eee;
 }
 
 .stock-name {
     font-size: 14px;
     font-weight: 500;
-    flex: 0.5;
+    flex: 1;
+    text-align: left;
 }
 
 .stock-price {
     font-size: 14px;
     font-weight: 500;
     flex: 1;
-    text-align: right;
+text-align: center;
 }
 
 .stock-change {
