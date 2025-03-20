@@ -7,7 +7,7 @@
     display: none;
 }
 
-.wrap-container {
+.analyze-wrap-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,87 +17,83 @@
     width: 100%;
 }
 
-.sol-logo {
-    width: 100px; /* 원하는 크기로 조절 */
-    height: auto;
-    margin-top: 20px;
-}
-
-.banner-container {
+.analyze-banner-container {
     width: 100vw;
     max-width: 100%;
     height: 250px;
     margin-top: -30px;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
-.banner {
+.analyze-banner {
     width: 100%;
     height: auto;
+    margin-top: -50px;
 }
 
-.test-intro {
+.analyze-test-intro {
     margin: 20px auto;
     max-width: 500px;
 }
 
-.test-title {
+.analyze-test-title {
     font-size: 36px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: -70px;
 }
 
-.test-description {
+.analyze-test-description {
     font-size: 16px;
     line-height: 1.6;
     font-weight: bolder;
+    margin-top: -30px;
 }
 
-.test-invite {
+.analyze-test-invite {
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: -10px;
     font-weight: bolder;
 }
 
-.test-question {
+.analyze-test-question {
     font-size: 18px;
     margin-top: 15px;
     font-weight: bolder;
+    margin-top: -10px;
 }
 
-.start-button {
-    margin-top: 10px;
+.analyze-start-button {
+    margin-top: -30px;
     width: 300px;
     height: 100px;
     cursor: pointer;
 }
 
-.next-time {
+.analyze-next-time {
     color: #929292;
     margin-top: 10px;
     cursor: pointer;
 }
 
-.participants {
+.analyze-participants {
     display: flex;
     justify-content: center; /* 가운데 정렬 */
     align-items: center;
     gap: 5px; /* 이미지 간격 */
-    margin-top: 20px;
+    margin-top: -20px;
 }
 
-.participants img {
+.analyze-participants img {
     width: 100px;
 }
 
-.participants-text {
+.analyze-participants-text {
     font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
-.count {
+.analyze-count {
     color: #007aff;
     font-weight: bold;
 }

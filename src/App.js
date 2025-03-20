@@ -4,6 +4,7 @@ import {
     Routes,
     Route,
     Navigate,
+    useLocation,
 } from 'react-router-dom';
 import OnboardingFinal from './pages/onboarding/onboarding_final';
 import Home from './component/home/Home';
@@ -30,6 +31,8 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [totalScore, setTotalScore] = useState(0);
     const [selectedScores, setSelectedScores] = useState([]);
+
+    const location = useLocation(); // 현재 경로 추적
 
     useEffect(() => {
         const getCookie = (name) => {
@@ -73,106 +76,121 @@ function App() {
         return <div>로딩 중...</div>;
     }
 
+    // 특정 경로에서 Header와 Footer 숨기기
+    const hideHeaderFooterPaths = [
+        '/question',
+        '/q1',
+        '/q2',
+        '/q3',
+        '/q4',
+        '/q5',
+        '/result',
+    ];
+
+    const shouldHideHeaderFooter = hideHeaderFooterPaths.includes(
+        location.pathname
+    );
+
+    return (
+        <div className="App">
+            {/* 로그인된 상태에서만 Header와 Footer 표시 */}
+            {isLoggedIn && (
+                <>
+                    {/*<Header />*/}
+                    {/* 특정 페이지에서는 Header와 Footer를 숨김 */}
+                    {!shouldHideHeaderFooter && <Header />}
+                    <div className="content-container">
+                        <Routes>
+                            <Route path="/" element={<Navigate to="/home" />} />
+                            <Route path="/home" element={<Home />} />
+                            <Route path="/news" element={<NewsList />} />
+                            <Route path="/assets" element={<Portfolio />} />
+                            <Route
+                                path="/parking"
+                                element={<ParkingAccount />}
+                            />
+                            <Route
+                                path="/basic-info"
+                                element={<BasicInfoForm />}
+                            />
+                            <Route
+                                path="/redirect"
+                                element={<RedirectHandler />}
+                            />
+                            <Route path="*" element={<Navigate to="/home" />} />
+                            <Route path="/question" element={<AnalyzeTest />} />
+                            <Route
+                                path="/q1"
+                                element={<Question1 addScore={addScore} />}
+                            />
+                            <Route
+                                path="/q2"
+                                element={
+                                    <Question2
+                                        addScore={addScore}
+                                        subtractScore={subtractScore}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/q3"
+                                element={
+                                    <Question3
+                                        addScore={addScore}
+                                        subtractScore={subtractScore}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/q4"
+                                element={
+                                    <Question4
+                                        addScore={addScore}
+                                        subtractScore={subtractScore}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/q5"
+                                element={
+                                    <Question5
+                                        addScore={addScore}
+                                        subtractScore={subtractScore}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/result"
+                                element={
+                                    <Result
+                                        totalScore={totalScore}
+                                        setTotalScore={setTotalScore}
+                                    />
+                                }
+                            />
+                        </Routes>
+                    </div>
+                    {/*<Footer />*/}
+                    {!shouldHideHeaderFooter && <Footer />}
+                </>
+            )}
+
+            {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
+            {!isLoggedIn && (
+                <Routes>
+                    <Route path="/" element={<OnboardingFinal />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            )}
+        </div>
+    );
+}
+
+function AppWrapper() {
     return (
         <Router>
-            <div className="App">
-                {/* 로그인된 상태에서만 Header와 Footer 표시 */}
-                {isLoggedIn && (
-                    <>
-                        <Header />
-                        <div className="content-container">
-                            <Routes>
-                                <Route
-                                    path="/"
-                                    element={<Navigate to="/home" />}
-                                />
-                                <Route path="/home" element={<Home />} />
-                                <Route path="/news" element={<NewsList />} />
-                                <Route path="/assets" element={<Portfolio />} />
-                                <Route
-                                    path="/parking"
-                                    element={<ParkingAccount />}
-                                />
-                                <Route
-                                    path="/basic-info"
-                                    element={<BasicInfoForm />}
-                                />
-                                <Route
-                                    path="/redirect"
-                                    element={<RedirectHandler />}
-                                />
-                                <Route
-                                    path="*"
-                                    element={<Navigate to="/home" />}
-                                />
-                                <Route
-                                    path="/question"
-                                    element={<AnalyzeTest />}
-                                />
-                                <Route
-                                    path="/q1"
-                                    element={<Question1 addScore={addScore} />}
-                                />
-                                <Route
-                                    path="/q2"
-                                    element={
-                                        <Question2
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q3"
-                                    element={
-                                        <Question3
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q4"
-                                    element={
-                                        <Question4
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/q5"
-                                    element={
-                                        <Question5
-                                            addScore={addScore}
-                                            subtractScore={subtractScore}
-                                        />
-                                    }
-                                />
-                                <Route
-                                    path="/result"
-                                    element={
-                                        <Result
-                                            totalScore={totalScore}
-                                            setTotalScore={setTotalScore}
-                                        />
-                                    }
-                                />
-                            </Routes>
-                        </div>
-                        <Footer />
-                    </>
-                )}
-
-                {/* 로그인되지 않은 상태에서 접근 가능한 경로 */}
-                {!isLoggedIn && (
-                    <Routes>
-                        <Route path="/" element={<OnboardingFinal />} />
-                        <Route path="*" element={<Navigate to="/" />} />
-                    </Routes>
-                )}
-            </div>
+            <App />
         </Router>
     );
 }
-export default App;
+export default AppWrapper;

@@ -19,7 +19,7 @@
 
 /* 투자 결과 스타일 */
 .result-investor-result {
-    margin-top: 20px;
+    margin-top: -20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +28,7 @@
 .result-name {
     font-weight: bold;
     font-size: 36px;
+    margin: 10px auto;
 }
 
 .result-description {
@@ -40,8 +41,11 @@
     margin: 15px 0;
 }
 
+.result-button {
+    margin-top: -20px;
+}
+
 .result-retry-button {
-    margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
     color: white;
@@ -52,7 +56,6 @@
 }
 
 .result-out-button {
-    margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
     color: white;
@@ -64,13 +67,14 @@
 
 /* 다른 유형 친구들 스타일 */
 .result-other-investors {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 .result-sub-title {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
+    margin-top: -0px;
 }
 
 .result-sub-text {
@@ -82,7 +86,7 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: -30px;
 }
 
 .result-investor-card {
