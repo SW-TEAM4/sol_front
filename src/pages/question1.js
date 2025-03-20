@@ -1,8 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import './question.css';
 
 const Question1 = ({ addScore }) => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // 화면 들어오면 스크롤 막기
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            // 화면 나가면 스크롤 원상복구
+            document.documentElement.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
 
     const handleAnswer = (score) => {
         addScore(score);

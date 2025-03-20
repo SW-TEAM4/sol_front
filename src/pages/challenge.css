@@ -1,24 +1,6 @@
 * {
     font-family: "noto sans KR";
 }
-/* 전체 컨테이너 */
-.challenge-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-/* 챌린지 버튼 */
-.challenge-open-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 /* 모달 오버레이 */
 .challenge-modal-overlay {
@@ -29,6 +11,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
+    z-index: 2000;
     justify-content: center;
     align-items: center;
 }
@@ -77,8 +60,8 @@
 
 /* 챌린지 이미지 */
 .challenge-image {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     margin-left: auto;
     display: flex;
     flex-direction: column;
@@ -143,6 +126,7 @@
 .challenge-week-navigation span {
     position: relative;
     top: 10px;
+    right: 2px;
 }
 
 /* 'Click Me!' 문구를 오른쪽 끝으로 밀어줌 */
@@ -233,6 +217,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
+    z-index: 2001;
     justify-content: center;
     align-items: center;
 }

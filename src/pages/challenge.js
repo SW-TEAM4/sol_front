@@ -152,7 +152,8 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
     const handleStampClick = async () => {
         if (hasStampedToday) {
             alert('오늘은 이미 스탬프를 찍었습니다!');
-            // return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
+            setIsStampModalOpen(false);
+            return; // 이미 스탬프를 찍었으면 더 이상 진행하지 않음
         }
         try {
             // 1000원 이동 API 호출
@@ -369,7 +370,7 @@ const Challenge = ({ isModalOpen, setIsModalOpen }) => {
                                 {/*&lt; {currentWeek}주차*/}
                                 <img src="/assets/images/analyzeTest/leftButton.svg" />
                             </button>
-                            <span>{currentWeek}주차 도전중!</span>
+                            <span>✊ {currentWeek}주차 도전중!</span>
                             <button onClick={() => handleWeekChange('next')}>
                                 {/*{currentWeek + 1}주차 &gt;*/}
                                 <img src="/assets/images/analyzeTest/rightButton.svg" />

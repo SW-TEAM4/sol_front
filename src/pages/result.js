@@ -9,6 +9,18 @@ const Result = ({ totalScore, setTotalScore }) => {
     const [otherInvestors, setOtherInvestors] = useState([]);
     const [userIdx, setUserIdx] = useState(null); // userIdx 상태 추가
 
+    useEffect(() => {
+        // 화면 들어오면 스크롤 막기
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            // 화면 나가면 스크롤 원상복구
+            document.documentElement.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     // 투자자 유형 데이터
     const investorTypes = {
         ansook: {

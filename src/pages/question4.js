@@ -1,18 +1,25 @@
 import './question.css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Question4 = ({ addScore, subtractScore }) => {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        // 화면 들어오면 스크롤 막기
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            // 화면 나가면 스크롤 원상복구
+            document.documentElement.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     const handleAnswer = (score) => {
         addScore(score);
         navigate('/q5');
-    };
-
-    const handleBack = () => {
-        // 이전으로 이동 시, 감점
-        subtractScore();
-        navigate(-1);
     };
 
     return (
