@@ -97,7 +97,7 @@ const CategoryModal = ({ category, onClose }) => {
                                             </div>
                                             <div
                                                 className={`period-value ${
-                                                    changeValue <= 0
+                                                    changeValue >= 0
                                                         ? 'positive'
                                                         : 'negative'
                                                 }`}
@@ -132,17 +132,17 @@ const CategoryModal = ({ category, onClose }) => {
                         stocks.map((stock) => (
                             <div key={stock.ticker} className="stock-item">
                                 {/* 회사명 */}
-                                <span className="stock-name">
+                                <div className="stock-name">
                                     {getKoreanCompanyName(stock.companyName)}
-                                </span>
+                                </div>
                                 {/* 현재가 */}
-                                <span className="stock-price">
+                                <div className="stock-price">
                                     {formatPrice(stock.currentPrice)}
-                                </span>
+                                </div>
                                 {/* 변동률 */}
-                                <span
+                                <div
                                     className={`stock-change ${
-                                        stock.yesterdayChange <= 0
+                                        stock.yesterdayChange >= 0
                                             ? 'positive'
                                             : 'negative'
                                     }`}
@@ -150,7 +150,7 @@ const CategoryModal = ({ category, onClose }) => {
                                     {stock.yesterdayChange !== null
                                         ? `${stock.yesterdayChange >= 0 ? '+' : ''}${stock.yesterdayChange}%`
                                         : 'N/A'}
-                                </span>
+                                </div>
                             </div>
                         ))
                     ) : (
