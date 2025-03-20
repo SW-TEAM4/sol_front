@@ -34,7 +34,9 @@ const Footer = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.shinhan.com/">신한은행</a>
+                                <a href="https://www.shinhan.com/index.jsp">
+                                    신한은행
+                                </a>
                             </li>
                             <li>
                                 <a href="https://www.shinhancard.com/">
