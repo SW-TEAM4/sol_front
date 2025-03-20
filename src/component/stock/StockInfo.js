@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './StockInfo.css';
 
-const StockInfo = ({ parentSelectedStock }) => {
+const StockInfo = ({ parentSelectedStock, parentCloseClick }) => {
     const [stockData, setStockData] = useState(parentSelectedStock); // Initialize with selectedStock
 
     useEffect(() => {
@@ -18,14 +18,22 @@ const StockInfo = ({ parentSelectedStock }) => {
 
     return (
         <div className="stock-info-container">
-            {/* 이름 + 코드 & x 버튼 추가 예정 */}
+            {/* 이름 + 코드 + x 버튼  */}
             <div className="stock-info-stock-header">
-                <h2 className="stock-info-stock-name">
-                    {parentSelectedStock.name}{' '}
-                    <span className="stock-info-stock-ticker">
-                        {parentSelectedStock.ticker}
-                    </span>
-                </h2>
+                <div>
+                    <h2 className="stock-info-stock-name">
+                        {parentSelectedStock.name}{' '}
+                        <span className="stock-info-stock-ticker">
+                            {parentSelectedStock.ticker}
+                        </span>
+                    </h2>
+                </div>
+                <button
+                    className="stock-info-close-button"
+                    onClick={parentCloseClick}
+                >
+                    X
+                </button>
             </div>
 
             {/* 가격 + 등락폭 */}
