@@ -262,12 +262,12 @@
     text-align: right;
 }
 
-.negative {
+.trans-negative {
     color: #FF3131; /* 출금이면 빨간색 */
     font-weight: bold;
 }
 
-.positive {
+.trans-positive {
     color: #263FBD; /* 입금이면 초록색 */
     font-weight: bold;
 }

@@ -84,7 +84,11 @@ const TransactionHistory = () => {
                         <span>{tx.dateTime}</span>
                         <span>{tx.type}</span>
                         <span
-                            className={tx.amount < 0 ? 'negative' : 'positive'}
+                            className={
+                                tx.amount < 0
+                                    ? 'trans-negative'
+                                    : 'trans-positive'
+                            }
                         >
                             {tx.amount.toLocaleString()}원
                         </span>
