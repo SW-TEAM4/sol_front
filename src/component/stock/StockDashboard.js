@@ -254,17 +254,10 @@ const StockDashboard = () => {
                 <div className="dashboard-left-container">
                     {selectedStock ? (
                         <>
-                            <button
-                                className="dashboard-chart-close-button"
-                                onClick={handleClose}
-                            >
-                                X
-                            </button>
                             <div className="dashboard-price-header">
-                                {/* 닫기 버튼 */}
-
                                 <StockInfo
                                     parentSelectedStock={selectedStock}
+                                    parentCloseClick={handleClose}
                                 />
                             </div>
                             <div className="dashboard-chart-container">

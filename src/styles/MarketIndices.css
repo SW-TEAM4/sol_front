@@ -13,15 +13,16 @@
 .market-indices-scroll {
     display: flex;
     white-space: nowrap;
-    width: 400%; /* 스크롤 영역 너비 */
-    animation: marketScroll 30s linear infinite; /* 스크롤 애니메이션 */
-    will-change: transform;
+    width: 200%; /* 스크롤 영역 너비 */
+    /*animation: marketScroll 20s linear infinite; !* 스크롤 애니메이션 *!*/
+    /*will-change: transform;*/
+    animation: none; /* 애니메이션은 JS에서 제어 */
 }
 
 /* 스크롤 애니메이션 */
 @keyframes marketScroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-90%); }
+    100% { transform: translateX(-50%); }
 }
 
 /* 개별 지수 카드 스타일 */

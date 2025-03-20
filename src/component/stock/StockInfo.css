@@ -1,7 +1,6 @@
 .stock-info-container {
-    padding: 5px;
+    /*padding: 5px;*/
     background-color: white;
-    border-bottom: 1px solid #ddd;
     flex-direction: column;
 }
 
@@ -10,7 +9,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
 }
 
 .stock-info-stock-name {
@@ -63,4 +61,17 @@
 
 .text-blue {
     color: blue;
+}
+
+.stock-info-close-button{
+    background: none;
+    border: none;
+    color: black;
+    font-size: 18px; /* X 크기 */
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;  /* 가로 길이 */
+    height: 18px; /* 세로 길이 */
+    display: flex;
 }

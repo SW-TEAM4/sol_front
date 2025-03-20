@@ -48,15 +48,14 @@
 .dashboard-recommend-content{
     width: 80%;
     height: 20vh;
-    background-color: blueviolet;
+    /*background-color: blueviolet;*/
     margin: 2.5vh auto;
 }
 
 .dashboard-rolling-multi-index{
     width: 100%;
     margin-top: 1vh;
-    height: 5vh;
-    background-color: #6FC4DA;
+    height: 3vh;
 }
 
 .dashboard-stock-list-container {
@@ -82,3 +81,4 @@
     justify-content: flex-start;
     overflow: hidden;
 }
+
