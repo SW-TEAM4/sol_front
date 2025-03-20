@@ -31,8 +31,6 @@ function App() {
     const [totalScore, setTotalScore] = useState(0);
     const [selectedScores, setSelectedScores] = useState([]);
 
-    const location = useLocation(); // 현재 경로 추적
-
     useEffect(() => {
         const getCookie = (name) => {
             const cookies = document.cookie.split('; ');
@@ -75,21 +73,6 @@ function App() {
         return <div>로딩 중...</div>;
     }
 
-    // 특정 경로에서 Header와 Footer 숨기기
-    const hideHeaderFooterPaths = [
-        '/question',
-        '/q1',
-        '/q2',
-        '/q3',
-        '/q4',
-        '/q5',
-        '/result',
-    ];
-
-    const shouldHideHeaderFooter = hideHeaderFooterPaths.includes(
-        location.pathname
-    );
-
     return (
         <WebSocketProvider>
             <Router>
@@ -97,7 +80,7 @@ function App() {
                     {/* 로그인된 상태에서만 Header와 Footer 표시 */}
                     {isLoggedIn && (
                         <>
-                            <Header />
+                            <ConditionalHeader />
                             <div className="content-container">
                                 <Routes>
                                     <Route
@@ -191,7 +174,7 @@ function App() {
                                     />
                                 </Routes>
                             </div>
-                            <ConditionalFooter  />
+                            <ConditionalFooter />
                         </>
                     )}
 
@@ -207,9 +190,34 @@ function App() {
         </WebSocketProvider>
     );
 }
-/* 자산 화면에서 제외 */
+/* 자산, 투자 성향 테스트 화면에서 제외 */
 function ConditionalFooter() {
     const location = useLocation();
-    return location.pathname !== "/assets" ? <Footer /> : null;
+    const hiddenPaths = [
+        '/assets',
+        '/question',
+        '/q1',
+        '/q2',
+        '/q3',
+        '/q4',
+        '/q5',
+        '/result',
+    ];
+
+    return hiddenPaths.includes(location.pathname) ? null : <Footer />;
+}
+function ConditionalHeader() {
+    const location = useLocation();
+    const hiddenPaths = [
+        '/question',
+        '/q1',
+        '/q2',
+        '/q3',
+        '/q4',
+        '/q5',
+        '/result',
+    ];
+
+    return hiddenPaths.includes(location.pathname) ? null : <Header />;
 }
 export default App;
