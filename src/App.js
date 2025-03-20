@@ -4,6 +4,7 @@ import {
     Routes,
     Route,
     Navigate,
+    useLocation,
 } from 'react-router-dom';
 import OnboardingFinal from './pages/onboarding/onboarding_final';
 import Home from './component/home/Home';
@@ -173,7 +174,7 @@ function App() {
                                     />
                                 </Routes>
                             </div>
-                            <Footer />
+                            <ConditionalFooter  />
                         </>
                     )}
 
@@ -188,5 +189,10 @@ function App() {
             </Router>
         </WebSocketProvider>
     );
+}
+/* 자산 화면에서 제외 */
+function ConditionalFooter() {
+    const location = useLocation();
+    return location.pathname !== "/assets" ? <Footer /> : null;
 }
 export default App;

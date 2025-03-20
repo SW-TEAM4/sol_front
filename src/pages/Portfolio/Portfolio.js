@@ -331,8 +331,6 @@ const Portfolio = () => {
                         </div>
                     </div>
 
-                    <hr className="summary-divider" />
-
                     <div className="portfolio-invest-data">
                         <div className="portfolio-data-row">
                             <p className="portfolio-label">총 매수 금액</p>
