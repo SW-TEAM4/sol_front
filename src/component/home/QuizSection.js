@@ -56,7 +56,7 @@ const QuizSection = ({ onCashback }) => {
         setIsLoading(true);
 
         try {
-            const correctAnswer = 'X'; // 정답 설정
+            const correctAnswer = cardId === 1 ? 'X' : 'O'; // 각 퀴즈의 정답 설정
             const isCorrect = answer === correctAnswer;
 
             if (isCorrect) {
@@ -81,7 +81,9 @@ const QuizSection = ({ onCashback }) => {
                     : {
                           image: wrongImage,
                           message:
-                              "틀렸습니다.\n'시가'는 하루 중 주식 거래가\n시작될 때의 가격입니다.",
+                              cardId === 1
+                                  ? '틀렸습니다.\n여러 요인으로 평가합니다.'
+                                  : "틀렸습니다.\n'시가'는 하루 중 주식 거래가\n시작될 때의 가격입니다.",
                       }
             );
 
@@ -131,16 +133,17 @@ const QuizSection = ({ onCashback }) => {
                                     <p>
                                         {card.id === 1 ? (
                                             <>
-                                                '시가'는 하루 중 주식 가격이{' '}
+                                                주식에서 상장폐지가 되는 주된
+                                                이유는
                                                 <br />
-                                                가장 높았을 때의 가격을 <br />
-                                                의미합니다.
+                                                주식 가격이 너무 높아졌을
+                                                때이다.
                                             </>
                                         ) : (
                                             <>
-                                                '시가'는 하루 중 주식 가격이
-                                                <br /> 가장 낮았을 때의 가격을
-                                                <br /> 의미합니다.
+                                                '시가'는 하루 중 주식 거래가
+                                                <br />
+                                                시작될 때의 가격입니다.
                                             </>
                                         )}
                                     </p>
