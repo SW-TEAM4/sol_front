@@ -19,8 +19,16 @@ const UserChoice = () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.isSuccess && data.result) {
-                        const { username, gender, age, job } = data.result;
+                        const {
+                            username,
+                            gender,
+                            age,
+                            job,
+                            investor,
+                            userIdx,
+                        } = data.result;
 
+                        // 기본 태그 매핑
                         const genderMap = { M: '#남성', F: '#여성' };
                         const ageMapping = {
                             1: '#10대',
@@ -39,29 +47,74 @@ const UserChoice = () => {
                             5: '#기타',
                         };
 
-                        const userTags = [
+                        // 연령대 태그 설정
+                        const ageTags = [
                             ageMapping[age],
-                            jobMapping[job],
                             genderMap[gender],
+                            jobMapping[job],
                         ];
 
+                        // 파킹통장 금액 및 태그 가져오기
+                        const parkingResponse = await fetch(
+                            `http://localhost:8090/api/account/parking-tags?userIdx=${userIdx}`,
+                            { credentials: 'include' }
+                        );
+
+                        let parkingTags = [];
+                        if (parkingResponse.ok) {
+                            const parkingData = await parkingResponse.json();
+                            parkingTags = parkingData.tags;
+                        } else {
+                            console.error('파킹통장 데이터를 가져오는 중 실패');
+                        }
+
+                        // investor가 null이면 0으로 처리
+                        const investorScore = investor === null ? 0 : investor;
+                        // 투자 점수에 따른 태그 설정
+                        let investorTags = [];
+                        if (investorScore >= 0 && investorScore <= 5) {
+                            investorTags = ['#6개월이상', '#네이버', '#안숙이'];
+                        } else if (investorScore >= 6 && investorScore <= 10) {
+                            investorTags = [
+                                '#신한지주',
+                                '#차철이',
+                                '#분산투자',
+                            ];
+                        } else if (investorScore >= 11 && investorScore <= 15) {
+                            investorTags = [
+                                '#치고빠지기',
+                                '#열식이',
+                                '#고위험',
+                            ];
+                        }
+
+                        // 사용자 데이터 설정
                         setUserData([
+                            // 첫 번째 카드: 연령대 기반 메시지
                             {
-                                name: `${username}님`,
-                                stock: '삼성전자',
-                                tags: userTags,
+                                name: `${username}님의 또래는`,
+                                stock: '주식에 많이 투자하고 있어요!',
+                                tags: ageTags,
                                 image: profileImage,
                             },
+                            // 두 번째 카드: 파킹통장 금액 기반 메시지
                             {
                                 name: `${username}님`,
-                                stock: '파킹통장',
-                                tags: userTags,
+                                stock: '파킹통장 잔고 비슷한분들은',
+                                tags: parkingTags,
                                 image: profileImage,
                             },
+                            // 세 번째 카드: 투자 점수 기반 메시지
                             {
                                 name: `${username}님`,
-                                stock: '20%정도',
-                                tags: userTags,
+                                stock:
+                                    investorScore >= 0 && investorScore <= 5
+                                        ? '진득하게 길게 투자해보세요'
+                                        : investorScore >= 6 &&
+                                            investorScore <= 10
+                                          ? '한 종목보다 골고루 투자해보세요!'
+                                          : '모르겠고 묻고 더블로 가보세요!',
+                                tags: investorTags,
                                 image: profileImage,
                             },
                         ]);
@@ -104,13 +157,13 @@ const UserChoice = () => {
                     {userData.length > 0 ? (
                         <>
                             <span>
-                                <strong>{userData[currentIndex].name}</strong>의
-                                또래는
+                                <strong>{userData[currentIndex].name}</strong>
+                                {/*의 또래는*/}
                                 <br />
                                 <span className="highlight">
                                     {userData[currentIndex].stock}
                                 </span>
-                                에 많이 투자하고 있어요!
+                                {/*에 많이 투자하고 있어요!*/}
                             </span>
                             <div className="user-tags">
                                 {userData[currentIndex].tags.map(
