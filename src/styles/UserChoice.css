@@ -43,8 +43,8 @@
 .highlight {
     color: #0056b3;
     width: 500px;
-
-    font-size: 30px;
+    font-weight: bold;
+    font-size: 35px;
     margin: 0; /* 마진 제거 */
     padding: 0; /* 패딩 제거 */
 }
