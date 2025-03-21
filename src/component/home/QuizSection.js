@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/QuizSection.css';
+import cryingCat from '../../images/Crying Cat.png';
+import piggyBank from '../../images/piggyBank.png';
 import correctImage from '../../images/correct.svg';
 import wrongImage from '../../images/wrong.svg';
 import quizOkImage from '../../images/quiz_ok.svg';
@@ -61,13 +63,13 @@ const QuizSection = ({ onCashback }) => {
 
             if (isCorrect) {
                 try {
-                    await addCashback(100, '퀴즈 캐시백'); // API 호출로 캐시백 추가
-                    console.log('캐시백 추가 성공');
+                    await addCashback(100, '퀴즈 리워드'); // API 호출로 캐시백 추가
+                    console.log('리워드 추가 성공');
                     if (onCashback) {
                         onCashback(100); // 부모 컴포넌트에 캐시백 추가 알림
                     }
                 } catch (error) {
-                    console.error('캐시백 추가 실패:', error);
+                    console.error('리워드 추가 실패:', error);
                 }
             }
 
@@ -75,11 +77,11 @@ const QuizSection = ({ onCashback }) => {
             setModalContent(
                 isCorrect
                     ? {
-                          image: correctImage,
-                          message: '정답입니다! 🎉\n100 캐시백 드릴게요.',
+                          image: piggyBank,
+                          message: '정답입니다! 🎉\n100 리워드 드릴게요.',
                       }
                     : {
-                          image: wrongImage,
+                          image: cryingCat,
                           message:
                               cardId === 1
                                   ? '틀렸습니다.\n여러 요인으로 평가합니다.'
@@ -111,7 +113,7 @@ const QuizSection = ({ onCashback }) => {
             {/* 퀴즈 헤더 */}
             <div className="quiz-header p">
                 <p>
-                    하루에 2문제 금융상식 퀴즈 풀고 캐시백 받자!
+                    하루에 2문제 금융상식 퀴즈 풀고 리워드 받자!
                     <br />
                     덤으로 금융상식까지 UP
                 </p>
@@ -133,8 +135,9 @@ const QuizSection = ({ onCashback }) => {
                                     <p>
                                         {card.id === 1 ? (
                                             <>
-                                                주식에서 상장폐지가 되는 주된
-                                                이유는
+                                                주식에서 상장폐지가 되는
+                                                <br />
+                                                주된 이유는
                                                 <br />
                                                 주식 가격이 너무 높아졌을
                                                 때이다.

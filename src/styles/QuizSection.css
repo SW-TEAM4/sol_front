@@ -143,8 +143,8 @@
 
 /* 확인 버튼 스타일링 */
 .close-modal-button {
-    background-color: rgba(0, 0, 0, 0.03);
-    color: gray;
+    background-color: #564B4B;
+    color: white;
     border: none;
     border-radius: 8px;
     padding: 10px 20px;
@@ -152,6 +152,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100px;
 }
 
 /* 로딩 오버레이 */
