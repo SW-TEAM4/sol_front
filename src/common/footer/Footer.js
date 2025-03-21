@@ -31,6 +31,24 @@ const Footer = () => {
                         <ul className="footer-list">
                             <li>
                                 <a
+                                    href="https://www.shinhands.co.kr/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    신한DS
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.shinhansec.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    신한투자증권
+                                </a>
+                            </li>
+                            <li>
+                                <a
                                     href="https://www.shinhangroup.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -54,15 +72,6 @@ const Footer = () => {
                                     rel="noopener noreferrer"
                                 >
                                     신한카드
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="https://www.shinhansec.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    신한투자증권
                                 </a>
                             </li>
                             <li>
@@ -117,15 +126,6 @@ const Footer = () => {
                                     rel="noopener noreferrer"
                                 >
                                     신한자산신탁
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="https://www.shinhands.co.kr/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    신한DS
                                 </a>
                             </li>
                             <li>

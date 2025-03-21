@@ -154,7 +154,7 @@ export const getUserName = async () => {
 export const addCashback = async (amount, displayName) => {
     try {
         const accountNo = await getAccountNo(); // 사용자 계좌번호 가져오기
-        console.log('캐시백 추가 계좌번호:', accountNo);
+        console.log('리워드 추가 계좌번호:', accountNo);
 
         const response = await axios.post(`${BASE_URL}/add-transaction`, null, {
             params: {
@@ -169,11 +169,11 @@ export const addCashback = async (amount, displayName) => {
             withCredentials: true,
         });
 
-        console.log('캐시백 추가 성공:', response.data);
+        console.log('리워드 추가 성공:', response.data);
         return response.data;
     } catch (error) {
         console.error(
-            '캐시백 추가 실패:',
+            '리워드 추가 실패:',
             error.response ? error.response.data : error
         );
         throw error;
