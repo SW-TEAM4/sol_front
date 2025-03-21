@@ -68,12 +68,18 @@ const UserChoice = () => {
                             console.error('파킹통장 데이터를 가져오는 중 실패');
                         }
 
-                        // investor가 null이면 0으로 처리
-                        const investorScore = investor === null ? 0 : investor;
+                        const investorScore = investor === null ? -1 : investor;
                         // 투자 점수에 따른 태그 설정
                         let investorTags = [];
-                        if (investorScore >= 0 && investorScore <= 5) {
-                            investorTags = ['#6개월이상', '#네이버', '#안숙이'];
+                        if (
+                            investorScore === -1 ||
+                            (investorScore >= 0 && investorScore <= 5)
+                        ) {
+                            investorTags = [
+                                '#6개월이상',
+                                '#신한지주',
+                                '#안숙이',
+                            ];
                         } else if (investorScore >= 6 && investorScore <= 10) {
                             investorTags = [
                                 '#신한지주',
@@ -93,7 +99,7 @@ const UserChoice = () => {
                             // 첫 번째 카드: 연령대 기반 메시지
                             {
                                 name: `${username}님의 또래는`,
-                                stock: '주식에 많이 투자하고 있어요!',
+                                stock: '신한지주에 많이 투자하고 있어요!',
                                 tags: ageTags,
                                 image: profileImage,
                             },
@@ -109,7 +115,7 @@ const UserChoice = () => {
                                 name: `${username}님`,
                                 stock:
                                     investorScore >= 0 && investorScore <= 5
-                                        ? '진득하게 길게 투자해보세요'
+                                        ? '진득하게 길게 투자해보세요!'
                                         : investorScore >= 6 &&
                                             investorScore <= 10
                                           ? '한 종목보다 골고루 투자해보세요!'
