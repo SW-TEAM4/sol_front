@@ -31,7 +31,6 @@
     flex-direction: column; /* 스톡정보와 스톡 차트가 세로로 배치*/
     height: 100%;
     padding-left: 175px;
-    padding-right: 49px;
     overflow: hidden;
 }
 
@@ -63,7 +62,7 @@
     width: 30%; /* 리스트 영역 */
     height: 92vh;
     padding: 0 20px;
-    margin-right: 60px;
+    margin-right: 174px;
     overflow-y: auto; /* 리스트 스크롤 */
 }
 /* 덮어씌우는 콘텐츠 */

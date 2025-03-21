@@ -9,6 +9,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    gap:20px;
 }
 
 .stock-info-stock-name {
@@ -74,4 +76,40 @@
     width: 18px;  /* 가로 길이 */
     height: 18px; /* 세로 길이 */
     display: flex;
+    margin-left: auto;
+}
+.stock-buy-info {
+    background-color: #37383C;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    width: 115px;
+    height: 39px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: none;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.stock-buy-info:hover {
+    background-color: #2C2D30;
+    transform: scale(1.05);
+}
+
+.stock-buy-info-text {
+    color: #0078a8;
+    font-size:12px;
+    font-weight: bold;
+}
+.stock-buy-info-icon {
+    width: 35px;
+    height:39px;
+    position:relative;
+    top: 5px;
 }
