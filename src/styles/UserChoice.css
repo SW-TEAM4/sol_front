@@ -22,6 +22,7 @@
     text-align: left; /* 텍스트 왼쪽 정렬 */
     gap: 30px; /* 이미지와 텍스트 간격 */
     width: 90%;
+    height: 100px;
     max-width: 1200px; /* 최대 너비 제한 */
 }
 
@@ -35,19 +36,23 @@
     display: flex;
     flex-direction: column;
     font-size: 30px; /* 기본 글씨 크기 */
-    gap: 15px; /* 텍스트 간격 */
     width: 500px;
-    word-wrap: break-word; /* 긴 단어 줄바꿈 */
-    word-break: break-word; /* 긴 단어 줄바꿈 */
 }
 
 /* 강조된 텍스트 */
 .highlight {
     color: #0056b3;
-    font-size: 38px;
+    width: 500px;
+
+    font-size: 30px;
+    margin: 0; /* 마진 제거 */
+    padding: 0; /* 패딩 제거 */
 }
+
 
 /* 태그 스타일 */
 .user-tags span {
-    margin-right: 15px; /* 태그 간격 축소 */
+    margin-right: 10px; /* 태그 간격 축소 */
+    width: 600px;
+    height: 100px;
 }

@@ -77,7 +77,7 @@ const HomeMainContent = ({ balance }) => {
                                     <div className="money-amount">
                                         {balance !== null
                                             ? `${balance.toLocaleString()}원`
-                                            : '?????원'}
+                                            : '0원'}
                                     </div>
                                 </Link>
                             </div>
