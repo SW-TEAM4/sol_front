@@ -53,13 +53,15 @@ const Home = () => {
     }, [navigate]);
 
     return (
-        <div className="home-container">
-            <UserChoice />
-            <HomeMainContent balance={balance} /> {/* balance prop 전달 */}
-            <QuizSection onCashback={handleCashback} /> {/* 함수 전달 */}
-            <CategoryList />
-            {/*<StockPicks />*/}
-            {/*<MarketIndices />*/}
+        <div className="home-wrap-container">
+            <div className="home-container">
+                <UserChoice />
+                <HomeMainContent balance={balance} /> {/* balance prop 전달 */}
+                <QuizSection onCashback={handleCashback} /> {/* 함수 전달 */}
+                <CategoryList />
+                {/*<StockPicks />*/}
+                {/*<MarketIndices />*/}
+            </div>
         </div>
     );
 };
