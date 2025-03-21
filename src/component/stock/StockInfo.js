@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './StockInfo.css';
+import MovePageModal from './movePageModal';
 
 const StockInfo = ({ parentSelectedStock, parentCloseClick }) => {
     const [stockData, setStockData] = useState(parentSelectedStock); // Initialize with selectedStock
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     useEffect(() => {
         setStockData(parentSelectedStock);
@@ -28,14 +32,19 @@ const StockInfo = ({ parentSelectedStock, parentCloseClick }) => {
                         </span>
                     </h2>
                 </div>
+
+                <button className="stock-buy-info" onClick={openModal}>
+                    구매하고 싶어요
+                </button>
                 <button
                     className="stock-info-close-button"
                     onClick={parentCloseClick}
                 >
-                    X
+                    ×
                 </button>
             </div>
-
+            {/* 모달 컴포넌트 */}
+            <MovePageModal open={isModalOpen} handleClose={closeModal} />
             {/* 가격 + 등락폭 */}
             <div className="stock-info-stock-price-container">
                 <p className="stock-info-stock-price">

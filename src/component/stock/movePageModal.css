@@ -1,0 +1,66 @@
+/* 모달 배경 */
+.custom-modal .MuiPaper-root {
+    border-radius: 20px;
+    background-color: white;
+    color: #37383C;
+    text-align: center;
+    padding: 40px 20px;
+    width: 450px;
+}
+.modal-text{
+    font-size: 18px;
+    font-weight: bold;
+    color: #37383C;
+}
+/* 모달 내용 */
+.custom-modal .MuiDialogContent-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* 아이콘 스타일 */
+.custom-modal img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+}
+
+/* 텍스트 스타일 */
+.custom-modal p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+/* 버튼 컨테이너 */
+.custom-modal .MuiDialogActions-root {
+    justify-content: center;
+    gap: 12px;
+    /*padding-bottom: 24px;*/
+}
+/*
+
+.modal-button {
+    backgroundColor: '#37383C';
+    color: '#fff';
+    borderRadius: '15px';
+    width: '100px';
+    height: '55px';
+    fontSize: '18px';
+    fontWeight: 'bold';
+    textTransform: 'none';
+    lineHeight: '1';
+    display: 'flex';
+    alignItems: 'center';
+    justifyContent: 'center';
+    padding: 0;
+ }
+
+!* 🔹 모달 버튼 호버 효과 *!
+.modal-button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}*/
