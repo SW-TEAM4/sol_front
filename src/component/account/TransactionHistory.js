@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getTransactionHistory } from '../../api/accountApi';
 
 const CATEGORY_MAP = {
-    0: '연결된 증권 계좌로 이체',
+    0: '연결된 신한 투자 증권 계좌로 이체',
     1: '이자 입금',
     2: '챌린지 이체',
     3: '캐시백',
