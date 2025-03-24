@@ -100,7 +100,7 @@ const StockPicks = () => {
     return (
         <div className="stock-picks-container">
             <div className="stock-picks-header">
-                <h2>안숙이 맞춤 추천 종목</h2>
+                <h2>맞춤 추천 종목</h2>
                 <p>당신의 멘탈 지킴을 위한 우량주 TOP3</p>
             </div>
 
