@@ -1,7 +1,7 @@
 ### 팀원 소개 및 주요 역할
 ![Group 13740](https://github.com/user-attachments/assets/6705b121-e430-4585-a40d-6a66dbb9344a)
 
-### 최종 발표 피피티 (PPT 제작 및 발표자 : 이지현)
+### 최종 발표 피피티 (PPT 제작 및 발표자 : 이지현 / 개발 시연 : 류재덕)
 ![Group 13741](https://github.com/user-attachments/assets/54d00305-7ec0-4318-9d13-9174a6120207)
 ![Group 13742](https://github.com/user-attachments/assets/66082d5d-9df4-4f1b-a470-ca01eee88902)
 ![Group 13743](https://github.com/user-attachments/assets/266c8286-aae7-44f0-a0af-7fcfeccc606b)
